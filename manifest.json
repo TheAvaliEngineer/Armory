@@ -1,0 +1,9 @@
+{
+    "name": "Armory",
+    "version_number": "0.12.236",
+    "website_url": "https://github.com/TheAvaliEngineer/TF-2-Armory",
+    "description": "Significant content expansion on the base game, including pilot equipment and several titans.",
+    "dependencies": [
+        "Peepee.TitanFramework"
+    ]
+}
