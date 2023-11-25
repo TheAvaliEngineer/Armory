@@ -1,0 +1,417 @@
+WeaponData
+{
+	//		General
+	//	Name
+	"printname"   									"T-257 Inferno Heavy Flamethrower"
+	"shortprintname"								"T-257 Inferno"
+	"description" 									"flamethrower WIP desc"
+	"longdesc" 										"flamethrower WIP longdesc"
+
+	//	Icon (custom icons... someday)
+	"menu_icon"										""
+	"hud_icon"										""
+
+	//	Body type
+	"weaponClass" 									"titan"
+	"fire_mode"   									"auto"
+
+	//	Pickup
+	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
+
+	"leveled_pickup"								"1"
+
+	//	Reveal dist
+	"minimap_reveal_distance"						"32000"
+
+	//	Weapon functionality
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_PhosphorScorch_Flamethrower"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_PhosphorScorch_Flamethrower"
+
+	"OnProjectileCollision"							"OnProjectileCollision_PhosphorScorch_Flamethrower"
+
+
+	//		Menu
+    //	Menu stat values
+    "stat_damage" 									"72"
+	"stat_range"  									"22"
+	"stat_accuracy"   								"45"
+	"stat_rof"										"100"
+
+
+	//		Models
+	"viewmodel"   									"models/weapons/titan_thermite_launcher/atpov_titan_thermite_launcher.mdl"
+	"playermodel" 									"models/weapons/titan_thermite_launcher/w_titan_thermite_launcher.mdl"
+
+	"projectilemodel" 								"models/dev/empty_model.mdl"
+
+
+	//		Effects
+	//	Muzzle flash (cone)
+	"fx_muzzle_flash_view"							"wpn_muzzleflash_40mm_fp"
+	"fx_muzzle_flash_world"							"wpn_muzzleflash_40mm"
+	"fx_muzzle_flash_attach"						"muzzle_flash"
+
+	//	Tracer & trail fx
+	"tracer_effect"   								"P_wpn_defender_beam"
+
+	"projectile_trail_effect_0" 					"P_wpn_meteor_trail"
+	"projectile_adjust_to_gun_barrel"				"1"
+
+	//	Impact/bounce fx
+	"impact_effect_table" 							"titan_meteor"
+
+	//	Vortex fx
+	"vortex_absorb_effect"							"wpn_vortex_projectile_frag_FP"
+	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_frag"
+
+
+
+	//		Sounds
+	//	Fire
+	"looping_sounds"								"1"
+
+	"burst_or_looping_fire_sound_middle_1p"			"heat_shield_1p_loop"		//	Stream loop (1st person)
+	"burst_or_looping_fire_sound_start_1p"			"heat_shield_1p_start"		//	Stream start (1st person)
+	"burst_or_looping_fire_sound_end_1p"			"heat_shield_1p_end"		//	Stream end (1st person)
+
+	"burst_or_looping_fire_sound_middle_3p"			"heat_shield_3p_loop"		//	Stream loop (3rd person)
+	"burst_or_looping_fire_sound_start_3p"			"heat_shield_3p_start"		//	Stream start (3rd person)
+	"burst_or_looping_fire_sound_end_3p"			"heat_shield_3p_end"		//	Stream end (3rd person)
+
+	"burst_or_looping_fire_sound_middle_npc"		"heat_shield_3p_loop"		//	Stream loop (3rd person, NPC)
+	"burst_or_looping_fire_sound_start_npc"			"heat_shield_3p_start"		//	Stream start (3rd person, NPC)
+	"burst_or_looping_fire_sound_end_npc"			"heat_shield_3p_end"		//	Stream end (3rd person, NPC)
+
+	"sound_dryfire"									"titan_dryfire"
+
+	//	Vortex
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletLarge"
+	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbBulletLarge_1P_VS_3P"
+
+
+	// ======== Weapon properties ========
+
+	//		Fire handling
+	//	Fire rate
+	"fire_rate"										"30"
+
+	//	Charge stats
+
+
+	//		Projectile/bullet handling
+	//	Projectile params (stream)
+	"bolt_hitsize"									"0.0"
+	"bolt_hitsize_grow1_time"						"0.05"
+	"bolt_hitsize_grow1_size"						"0.5"
+	"bolt_hitsize_grow2_time"						"0.18"
+	"bolt_hitsize_grow2_size"						"1.5"
+	"bolt_hitsize_growfinal_lerptime"				"0.18"
+	"bolt_hitsize_growfinal_size"					"2.0"
+
+	"bolt_bounce_frac"								"1.0"
+
+	"projectile_launch_speed"						"1440"
+	"projectile_launch_pitch_offset"				"2"
+
+	"bolt_gravity_enabled"							"1"
+	"projectile_gravity_scale"						"1.0"
+
+	"grenade_bounce_vel_frac_shallow"				"0.15" //"0.47"
+	"grenade_bounce_vel_frac_sharp"					"0.30" //"0.28"
+	"grenade_bounce_vel_frac_along_normal"			"0.75" //"0.5"
+
+	"grenade_bounce_randomness"						"0.75" //"0.5"
+	"grenade_bounce_extra_vertical_randomness"		"0.25" //"0.5"
+
+	"grenade_roll_vel_frac_per_second"				"0.99"
+
+	//	Vortex behavior (both)
+	"vortex_refire_behavior"  						"absorb"
+
+	//	Spread (cone)
+	"spread_stand_hip"								"15"
+	"spread_stand_hip_run"							"16"
+	"spread_stand_hip_sprint"                       "17"
+
+	"spread_crouch_hip"   							"15"
+
+	"spread_air_hip"  								"17"
+
+	//	Spread (stream)
+	"spread_stand_ads"								"0.5"
+//	"spread_stand_ads_run"							"0.7"
+//	"spread_stand_ads_sprint"                       "1.0"
+
+	"spread_crouch_ads"   							"0.4"
+	"spread_air_ads"  								"1.0"
+
+
+	//		Damage
+	//	Direct damage (stream)
+	"damage_near_value"   							"0"
+	"damage_far_value"								"0"
+
+	"damage_near_value_titanarmor"					"0"
+	"damage_far_value_titanarmor" 					"0"
+
+	//	Damage distance (stream)
+	"damage_near_distance"							"2000"
+	"damage_far_distance" 							"2500"
+
+	"damage_type" 									"burn"
+
+	"impulse_force"									"50"
+
+	//	Explosion damage (thermite)
+	"explosion_damage"								"90"
+	"explosion_damage_heavy_armor"					"150"
+
+	"explosion_inner_radius"  						"40"
+	"explosionradius" 								"120"
+
+	"grenade_fuse_time"								"8.0"	//	Fire duration
+
+	//	Crit & Headshots (both)
+	"allow_headshots" 								"0"
+
+	"critical_hit"									"1"
+	"critical_hit_damage_scale"						"1.0"
+
+	"trigger_snipercam"   							"0"
+
+
+	//		Ammunition
+	//	Ammo
+	"ammo_clip_size"   								"100"
+	"ammo_per_shot"									"2"
+	"ammo_min_to_fire"								"1"
+
+	"ammo_default_total"							"10000"
+	"ammo_stockpile_max"							"10000"
+
+	"ammo_no_remove_from_clip"                      "0"
+    "ammo_no_remove_from_stockpile"                 "1"
+
+	//	Reloading/regen
+	"reload_enabled"  								"1"
+	"empty_reload_only"   							"0"
+
+	"allow_empty_fire"								"0"
+	"allow_empty_click"   							"1"
+
+	"reload_time" 									"2.5"
+	"reload_time_late1"								"1.66"
+	"reload_time_late2"								"0.87"
+
+	"reload_alt_anim"								"1"
+
+	//		Player usage
+	//	Swap time
+	"holster_time"									"0.33"
+	"deploy_time" 									"0.65"
+	"lower_time"  									"0.075"
+	"raise_time"  									"0.3"
+
+	//	Zoom
+	"zoom_time_in"									"0.25"
+	"zoom_time_out"   								"0.25"
+
+	"zoom_fov"										"55"
+
+	//	Movement handling
+	"primary_fire_does_not_block_sprint"			"0"
+	"crosshair_force_sprint_fade_disabled"          "0"
+
+	//	Aim Assist
+	"aimassist_disable_hipfire"						"0"
+	"aimassist_disable_ads"							"0"
+	"aimassist_disable_hipfire_humansonly"			"1"
+	"aimassist_disable_ads_humansonly"				"1"
+
+	"ammo_suck_behavior"							"primary_weapons"
+
+
+	//		NPC usage
+	//	Range
+
+    //	Bursts
+
+	//	Aim
+
+    //	Proficiency
+
+
+	// ======== Animation ========
+
+	//   View Kick
+	"viewkick_spring" 								""
+
+
+	//   Bob
+	// Zoomed
+
+
+
+	//   Rumble
+	"fire_rumble"									""
+
+
+	//   Sway
+	// Zoomed
+
+
+
+
+	//   Network
+    MP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+	}
+
+	SP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"1"
+	}
+
+
+	//   WeaponED Unhandled Key/Values and custom script Key/Values
+
+
+    //   Weapon Mods
+	Mods
+	{
+		//	Primary kit - Clean Burn
+		tarmory_flamethrower_kit_cleanburn {
+			//		Projectile/bullet handling
+			//	Spread (cone)
+			"spread_stand_hip"								"*0.75"
+			"spread_stand_hip_run"							"*0.75"
+			"spread_stand_hip_sprint"                       "*0.75"
+
+			"spread_crouch_hip"   							"*0.75"
+
+			"spread_air_hip"  								"*0.75"
+
+			//		Damage
+			//	Direct damage (cone)
+			"damage_near_value"   							"*0.8"
+			"damage_far_value"								"*0.8"
+
+			"damage_near_value_titanarmor"					"*0.8"
+			"damage_far_value_titanarmor" 					"*0.8"
+		}
+
+		//	Augment 1 - Jet Spray
+		tarmory_flamethrower_aug_jetspray {
+			//		Projectile/bullet handling
+			//	Projectile params (stream)
+			"projectile_launch_speed"						"*2"
+			"projectile_launch_pitch_offset"				"*0.5"
+
+			"projectile_gravity_scale"						"*1.5"
+
+			//	Spread (cone)
+			"spread_stand_hip"								"*0.75"
+			"spread_stand_hip_run"							"*0.75"
+			"spread_stand_hip_sprint"                       "*0.75"
+
+			"spread_crouch_hip"   							"*0.75"
+
+			"spread_air_hip"  								"*0.75"
+
+			//	Spread (stream)
+			"spread_stand_ads"								"*0.0"
+//			"spread_stand_ads_run"							"*0.0"
+//			"spread_stand_ads_sprint"                       "*0.0"
+
+			"spread_crouch_ads"   							"*0.0"
+			"spread_air_ads"  								"*0.0"
+
+			//		Damage
+			//	Direct damage (both)
+			"damage_near_value"   							"*0.667"
+			"damage_far_value"								"*0.667"
+
+			"damage_near_value_titanarmor"					"*0.667"
+			"damage_far_value_titanarmor" 					"*0.667"
+
+			"damage_near_distance"							"*0.667"
+			"damage_far_distance" 							"*0.667"
+
+			//	Explosion damage (pool)
+			"explosion_damage"								"*2.0"
+			"explosion_damage_heavy_armor"					"*2.0"
+
+			"explosion_inner_radius"  						"*1.5"	//	Starting radius
+			"explosionradius" 								"*1.5"	//	Maximum radius
+
+			"grenade_fuse_time"								"*2.0"	//	Fire duration
+		}
+
+		//	Augment 1 - Volatile Additive
+		tarmory_flamethrower_aug_volatile {
+			//		Projectile/bullet handling
+			//	Spread (cone)
+			"spread_stand_hip"								"*4.0"
+			"spread_stand_hip_run"							"*4.0"
+			"spread_stand_hip_sprint"                       "*4.0"
+
+			"spread_crouch_hip"   							"*4.0"
+
+			"spread_air_hip"  								"*4.0"
+
+			//	Direct damage (both)
+			"damage_near_value"   							"*1.5"
+			"damage_far_value"								"*1.5"
+
+			"damage_near_value_titanarmor"					"*1.5"
+			"damage_far_value_titanarmor" 					"*1.5"
+
+			"damage_near_distance"							"*1.5"
+			"damage_far_distance" 							"*1.5"
+
+			//	Explosion damage (pool)
+			"explosion_damage"								"*1.333"
+			"explosion_damage_heavy_armor"					"*1.333"
+
+			//	Explosion radius (pool)
+			"explosion_inner_radius"  						"*0.33"	//	Starting radius
+			"explosionradius" 								"*0.33"	//	Maximum radius
+
+			"grenade_fuse_time"								"*0.25"	//	Fire duration
+		}
+	}
+
+
+	//   Crosshair
+    "red_crosshair_range" 							"1200"
+
+    active_crosshair_count				"1"
+	rui_crosshair_index					"0"
+
+    RUI_CrosshairData
+	{
+		DefaultArgs
+		{
+			adjustedSpread				weapon_spread
+			adsFrac 					player_zoomFrac
+			isSprinting					player_is_sprinting
+			isReloading					weapon_is_reloading
+			teamColor					crosshair_team_color
+			isAmped						weapon_is_amped
+			crosshairMovementX          crosshair_movement_x
+			crosshairMovementY          crosshair_movement_y
+		}
+
+		Crosshair_1
+		{
+			"ui"						"ui/crosshair_grenade_launcher"
+			"base_spread"				"-12.0"
+			Args
+			{
+				isFiring				weapon_is_firing
+			}
+		}
+	}
+}

@@ -1,0 +1,316 @@
+WeaponData
+{
+	//		General
+	//	Name
+	"printname"   									"Incendiary Shell Launcher"
+	"shortprintname"								"Incendiary Shell"
+	"description" 									"wip NapalmShell desc"
+	"longdesc" 										"wip NapalmShell longdesc"
+
+	//	Icon (custom icons... someday)
+	"menu_icon"										""
+	"hud_icon"										""
+
+	//	Body type
+	"weaponClass" 									"titan"
+	"weaponType"									"shoulder"
+	"fire_mode"   									"offhand_instant"
+
+	//	Pickup
+	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
+
+	"leveled_pickup"								"1"
+
+	//	Reveal dist
+	"minimap_reveal_distance"						"32000"
+
+	//	Weapon functionality
+	"OnWeaponAttemptOffhandSwitch"					"OnWeaponAttemptOffhandSwitch_PhosphorScorch_IncendiaryShell"
+
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_PhosphorScorch_IncendiaryShell"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_PhosphorScorch_IncendiaryShell"
+
+	"OnProjectileCollision"							"OnProjectileCollision_PhosphorScorch_IncendiaryShell"
+	"OnProjectileIgnite"							"OnProjectileIgnite_PhosphorScorch_IncendiaryShell"
+
+
+	//		Menu
+    //	No menu
+
+
+	//		Models
+	"viewmodel"   									"models/weapons/titan_bt_rocket_pod/atpov_titan_bt_rocket_pod_right.mdl"
+//	"playermodel" 									""
+
+	"projectilemodel" 								"models/weapons/bullets/triple_threat_projectile.mdl"
+
+
+
+	//		Effects
+	//	Charge
+	"play_offhand_charging_anim"  					"1"
+	"play_offhand_start_end_anim"					"1"
+
+	"charge_effect_1p"								""
+	"charge_effect_3p"								""
+
+	"charge_effect2_3p"								""
+
+	//	Muzzle flash
+	"owner_muzzle_index"							"1"
+
+	"fx_muzzle_flash_view"							"wpn_muzzleflash_40mm_fp"
+	"fx_muzzle_flash_world"							"wpn_muzzleflash_40mm"
+	"fx_muzzle_flash_attach"						"muzzle_flash"
+
+	//	Shell Ejection
+	"fx_shell_eject_view"							""
+	"fx_shell_eject_world"							""
+	"fx_shell_eject_attach"							""
+
+	//	Tracer & trail fx
+	"projectile_trail_effect_0" 					"P_wpn_meteor_trail"
+
+	"projectile_adjust_to_gun_barrel"				"1"
+
+	//	Impact/bounce fx
+	"impact_effect_table" 							"titan_meteor"
+
+	//	Vortex fx
+	"vortex_absorb_effect"							"wpn_vortex_projectile_trip_FP"
+	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_trip"
+
+
+
+	//		Sounds
+	//	Reload/ready
+	"sound_weapon_ready"							"HUD_TitanOffenseAbility_replenished_1P"
+
+	//	Trigger
+	"sound_trigger_pull"							""
+	"sound_trigger_release" 						""
+
+	//	Charge
+	"charge_sound_1p"								"Weapon_Predator_Powershot_ChargeUp_1P"
+	"charge_sound_3p"								"Weapon_Predator_Powershot_ChargeUp_3P"
+
+	"charge_sound_stop_when_full"					"1"
+	"charge_sound_seek_to_charge_fraction"			"0"
+
+	//	Fire
+	"fire_sound_1_player_1p"						"weapon_thermitelauncher_fire_1p"
+	"fire_sound_1_player_3p"						"weapon_thermitelauncher_fire_3p"
+
+	"fire_sound_1_npc"								"weapon_thermitelauncher_fire_npc"
+
+	"sound_dryfire"									"titan_dryfire"
+
+	//	Vortex
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbRocket"
+	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbRocket_1P_VS_3P"
+
+
+	// ======== Weapon properties ========
+
+	//		Fire handling
+	"offhand_keep_primary_in_hand"					"2.0"
+
+	//	Fire rate
+	"fire_rate"										"1.7"
+
+	//	Charge stats
+	"charge_time" 									"0.95"
+
+	"charge_cooldown_time"							"1.0"
+	"charge_cooldown_delay"   						"1.0"
+
+	"charge_end_forces_fire"						"1"
+
+	//		Projectile/bullet handling
+	"projectiles_per_shot"							"24"
+
+	//	Projectile params
+	"projectile_launch_speed"						"2200"
+	"projectile_launch_pitch_offset"				"2"
+
+	"projectile_gravity_scale"						"0.625"
+	"projectile_inherit_owner_velocity_scale"		"0.0"
+
+	//	Vortex behavior
+	"vortex_refire_behavior"  						"explosive_round"
+
+	//	Spread
+	"spread_stand_hip"  							"0"
+	"spread_stand_ads"   							"0"
+
+
+	//		Damage
+	//	Direct damage
+	"damage_near_value"   							"100"
+	"damage_far_value"								"100"
+
+	"damage_near_value_titanarmor"					"1000"
+	"damage_far_value_titanarmor" 					"1000"
+
+	"damage_near_distance"							"1500"
+	"damage_far_distance" 							"3000"
+
+	"damage_type" 									"bullet"
+	"damage_flags"									"DF_BULLET"
+
+	"impulse_force"									"15000"
+
+	//	Explosion damage (white phosphorus fires)
+	"explosion_damage"								"150"
+	"explosion_damage_heavy_armor"					"250"
+
+	"explosion_inner_radius"  						"50"
+	"explosionradius" 								"150"
+
+	"impulse_force_explosions"						"0"
+
+	"grenade_fuse_time"								"2.5"	//	Fire time
+
+	//	Crit & Headshots
+	"allow_headshots" 								"0"
+
+	"critical_hit"									"1"
+	"critical_hit_damage_scale"						"1.5"
+
+	"trigger_snipercam"   							"1"
+
+
+	//		Ammunition
+	//	Ammo
+	"ammo_display"									"bar"
+
+	"ammo_clip_size"   								"200"
+
+	"ammo_min_to_fire"								"200"
+	"ammo_per_shot"									"200"
+
+	"ammo_default_total"							"200"
+	"ammo_stockpile_max"							"200"
+
+	"ammo_no_remove_from_clip"                      "0"
+    "ammo_no_remove_from_stockpile"                 "1"
+
+	"cooldown_type"                                 "ammo_instant"
+
+	//	Reloading/regen
+	"reload_enabled"  								"0"
+	"empty_reload_only"   							"0"
+
+	"allow_empty_fire"								"0"
+	"allow_empty_click"   							"0"
+
+	"regen_ammo_refill_rate"						"25"
+	"regen_ammo_refill_start_delay"					"0.5"
+
+	//		Player usage
+	//	Swap time
+	"holster_time"									"0.01"
+	"deploy_time" 									"0.01"
+	"lower_time"  									"0.01"
+	"raise_time"  									"0.01"
+
+	//	Zoom
+	"zoom_time_in"									"0.01"
+	"zoom_time_out"   								"0.01"
+
+	"zoom_fov"										"50"
+
+	//	Aim Assist
+	"aimassist_disable_hipfire"						"1"
+	"aimassist_disable_ads"							"1"
+	"aimassist_disable_hipfire_humansonly"			"0"
+	"aimassist_disable_ads_humansonly"				"0"
+
+	"ammo_suck_behavior"							"offhand_weapons"
+
+
+	//		NPC usage
+	//	Range
+
+    //	Bursts
+
+	//	Aim
+
+    //	Proficiency
+
+
+	// ======== Animation ========
+
+	//   View Kick
+	"viewkick_spring" 								""
+
+
+	//   Bob
+	// Zoomed
+
+
+
+	//   Rumble
+	"fire_rumble"									""
+
+
+	//   Sway
+	// Zoomed
+
+
+
+
+	//   Network
+    MP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+	}
+
+	SP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"1"
+	}
+
+
+	//   WeaponED Unhandled Key/Values and custom script Key/Values
+
+
+    //   Weapon Mods
+	Mods
+	{
+
+	}
+
+
+	//   Crosshair
+    "red_crosshair_range" 							"3500"
+
+    active_crosshair_count				"1"
+	rui_crosshair_index					"0"
+
+    RUI_CrosshairData
+	{
+		DefaultArgs
+		{
+			adjustedSpread				weapon_spread
+			adsFrac 					player_zoomFrac
+			isSprinting					player_is_sprinting
+			isReloading					weapon_is_reloading
+			teamColor					crosshair_team_color
+			isAmped						weapon_is_amped
+			crosshairMovementX          crosshair_movement_x
+			crosshairMovementY          crosshair_movement_y
+		}
+
+		Crosshair_1
+		{
+			"ui"						"ui/crosshair_scorch"
+			"base_spread"				"0.0"
+			Args
+			{
+				isFiring				weapon_is_firing
+			}
+		}
+	}
+}

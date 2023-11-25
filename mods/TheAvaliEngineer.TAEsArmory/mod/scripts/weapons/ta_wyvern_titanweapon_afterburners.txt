@@ -1,0 +1,278 @@
+WeaponData
+{
+	//		General
+	//	Name
+	"printname"   									"Holo-Titan Projector"
+	"shortprintname"								"Holo-Titan"
+	"description" 									"holodistract WIP desc"
+	"longdesc" 										"holodistract WIP longdesc"
+
+	//	Icon (custom icons... someday)
+	"menu_icon"										"rui/pilot_loadout/tactical/pilot_tactical_holo_pilot"
+	"hud_icon"										"rui/pilot_loadout/tactical/pilot_tactical_holo_pilot"
+
+	//	Body type
+	"weaponClass" 									"titan"
+	"weaponType"									"tactical"
+	"fire_mode"   									"offhand_instant"
+
+	"offhand_keep_primary_in_hand"					"1"
+
+	//	Pickup
+	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
+
+	"leveled_pickup"								"1"
+
+	//	Reveal dist
+	"minimap_reveal_distance"						"32000"
+
+	//	Weapon functionality
+	"OnWeaponActivate"								"OnWeaponActivate_WyvernNorthstar_Afterburners"
+
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_WyvernNorthstar_Afterburners"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_WyvernNorthstar_Afterburners"
+
+
+	//		Menu
+    //	Menu stat values (dne)
+
+
+	//		Models
+//	"viewmodel"   									""
+//	"playermodel"									"models/weapons/empty_handed/w_empty_handed_human.mdl"
+
+	"projectilemodel"								"models/dev/empty_model.mdl"
+
+
+
+	//		Effects
+	// Charge
+//	"charge_effect_1p"								""
+//	"charge_effect_3p"								""
+
+//	"charge_effect2_3p"								""
+
+	//	Muzzle flash
+//	"fx_muzzle_flash_view"							""
+//	"fx_muzzle_flash_world"							""
+//	"fx_muzzle_flash_attach"						""
+
+	//	Shell Ejection
+//	"fx_shell_eject_view"							""
+//	"fx_shell_eject_world"							""
+//	"fx_shell_eject_attach"							""
+
+	//	Tracer & trail fx
+//	"tracer_effect"   								""
+//	"projectile_trail_effect_0" 					""
+
+//	"projectile_adjust_to_gun_barrel"				""
+
+	//	Impact/bounce fx
+	"impact_effect_table" 							"triplethreat_frag"
+
+
+	//		Sounds
+	//	Reload/ready
+	"sound_weapon_ready"							"HUD_TitanUtilityAbility_replenished_1P"
+
+	//	Charge
+	"charge_sound_1p"								"Drone_Beam_Charge"
+	"charge_sound_3p"								"Drone_Beam_Charge"
+
+	//	Fire
+	"fire_sound_1_player_1p"						"holopilot_deploy_1p"
+	"fire_sound_1_player_3p"						"holopilot_deploy_3p"
+
+	"fire_sound_1_npc"								"holopilot_deploy_3p"
+
+	"sound_dryfire"									"coop_sentrygun_deploymentdeniedbeep"
+
+
+	// ======== Weapon properties ========
+
+	//		Fire handling
+	"breaks_cloak"									"0"
+
+	//	Fire rate
+	"fire_rate"										"2"
+
+	"cooldown_type"									"ammo_instant"
+
+	//	Charge stats
+	"charge_time" 									"0.5"
+
+	"charge_cooldown_time"							"1.0"
+	"charge_cooldown_delay"   						"1.0"
+
+	"charge_require_input"							"0"
+	"charge_end_forces_fire"						"1"
+
+	//		Projectile/bullet handling
+	//	Projectile params
+	"bolt_hitsize"									"50.0"
+
+	"projectile_inherit_owner_velocity_scale"		"1.0"
+
+	//	Spread
+
+
+	//		Damage
+	//	Direct damage
+	"damage_near_value"   							"100"
+	"damage_far_value"								"100"
+
+	"damage_near_value_titanarmor"					"750"
+	"damage_far_value_titanarmor" 					"750"
+
+	"damage_near_distance"							"0"
+	"damage_far_distance" 							"0"
+
+	"damage_type" 									"burn"
+	"damage_flags"									"DF_STOPS_TITAN_REGEN | DF_NO_SELF_DAMAGE"
+
+	//	Explosion damage
+	"explosion_damage"								"1500"
+	"explosion_damage_heavy_armor"					"1000"
+
+	"explosion_inner_radius"  						"750"
+	"explosionradius" 								"1500"
+
+	"impulse_force_explosions"						"50000000"
+
+	//	Crit & Headshots
+	"allow_headshots" 								"0"
+
+	"critical_hit"									"1"
+	"critical_hit_damage_scale"						"2.0"
+
+	"trigger_snipercam"   							"0"
+
+
+	//		Ammunition
+	//	Ammo
+	"ammo_display"									"bar"
+
+	"ammo_clip_size"   								"200"
+	"ammo_per_shot"   								"100"
+	"ammo_min_to_fire"   							"100"
+
+	"ammo_default_total"							"200"
+	"ammo_stockpile_max"							"200"
+
+	"ammo_no_remove_from_clip"                      "0"
+
+	//	Reloading/regen
+	"reload_enabled"  								"0"
+
+	"allow_empty_fire"								"0"
+	"allow_empty_click"   							"0"
+
+	"regen_ammo_refill_rate"						"5"
+	"regen_ammo_refill_start_delay"					"0.0"
+
+
+	//		Player usage
+	//	Swap time
+	"holster_time"									"0.15"
+	"deploy_time" 									"0.25"
+	"lower_time"  									"0.25"
+	"raise_time"  									"0.2"
+
+
+	//	Movement handling
+	"primary_fire_does_not_block_sprint"			"1"
+	"crosshair_force_sprint_fade_disabled"          "1"
+
+	//	Aim Assist
+	"aimassist_disable_hipfire"						"1"
+	"aimassist_disable_ads"							"1"
+
+	"ammo_suck_behavior"							"offhand_weapons"
+
+
+	//		NPC usage
+	//	Range
+
+    //	Bursts
+
+	//	Aim
+
+    //	Proficiency
+
+
+	// ======== Animation ========
+
+	//   View Kick
+	"viewkick_spring" 								""
+
+
+	//   Bob
+	// Zoomed
+
+
+
+	//   Rumble
+	"rumble"										"-1"
+	"fire_rumble"									"-1"
+
+
+	//   Sway
+	// Zoomed
+
+
+
+
+	//   Network
+    MP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+	}
+
+	SP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"1"
+	}
+
+
+	//   WeaponED Unhandled Key/Values and custom script Key/Values
+
+
+    //   Weapon Mods
+	Mods
+	{
+		TArmory_GeistRonin_HoloDistract_MoreHolos {
+			"projectiles_per_shot"						"*2"
+		}
+
+		TArmory_GeistRonin_NoDecoyDamage {
+		}
+	}
+
+
+	//   Crosshair
+    "red_crosshair_range" 							"2500"
+
+    active_crosshair_count				"1"
+	rui_crosshair_index					"0"
+
+    RUI_CrosshairData
+	{
+		DefaultArgs
+		{
+			crosshairMovementX          crosshair_movement_x
+		    crosshairMovementY          crosshair_movement_y
+		}
+
+		Crosshair_2
+		{
+			"ui"						"ui/crosshair_ordnance"
+			Args
+			{
+			    ammoFrac                "progress_weapon_clip_ammo_frac"
+			    dryfireTime             "weapon_latest_dryfire_time"
+			}
+		}
+	}
+}

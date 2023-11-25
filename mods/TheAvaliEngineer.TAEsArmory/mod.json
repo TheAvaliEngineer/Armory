@@ -1,0 +1,197 @@
+{
+	"Name" : "TheAvaliEngineer.TAEsArmory",
+	"Description" : "The Frontier War never ended. The collapse of the IMC brought a tide of new conflict as its subsidiaries fought tooth and nail over the dissolved mega-conglomerate's property. With this came the creation of weapons the likes of which had never before been seen...\n\nThis mod significantly expands upon the content of the base game, adding new weapons, new titans, and much more.\n\nCredit to:\n\tTheAvaliEngineer - Mod Author/Lead Developer\n\tGalacticMoblin - Developer (Balance, Bugfixes, Filestructure)\n\tEXRILL - Contributor (SFX, Particles)\n\tSeQwin - Contributor (Localisation)\n\tBaconVigilante - Tester\n\tIvan4ik - Contributor (Crosshairs)",
+	"Version": "0.12.265",
+
+	"LoadPriority": 1,
+	"RequiredOnClient": true,
+
+	"Scripts": [
+		{
+			"Path": "ta_utils.gnut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "ta_phosphor_flamethrower_ecs.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP",
+			"ClientCallback": {
+				"After": "TArmory_Init_ThermiteECS"
+			},
+			"ServerCallback": {
+				"After": "TArmory_Init_ThermiteECS"
+			}
+		},
+
+		{
+			"Path": "ta_precache.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP",
+			"ClientCallback": {
+				"After": "TArmory_Precache"
+			},
+			"ServerCallback": {
+				"After": "TArmory_Precache"
+			}
+		},
+		{
+			"Path": "ta_titan_utils.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP",
+			"ClientCallback": {
+				"After": "TArmory_Init_TitanUtils"
+			},
+			"ServerCallback": {
+				"After": "TArmory_Init_TitanUtils"
+			}
+		},
+
+		//			Equipment
+		//		Pilot
+		//	Primary
+		{
+			"Path": "pilot/ta_weapon_thermiteshotgun.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "pilot/ta_weapon_chargeshotgun.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "pilot/ta_weapon_plasmaburst.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "pilot/ta_weapon_railgun.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Secondary
+		{
+			"Path": "pilot/ta_weapon_chargepistol.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Anti-titan
+		{
+			"Path": "pilot/ta_weapon_minelauncher.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "pilot/ta_weapon_microgun.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "pilot/ta_weapon_heatray.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Ordinance
+		{
+			"Path": "pilot/ta_grenade_knife.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "pilot/ta_grenade_fueltrail.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//		Titan
+		//	Bruiser
+		{
+			"Path": "titan/ta_tyrant_titanability_titangrapple.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Geist
+		{
+			"Path": "titan/ta_geist_titanweapon_burstsg.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_geist_titanability_holodistract.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_geist_titanability_titancloak.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Mortar
+		{
+			"Path": "titan/ta_mortar_titanweapon_quadrocket.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_mortar_titanweapon_flarelauncher.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_mortar_titanability_flares.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_mortar_titanweapon_rockets.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_mortar_titanweapon_proxmines.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_mortar_titancore_nuclearstrike.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Phosphor
+		{
+			"Path": "titan/ta_phosphor_titanweapon_flamethrower.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_phosphor_titanweapon_incendiaryshell.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Tyrant
+		{
+			"Path": "titan/ta_tyrant_titanweapon_autocannon.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Wyvern
+		{
+			"Path": "titan/ta_wyvern_titanweapon_autorocket.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_wyvern_titanability_flight.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+		{
+			"Path": "titan/ta_wyvern_titanweapon_afterburners.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		//	Framework
+		{
+			"Path": "ta_titanframeworkinit.nut",
+			"RunOn": "CLIENT || UI || SERVER",
+			"ServerCallback": {
+				"After": "TA_TitanFramework_UIInit"
+			},
+			"ClientCallback": {
+				"After": "TA_TitanFramework_UIInit"
+			},
+			"UICallback": {
+				"After": "TA_TitanFramework_UIInit"
+			}
+		},
+	],
+
+	"Localisation": [
+		"resource/ta_localisation_%language%.txt"
+	],
+
+	"Dependencies":
+	{
+		"TARMORY_HAS_TITANFRAMEWORK" : "Peepee.TitanFramework"
+	}
+}

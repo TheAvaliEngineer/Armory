@@ -1,0 +1,461 @@
+WeaponData
+{
+	//		General
+	//	Name
+	"printname"   									""
+	"shortprintname"								""
+	"description" 									""
+	"longdesc" 										""
+
+	//	Icon (custom icons... someday)
+	"menu_icon"										"r2_ui/menus/loadout_icons/titan_weapon/titan_weapon_quad"
+	"hud_icon"										"r2_ui/menus/loadout_icons/titan_weapon/titan_weapon_quad"
+
+	//	Body type
+	"weaponClass" 									"titan"
+	"fire_mode"   									"auto"
+
+	//	Pickup
+	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
+
+	"leveled_pickup"								"1"
+
+	//	Reveal dist
+	"minimap_reveal_distance"						"32000"
+
+	//	Weapon functionality
+	"OnClientAnimEvent"								"OnClientAnimEvent_MortarTone_QuadRocket"
+
+	"OnWeaponOwnerChanged"							"OnWeaponOwnerChanged_MortarTone_QuadRocket"
+	"OnWeaponDeactivate"							"OnWeaponDeactivate_MortarTone_QuadRocket"
+
+	"OnWeaponStartZoomIn"							"OnWeaponStartZoomIn_MortarTone_QuadRocket"
+	"OnWeaponStartZoomOut"							"OnWeaponStartZoomOut_MortarTone_QuadRocket"
+
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_MortarTone_QuadRocket"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_MortarTone_QuadRocket"
+
+	"OnProjectileCollision"  						"OnProjectileCollision_SpiralMissile"
+
+
+	//		Menu
+    //	Menu stat values
+    "stat_damage" 									"80"
+	"stat_range"  									"90"
+	"stat_accuracy"   								"30"
+	"stat_rof"										"60"
+
+
+	//		Models
+	"viewmodel"   									"models/weapons/titan_rocket_launcher/atpov_titan_rocket_launcher.mdl"
+	"playermodel" 									"models/weapons/titan_rocket_launcher/titan_rocket_launcher.mdl"
+
+	"projectilemodel" 								"models/weapons/bullets/projectile_rocket_large.mdl"
+
+
+	//		Effects
+	//	Muzzle flash
+	"fx_muzzle_flash_view"							""
+	"fx_muzzle_flash_world"							""
+	"fx_muzzle_flash_attach"						""
+
+	//	Shell Ejection
+	"fx_shell_eject_view"							""
+	"fx_shell_eject_world"							""
+	"fx_shell_eject_attach"							""
+
+	//	Tracer & trail fx
+	"projectile_trail_effect_0" 					"Rocket_Smoke_Small_Titan"
+	"projectile_trail_attachment" 					"exhaust"
+
+	"projectile_adjust_to_gun_barrel"				"1"
+
+	//	Impact/bounce fx
+	"impact_effect_table" 							"exp_rocket_titan_rocket_launcher"
+
+	//	Vortex fx
+	"vortex_absorb_effect"							"wpn_vortex_projectile_rocket_FP"
+	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rocket"
+
+
+
+	//		Sounds
+	//	Zoom
+	"sound_zoom_in"									"Weapon_Titan_Rocket_Launcher.ADS_In"
+	"sound_zoom_out"								"Weapon_Titan_Rocket_Launcher.ADS_Out"
+
+	"sound_pickup"									""
+
+	//	Trigger
+	"sound_trigger_pull"							""
+	"sound_trigger_release" 						""
+
+	//	Fire
+	"fire_sound_1_player_1p"						""
+	"fire_sound_1_player_3p"						""
+
+	"fire_sound_1_npc"								""
+
+	"sound_dryfire"									""
+
+	//	Vortex
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbRocket"
+	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbRocket_1P_VS_3P"
+
+
+	// ======== Weapon properties ========
+
+	//		Fire handling
+	//	Fire rate
+	"fire_rate"										"2.0"
+
+	//		Projectile/bullet handling
+	//	Projectile params
+	"projectile_launch_speed"						"3600"
+
+	"projectile_gravity_scale"						"0.0"
+
+	"projectiles_per_shot"							"4"
+
+	//	Vortex behavior
+	"vortex_refire_behavior"  						"rocket"
+
+	//	Spread
+	"spread_stand_hip"								"5"
+	"spread_stand_hip_run"							"5"
+	"spread_stand_ads"								"4"
+	"spread_crouch_hip"   							"5"
+	"spread_crouch_ads"   							"4"
+	"spread_air_hip"  								"5"
+	"spread_air_ads"  								"4"
+
+	"spread_kick_on_fire_stand_hip"   				"0.05"
+	"spread_kick_on_fire_stand_ads"   				"0.05"
+	"spread_kick_on_fire_crouch_hip"  				"0.05"
+	"spread_kick_on_fire_crouch_ads"  				"0.05"
+	"spread_kick_on_fire_air_hip" 					"0.05"
+	"spread_kick_on_fire_air_ads" 					"0.05"
+
+	"spread_max_kick_stand_hip"   					"0.0"
+	"spread_max_kick_stand_ads"   					"0.0"
+	"spread_max_kick_crouch_hip"  					"0.0"
+	"spread_max_kick_crouch_ads"  					"0.0"
+
+	"spread_decay_rate"   							"5"
+	"spread_decay_delay"  							".2"
+
+
+	//		Damage
+	//	Direct damage
+	"damage_near_value"   							"66"
+	"damage_far_value"								"50"
+
+	"damage_near_value_titanarmor"					"350"
+	"damage_far_value_titanarmor" 					"325"
+
+	"damage_near_distance"							"1200"
+	"damage_far_distance" 							"5000"
+
+	"damage_type" 									"burn"
+	"damage_flags"									"DF_IMPACT | DF_GIB | DF_KNOCK_BACK"
+
+	//	Explosion damage
+	"explosion_damage"								"50"
+	"explosion_damage_heavy_armor"					"200"
+
+	"explosion_inner_radius"  						"75"
+	"explosionradius" 								"150"
+
+	//	Crit & Headshots
+	"allow_headshots" 								"0"
+
+	"critical_hit"									"1"
+	"critical_hit_damage_scale"						"1.5"
+
+	"trigger_snipercam"   							"1"
+
+
+	//		Ammunition
+	//	Ammo
+	"ammo_clip_size"   								"20"
+	"ammo_per_shot"									"4"
+
+	"ammo_default_total"							"1200"
+	"ammo_stockpile_max"							"1200"
+
+	"ammo_no_remove_from_clip"                      "0"
+    "ammo_no_remove_from_stockpile"                 "1"
+
+	//	Reloading/regen
+	"reload_enabled"  								"1"
+	"empty_reload_only"   							"0"
+
+	"allow_empty_fire"								"0"
+	"allow_empty_click"   							"1"
+
+
+	//		Player usage
+	//	Swap time
+	"holster_time"									"0.25"
+	"deploy_time" 									"1.0"
+	"lower_time"  									"0.1"
+	"raise_time"  									"0.4"
+
+	//	Zoom
+	"zoom_time_in"									"0.1"
+	"zoom_time_out"   								"0.1"
+
+	"zoom_fov"										"55"
+
+	//	Aim Assist
+	"aimassist_disable_hipfire"						"0"
+	"aimassist_disable_ads"							"0"
+	"aimassist_disable_hipfire_humansonly"			"1"
+	"aimassist_disable_ads_humansonly"				"1"
+
+	"ammo_suck_behavior"							"primary_weapons"
+
+
+	//		NPC usage
+	//	Range
+	"npc_min_range"   								"0"
+	"npc_max_range"   								"6000"
+
+	"npc_min_engage_range"							"100"
+	"npc_max_engage_range"							"2000"
+
+	"npc_min_engage_range_heavy_armor"				"500"
+	"npc_max_engage_range_heavy_armor"				"2000"
+
+    //	Bursts
+	"npc_min_burst"   								"1"
+	"npc_max_burst"   								"1"
+
+	"npc_rest_time_between_bursts_min"				"0.75"
+	"npc_rest_time_between_bursts_max"				"1.5"
+
+	"npc_full_auto_vs_heavy_armor"					"0"
+
+	//	Aim
+	"npc_aim_at_feet"								"1"
+	"npc_aim_at_feet_vs_heavy_armor"				"0"
+
+	"npc_fire_at_enemy_defense_time"				"2.5"
+
+    //	Proficiency
+	"proficiency_poor_spreadscale"					"4.0"
+	"proficiency_average_spreadscale" 				"3.5"
+	"proficiency_good_spreadscale"					"3.0"
+	"proficiency_very_good_spreadscale"   			"2.0"
+
+	//	Damage
+	"npc_self_explosion_safety"						"0"
+
+
+	// ======== Animation ========
+
+	//   	View Kick
+	"viewkick_spring" 								"titan_40mm"
+
+//	"viewkick_pitch_base" 							"-0.4"
+//	"viewkick_pitch_random"   						"0.3"
+//	"viewkick_yaw_base"   							"-0.15"
+//	"viewkick_yaw_random" 							"0.3"
+//	"viewkick_roll_hardScale" 						"1.2"
+
+	"viewkick_pitch_base" 							"-1.0"
+	"viewkick_pitch_random"   						"0.1"
+	"viewkick_pitch_softScale"						"0.4"
+	"viewkick_pitch_hardScale"						"1.0"
+
+	"viewkick_yaw_base"   							"-0.25"
+	"viewkick_yaw_random" 							"0.3"
+	"viewkick_yaw_softScale"  						"0.2"
+	"viewkick_yaw_hardScale"  						"1.0"
+
+	"viewkick_roll_base"  							"0.0"
+	"viewkick_roll_randomMin" 						"0.4"
+	"viewkick_roll_randomMax" 						"0.5"
+	"viewkick_roll_softScale" 						"0.15"
+	"viewkick_roll_hardScale" 						"1.0"
+
+	"viewkick_hipfire_weaponFraction" 				"0.2"
+	"viewkick_hipfire_weaponFraction_vmScale" 		"0.4"
+	"viewkick_ads_weaponFraction" 					"0.05"
+	"viewkick_ads_weaponFraction_vmScale" 			"0.1"
+
+
+	//   	Bob
+	"bob_cycle_time"  								"0.69"
+	"bob_vert_dist"   								"0.6"
+	"bob_horz_dist"   								"0.1"
+	"bob_max_speed"   								"150"
+	"bob_pitch"   									"0.75"
+	"bob_yaw" 										"-1.7"
+	"bob_roll"										"-1.2"
+
+	// 	Zoomed
+	"bob_cycle_time_zoomed"  						"0.8"
+	"bob_vert_dist_zoomed"   						"0.6"
+	"bob_horz_dist_zoomed"   						"0.1"
+	"bob_max_speed_zoomed"   						"150"
+	"bob_pitch_zoomed"   							"0.75"
+	"bob_yaw_zoomed" 								"-1.7"
+	"bob_roll_zoomed"								"-1.2"
+
+
+
+	//   Rumble
+	"fire_rumble"									"rumble_titan_rocketlauncher"
+
+
+	//   	Sway
+	"sway_rotate_attach"  							"SWAY_ROTATE"
+	"sway_min_x"  									"-0.5"
+	"sway_min_y"  									"-2"
+	"sway_min_z"  									"-2.7"
+	"sway_max_x"  									"0.5"
+	"sway_max_y"  									"2"
+	"sway_max_z"  									"2.7"
+	"sway_min_pitch"  								"-3"
+	"sway_min_yaw"									"-2.5"
+	"sway_min_roll"   								"-4"
+	"sway_max_pitch"  								"3"
+	"sway_max_yaw"									"2.5"
+	"sway_max_roll"   								"4"
+	"sway_translate_gain" 							"4"
+	"sway_rotate_gain"								"7"
+	"sway_move_forward_translate_x"   				"-0.1"
+	"sway_move_forward_translate_z"   				"-2.7"
+	"sway_move_back_translate_x"  					"0.2"
+	"sway_move_back_translate_z"  					"-0.2"
+	"sway_move_left_translate_y"  					"-1"
+	"sway_move_left_translate_z"  					"-0.5"
+	"sway_move_left_rotate_roll"  					"-2"
+	"sway_move_right_translate_y" 					"1"
+	"sway_move_right_translate_z" 					"-0.5"
+	"sway_move_right_rotate_roll" 					"2"
+	"sway_move_up_translate_z"						"-1"
+	"sway_move_down_translate_z"  					"1"
+	"sway_turn_left_rotate_yaw"   					"1"
+	"sway_turn_right_rotate_yaw"  					"-1"
+
+	"sway_turn_left_translate_y"  					"-.5"
+	"sway_turn_right_translate_y"  					".5"
+	"sway_turn_up_translate_z"  					"-1"
+	"sway_turn_down_translate_z"  					"1"
+	"sway_turn_up_translate_x"  					"-.1"
+	"sway_turn_down_translate_x"  					".1"
+
+	"sway_turn_left_rotate_roll"   					"-4"
+	"sway_turn_right_rotate_roll"  					"4"
+	"sway_turn_up_rotate_pitch"   					"-3"
+	"sway_turn_down_rotate_pitch" 					"3"
+	"sway_turn_up_rotate_roll"   					"0.8"
+	"sway_turn_down_rotate_roll" 					"-0.8"
+
+	// 	Zoomed
+	"sway_rotate_attach_zoomed"  					"SWAY_ROTATE"
+	"sway_min_x_zoomed"  							"-0.5"
+	"sway_min_y_zoomed"  							"-2"
+	"sway_min_z_zoomed"  							"-2.7"
+	"sway_max_x_zoomed"  							"0.5"
+	"sway_max_y_zoomed"  							"2"
+	"sway_max_z_zoomed"  							"2.7"
+	"sway_min_pitch_zoomed"  						"-3"
+	"sway_min_yaw_zoomed"							"-2.5"
+	"sway_min_roll_zoomed"   						"-4"
+	"sway_max_pitch_zoomed"  						"3"
+	"sway_max_yaw_zoomed"							"2.5"
+	"sway_max_roll_zoomed"   						"4"
+	"sway_translate_gain_zoomed" 					"4"
+	"sway_rotate_gain_zoomed"						"7"
+	"sway_move_forward_translate_x_zoomed"   		"-0.1"
+	"sway_move_forward_translate_z_zoomed"   		"-2.7"
+	"sway_move_back_translate_x_zoomed"  			"0.2"
+	"sway_move_back_translate_z_zoomed"  			"-0.2"
+	"sway_move_left_translate_y_zoomed"  			"-1"
+	"sway_move_left_translate_z_zoomed"  			"-0.5"
+	"sway_move_left_rotate_roll_zoomed"  			"-2"
+	"sway_move_right_translate_y_zoomed" 			"1"
+	"sway_move_right_translate_z_zoomed" 			"-0.5"
+	"sway_move_right_rotate_roll_zoomed" 			"2"
+	"sway_move_up_translate_z_zoomed"				"-1"
+	"sway_move_down_translate_z_zoomed"  			"1"
+	"sway_turn_left_rotate_yaw_zoomed"   			"1"
+	"sway_turn_right_rotate_yaw_zoomed"  			"-1"
+
+	"sway_turn_left_translate_y_zoomed"  			"-.5"
+	"sway_turn_right_translate_y_zoomed"  			".5"
+	"sway_turn_up_translate_z_zoomed"  				"-1"
+	"sway_turn_down_translate_z_zoomed"  			"1"
+	"sway_turn_up_translate_x_zoomed"  				"-.1"
+	"sway_turn_down_translate_x_zoomed"  			".1"
+
+	"sway_turn_left_rotate_roll_zoomed"   			"-4"
+	"sway_turn_right_rotate_roll_zoomed"  			"4"
+	"sway_turn_up_rotate_pitch_zoomed"   			"-3"
+	"sway_turn_down_rotate_pitch_zoomed" 			"3"
+	"sway_turn_up_rotate_roll_zoomed"   			"0.8"
+	"sway_turn_down_rotate_roll_zoomed" 			"-0.8"
+
+
+	//   Network
+    MP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+	}
+
+	SP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"1"
+	}
+
+
+	//   WeaponED Unhandled Key/Values and custom script Key/Values
+
+
+    //   Weapon Mods
+	Mods
+	{
+		rocketstream_fast {
+			"fire_rate"   							"*1.5"
+
+			"projectile_launch_speed"				"6000"
+			"projectile_gravity_scale"				"4.0"
+		}
+	}
+
+
+	//   Crosshair
+    "red_crosshair_range" 							"500"
+
+    active_crosshair_count				"1"
+	rui_crosshair_index					"0"
+
+    RUI_CrosshairData
+	{
+		DefaultArgs
+		{
+			adjustedSpread				weapon_spread
+			adsFrac 					player_zoomFrac
+			isSprinting					player_is_sprinting
+			isReloading					weapon_is_reloading
+			teamColor					crosshair_team_color
+			isAmped						weapon_is_amped
+			crosshairMovementX          crosshair_movement_x
+			crosshairMovementY          crosshair_movement_y
+		}
+
+		Crosshair_1
+		{
+			"ui"						"ui/crosshair_smr"
+			"base_spread"				"10.0"
+			Args
+			{
+				isFiring				weapon_is_firing
+			}
+		}
+	}
+}

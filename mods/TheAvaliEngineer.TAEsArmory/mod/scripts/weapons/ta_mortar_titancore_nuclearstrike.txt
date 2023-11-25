@@ -1,0 +1,296 @@
+WeaponData
+{
+	//		General
+	//	Name
+	"printname"   									"Nuclear Strike Core"
+	"shortprintname"								"Nuke Core"
+	"description" 									"nuclearstrike WIP desc"
+	"longdesc" 										"nuclearstrike WIP longdesc"
+
+	//	Icon (custom icons... someday)
+	"menu_icon"										"rui/titan_loadout/core/titan_core_salvo"
+	"hud_icon"										"rui/titan_loadout/core/titan_core_salvo"
+
+	//	Body type
+	"weaponClass" 									"titan"
+	"weaponType"									"titan_core"
+	"fire_mode"   									"offhand"
+
+	//	Pickup
+	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
+
+	"leveled_pickup"								"1"
+
+	//	Reveal dist
+	"minimap_reveal_distance"						"32000"
+
+	//	Weapon functionality
+	"OnWeaponDeactivate"							"OnWeaponDeactivate_MortarTone_NuclearStrike"
+
+	"OnWeaponChargeBegin"							"OnAbilityCharge_MortarTone_NuclearStrike"
+	"OnWeaponChargeEnd"								"OnAbilityChargeEnd_MortarTone_NuclearStrike"
+
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_MortarTone_NuclearStrike"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_MortarTone_NuclearStrike"
+
+	"OnProjectileCollision"							"OnProjectileCollision_MortarTone_NuclearStrike"
+	"OnProjectileIgnite"							"OnProjectileIgnite_MortarTone_NuclearStrike"
+
+	"OnWeaponAttemptOffhandSwitch"					"CheckCoreAvailable"
+
+
+	//		Menu
+    //	Menu stat values
+    "stat_damage" 									""
+	"stat_range"  									""
+	"stat_accuracy"   								""
+	"stat_rof"										""
+
+
+	//		Models
+	"viewmodel"   									""
+	"playermodel" 									""
+
+	"projectilemodel" 								"models/weapons/bullets/projectile_rocket_largest.mdl"
+
+
+
+	//		Effects
+	//	Charge
+	"charge_effect_1p"								""
+	"charge_effect_3p"								""
+
+	"charge_effect2_3p"								""
+
+	//	Muzzle flash
+	"fx_muzzle_flash_view"							""
+	"fx_muzzle_flash_world"							""
+	"fx_muzzle_flash_attach"						""
+
+	//	Shell Ejection
+	"fx_shell_eject_view"							""
+	"fx_shell_eject_world"							""
+	"fx_shell_eject_attach"							""
+
+	//	Tracer & trail fx
+	"projectile_trail_effect_0" 					"Rocket_Smoke_SMALL_Titan_2"
+	"projectile_trail_attachment" 					"exhaust"
+
+	"projectile_adjust_to_gun_barrel"				"0"
+
+	//	Impact/bounce fx
+	"impact_effect_table" 							"exp_rocket_dumbfire"
+
+	//	Vortex fx
+	"vortex_absorb_effect"							"wpn_vortex_projectile_rocket_FP"
+	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rocket"
+
+
+
+	//		Sounds
+	//	Reload/ready
+	"sound_weapon_ready"							""
+
+	//	Zoom
+	"sound_zoom_in"									""
+	"sound_zoom_out"								""
+
+	"sound_pickup"									""
+
+	//	Trigger
+	"sound_trigger_pull"							""
+	"sound_trigger_release" 						""
+
+	//	Charge
+	"charge_sound_1p"								"weapon_coreability_salvo_fire_chargeup_1p"
+	"charge_sound_3p"								"weapon_coreability_salvo_chargeup_3p"
+
+	//	Fire
+	"fire_sound_1_player_1p"						""
+	"fire_sound_1_player_3p"						""
+
+	"fire_sound_1_npc"								""
+
+	"sound_dryfire"									""
+
+	//	Vortex
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbRocket"
+	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbRocket_1P_VS_3P"
+
+
+	// ======== Weapon properties ========
+
+	//		Fire handling
+	"offhand_keep_primary_in_hand"					"1"
+
+	//	Fire rate
+	"fire_rate"										"12"
+
+	"burst_fire_count"								"1"
+
+	//	Charge stats
+	"charge_time" 									"0.5"
+
+	"charge_cooldown_time"							"1.0"
+	"charge_cooldown_delay"   						"0.1"
+
+	"charge_require_input"							"0"
+	"charge_end_forces_fire"  						"1"
+
+	"charge_allow_melee"                            "0"
+
+	//	Core stuff
+	"core_build_time"								"150"
+
+	"chargeup_time"									"0.5"
+	"core_duration"									"0.1"
+
+	"passive"										"PAS_FUSION_CORE"
+
+	"readymessage"									"NUCLEAR STRIKE READY"
+	"readyhint"										"Press V to initiate a nuclear strike"
+
+	//		Projectile/bullet handling
+	//	Projectile params
+	"grenade_orient_to_velocity"					"1"
+
+	//	Vortex behavior
+	"projectile_ignores_vortex"						"fall_vortex"
+	"vortex_refire_behavior"  						"absorb"
+
+	//	Spread
+	"spread_stand_hip" 								"0"
+	"spread_stand_hip_run" 							"0"
+	"spread_stand_hip_sprint"                       "0"
+	"spread_stand_ads"  							"0"
+	"spread_crouch_hip"								"0"
+	"spread_crouch_ads"  							"0"
+	"spread_air_hip"	   							"0"
+	"spread_air_ads"   								"0"
+
+
+	//		Damage
+	//	Direct damage
+	"damage_near_value"   							"300"
+	"damage_far_value"								"300"
+
+	"damage_near_value_titanarmor"					"1500"
+	"damage_far_value_titanarmor" 					"1500"
+
+	"damage_near_distance"							"10000"
+	"damage_far_distance" 							"10000"
+
+	"damage_type" 									"burn"
+//	"damage_flags"									""
+
+	//	Explosion damage
+	"explosion_damage"								"75"
+	"explosion_damage_heavy_armor"					"2500"
+
+	"explosion_inner_radius"  						"350"
+	"explosionradius" 								"750"
+
+	//	Crit & Headshots
+	"allow_headshots" 								"0"
+	"critical_hit"									"0"
+
+	"trigger_snipercam"   							"1"
+
+
+	//		Ammunition
+	//	Ammo
+	"ammo_clip_size"   								"120"
+
+	"ammo_default_total"							"120"
+	"ammo_stockpile_max"							"120"
+
+	"ammo_no_remove_from_clip"                      "1"
+    "ammo_no_remove_from_stockpile"                 "1"
+
+	//	Reloading/regen
+	"reload_enabled"  								"1"
+	"empty_reload_only"   							"0"
+
+	"allow_empty_fire"								"0"
+	"allow_empty_click"   							"1"
+
+
+	//		Player usage
+	//	Swap time
+	"holster_time"									"0.5"
+	"deploy_time" 									"0.1"
+	"lower_time"  									"0.5"
+	"raise_time"  									"0.0"
+
+	//	Zoom
+	"zoom_time_in"									"0.1"
+	"zoom_time_out"   								"0.1"
+
+	"zoom_fov"										"55"
+
+	//	Aim Assist
+	"aimassist_disable_hipfire"						"1"
+	"aimassist_disable_ads"							"1"
+	"aimassist_disable_hipfire_humansonly"			"0"
+	"aimassist_disable_ads_humansonly"				"0"
+
+	"ammo_suck_behavior"							"offhand_weapons"
+
+
+	//		NPC usage
+	//	Range
+
+    //	Bursts
+
+	//	Aim
+
+    //	Proficiency
+
+
+	// ======== Animation ========
+
+	//   View Kick
+	"viewkick_spring" 								""
+
+
+	//   Bob
+	// Zoomed
+
+
+
+	//   Rumble
+	"fire_rumble"									""
+
+
+	//   Sway
+	// Zoomed
+
+
+
+
+	//   Network
+    MP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+	}
+
+	SP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"1"
+	}
+
+
+	//   WeaponED Unhandled Key/Values and custom script Key/Values
+
+
+    //   Weapon Mods
+	Mods
+	{
+
+	}
+
+
+	//   Crosshair
+    "red_crosshair_range" 							"2500"
+}

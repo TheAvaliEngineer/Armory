@@ -1,0 +1,21 @@
+#base "tarmory_geistronin_npc.txt"
+tarmory_geistronin_npc_nodmg {
+	MeleeDamageMin			0
+	MeleeDamageMax			0
+
+	MeleeDamageMinHeavyArmor	0
+	MeleeDamageMaxHeavyArmor	0
+
+	MeleeChargeDamageMin	0
+	MeleeChargeDamageMax	0
+
+	MeleeChargeDamageMinHeavyArmor	0
+	MeleeChargeDamageMaxHeavyArmor	0
+
+	MeleeDamageForce		0
+	MeleeChargeDamageForce 		0
+
+	meleeInterval			0
+	meleeChargeInterval		0
+	meleeMaxCombo			0
+}

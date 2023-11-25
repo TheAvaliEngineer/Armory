@@ -1,0 +1,297 @@
+WeaponData
+{
+	//		General
+	//	Name
+	"printname"   									""
+	"shortprintname"								""
+	"description" 									""
+	"longdesc" 										""
+
+	//	Icon (custom icons... someday)
+	"menu_icon"										""
+	"hud_icon"										""
+
+	//	Body type
+	"weaponClass" 									""
+	"weaponSubClass"								""
+    "body_type"										""
+	"fire_mode"   									""
+
+	//	Pickup
+	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
+
+	"leveled_pickup"								"1"
+
+	//	Reveal dist
+	"minimap_reveal_distance"						"32000"
+
+	//	Weapon functionality
+
+
+	//		Menu
+    //	Menu stat values
+    "stat_damage" 									""
+	"stat_range"  									""
+	"stat_accuracy"   								""
+	"stat_rof"										""
+
+
+	//		Models
+	"viewmodel"   									""
+	"playermodel" 									""
+
+	"projectilemodel" 								""
+
+
+
+	//		Effects
+	// Charge
+	"charge_effect_1p"								""
+	"charge_effect_3p"								""
+
+	"charge_effect2_3p"								""
+
+	//	Muzzle flash
+	"fx_muzzle_flash_view"							""
+	"fx_muzzle_flash_world"							""
+	"fx_muzzle_flash_attach"						""
+
+	//	Shell Ejection
+	"fx_shell_eject_view"							""
+	"fx_shell_eject_world"							""
+	"fx_shell_eject_attach"							""
+
+	//	Tracer & trail fx
+	"tracer_effect"   								""
+
+	"projectile_trail_effect_0" 					""
+
+	"projectile_adjust_to_gun_barrel"				""
+
+	//	Impact/bounce fx
+	"impact_effect_table" 							""
+
+	//	Vortex fx
+	"vortex_absorb_effect"							""
+	"vortex_absorb_effect_third_person"				""
+
+
+
+	//		Sounds
+	//	Reload/ready
+	"sound_weapon_ready"							""
+
+	//	Zoom
+	"sound_zoom_in"									""
+	"sound_zoom_out"								""
+
+	"sound_pickup"									""
+
+	//	Trigger
+	"sound_trigger_pull"							""
+	"sound_trigger_release" 						""
+
+	//	Charge
+	"charge_sound_1p"								""
+	"charge_sound_3p"								""
+
+	"charge_sound_stop_when_full"					""
+	"charge_sound_seek_to_charge_fraction"			""
+
+	"charge_drain_sound_1p"							""
+	"charge_drain_sound_3p"							""
+
+	"charge_drain_sound_stop_when_empty"			""
+	"charge_drain_sound_seek_to_charge_fraction"	""
+
+	//	Fire
+	"fire_sound_1_player_1p"						""
+	"fire_sound_1_player_3p"						""
+
+	"fire_sound_1_npc"								""
+
+	"sound_dryfire"									""
+
+	//	Vortex
+	"vortex_absorb_sound"							""
+	"vortex_absorb_sound_1p_vs_3p"					""
+
+
+	// ======== Weapon properties ========
+
+	//		Fire handling
+	//	Fire rate
+	"fire_rate"										""
+
+	//	Charge stats
+
+
+	//		Projectile/bullet handling
+	//	Projectile params
+
+	//	Vortex behavior
+	"vortex_refire_behavior"  						""
+
+	//	Spread
+
+
+	//		Damage
+	//	Direct damage
+	"damage_near_value"   							""
+	"damage_far_value"								""
+
+	"damage_near_value_titanarmor"					""
+	"damage_far_value_titanarmor" 					""
+
+	"damage_near_distance"							""
+	"damage_far_distance" 							""
+
+	"damage_type" 									""
+	"damage_flags"									""
+
+	//	Explosion damage
+	"explosion_damage"								""
+	"explosion_damage_heavy_armor"					""
+
+	"explosion_inner_radius"  						""
+	"explosionradius" 								""
+
+	//	Crit & Headshots
+	"allow_headshots" 								""
+	"damage_headshot_scale"							""
+
+	"critical_hit"									""
+	"critical_hit_damage_scale"						""
+
+	"trigger_snipercam"   							""
+
+
+	//		Ammunition
+	//	Ammo
+	"ammo_clip_size"   								""
+
+	"ammo_default_total"							""
+	"ammo_stockpile_max"							""
+
+	"ammo_no_remove_from_clip"                      ""
+    "ammo_no_remove_from_stockpile"                 ""
+
+	//	Reloading/regen
+	"reload_enabled"  								""
+	"empty_reload_only"   							""
+
+	"allow_empty_fire"								""
+	"allow_empty_click"   							""
+
+
+	//		Player usage
+	//	Swap time
+	"holster_time"									""
+	"deploy_time" 									""
+	"lower_time"  									""
+	"raise_time"  									""
+
+	//	Zoom
+	"zoom_time_in"									""
+	"zoom_time_out"   								""
+
+	"zoom_fov"										""
+
+	//	Movement handling
+	"primary_fire_does_not_block_sprint"			""
+	"crosshair_force_sprint_fade_disabled"          ""
+
+	//	Aim Assist
+	"aimassist_disable_hipfire"						""
+	"aimassist_disable_ads"							""
+	"aimassist_disable_hipfire_humansonly"			""
+	"aimassist_disable_ads_humansonly"				""
+
+	"ammo_suck_behavior"							""
+
+
+	//		NPC usage
+	//	Range
+
+    //	Bursts
+
+	//	Aim
+
+    //	Proficiency
+
+
+	// ======== Animation ========
+
+	//   View Kick
+	"viewkick_spring" 								""
+
+
+	//   Bob
+	// Zoomed
+
+
+
+	//   Rumble
+	"fire_rumble"									""
+
+
+	//   Sway
+	// Zoomed
+
+
+
+
+	//   Network
+    MP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+	}
+
+	SP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"1"
+	}
+
+
+	//   WeaponED Unhandled Key/Values and custom script Key/Values
+
+
+    //   Weapon Mods
+	Mods
+	{
+
+	}
+
+
+	//   Crosshair
+    "red_crosshair_range" 							"2500"
+
+    active_crosshair_count				"1"
+	rui_crosshair_index					"0"
+
+    RUI_CrosshairData
+	{
+		DefaultArgs
+		{
+			adjustedSpread				weapon_spread
+			adsFrac 					player_zoomFrac
+			isSprinting					player_is_sprinting
+			isReloading					weapon_is_reloading
+			teamColor					crosshair_team_color
+			isAmped						weapon_is_amped
+			crosshairMovementX          crosshair_movement_x
+			crosshairMovementY          crosshair_movement_y
+		}
+
+		Crosshair_1
+		{
+			"ui"						"ui/crosshair_scorch"
+			"base_spread"				"14.0"
+			Args
+			{
+				isFiring				weapon_is_firing
+			}
+		}
+	}
+}

@@ -1,0 +1,40 @@
+globalize_all_functions
+
+int function TArmory_WeightedRound( float x ) {
+	int intPart = x.tointeger()
+	float floatPart = x - intPart
+
+	return (RandomFloatRange( 0.0, 1.0 ) > fabs( floatPart )) ? intPart : intPart + 1
+}
+
+float function TArmory_SmoothMin( float a, float b, float k ) {
+    float h = max( k - fabs(a - b), 0.0 ) / k;
+    return min( a, b ) - h*h * k * (1.0 / 4.0);
+}
+
+vector function VecMultiply( vector a, vector b ) {
+	return Vector(a.x * b.x, a.y * b.y, a.z * b.z)
+}
+
+//	ECS things
+
+
+
+
+void function ArmoryECS_SignalLambda( void functionref( int ) ecsFunction, int ecsIndex, string signalName, array<entity> observers ) {
+	#if SERVER
+	thread SignalLambdaInternal( ecsFunction, ecsIndex, signalName, observers )
+	#endif
+}
+
+void function SignalLambdaInternal( void functionref( int ) f, int i, string s, array<entity> arr ) {
+	foreach( e in arr ) {
+		e.EndSignal( s )
+	}
+
+	OnThreadEnd( function() : (i, f) {
+		f( i )
+	})
+
+	WaitForever()
+}
