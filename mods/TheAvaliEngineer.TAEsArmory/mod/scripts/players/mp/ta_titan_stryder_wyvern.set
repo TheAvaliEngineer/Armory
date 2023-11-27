@@ -1,0 +1,10 @@
+#base "titan_stryder.set"
+"ta_titan_stryder_wyvern"	//	Big TODO here
+{
+	//	Shared energy
+	sharedEnergyTotal 1500
+	sharedEnergyRegenDelay 0.05
+
+	sharedEnergyRegenRate						100.0 	[$sp]	//	15 sec
+	sharedEnergyRegenRate						100.0 	[$mp]	//	15 sec
+}
