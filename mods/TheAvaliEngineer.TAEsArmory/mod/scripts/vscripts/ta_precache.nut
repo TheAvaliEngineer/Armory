@@ -52,9 +52,9 @@ void function TArmory_Precache() {
 
 	//	Wyvern
 	PrecacheHelper( "ta_wyvern_titanweapon_autorocket", "Swarmer", cdsIds )
-	TArmory_Init_WyvernNorthstar_Afterburners()
+	TAInit_Wyvern_Thrusters() //TArmory_Init_WyvernNorthstar_Afterburners()
 	//
-	TArmory_Init_WyvernNorthstar_Flight()
+	//TArmory_Init_WyvernNorthstar_Flight()
 	//
 
 	//	Phosphor

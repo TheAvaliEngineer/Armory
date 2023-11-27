@@ -3,13 +3,13 @@ void function TA_TitanFramework_UIInit() {
 	#if TARMORY_HAS_TITANFRAMEWORK
 	//	font is "alligator"
 
-//	 		    :::       ::: :::   ::: :::     ::: :::::::::: :::::::::  ::::    :::
-//  		   :+:       :+: :+:   :+: :+:     :+: :+:        :+:    :+: :+:+:   :+:
-// 		    +:+       +:+  +:+ +:+  +:+     +:+ +:+        +:+    +:+ :+:+:+  +:+
-// 	 	   +#+  +:+  +#+   +#++:   +#+     +:+ +#++:++#   +#++:++#:  +#+ +:+ +#+
-//		  +#+ +#+#+ +#+    +#+     +#+   +#+  +#+        +#+    +#+ +#+  +#+#+#
-//		  #+#+# #+#+#     #+#      #+#+#+#   #+#        #+#    #+# #+#   #+#+#
-//		  ###   ###      ###        ###     ########## ###    ### ###    ####
+	//	      :::       ::: :::   ::: :::     ::: :::::::::: :::::::::  ::::    :::
+	//	     :+:       :+: :+:   :+: :+:     :+: :+:        :+:    :+: :+:+:   :+:
+	//	    +:+       +:+  +:+ +:+  +:+     +:+ +:+        +:+    +:+ :+:+:+  +:+
+	//	   +#+  +:+  +#+   +#++:   +#+     +:+ +#++:++#   +#++:++#:  +#+ +:+ +#+
+	//	  +#+ +#+#+ +#+    +#+     +#+   +#+  +#+        +#+    +#+ +#+  +#+#+#
+	//	  #+#+# #+#+#     #+#      #+#+#+#   #+#        #+#    #+# #+#   #+#+#
+	//	  ###   ###      ###        ###     ########## ###    ### ###    ####
 
 	ModdedTitanData Wyvern
 
@@ -62,7 +62,7 @@ void function TA_TitanFramework_UIInit() {
 	ModdedTitanWeaponAbilityData Flight
 	Flight.custom = true
 	Flight.displayName = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT"
-	Flight.weaponName = "ta_wyvern_titanability_flight"
+	Flight.weaponName = "ta_wyvern_titanweapon_thrusters" //"ta_wyvern_titanability_flight"
 	Flight.description = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT_DESC"
 	Flight.image = $""
 	Wyvern.Left = Flight
@@ -105,24 +105,24 @@ void function TA_TitanFramework_UIInit() {
 	//	Images
 
 	//	Base titan
-	Geist.BaseSetFile = "titan_stryder_sniper"
-	Geist.BaseName = "northstar"
+	Geist.BaseSetFile = "titan_stryder_shotgun"
+	Geist.BaseName = "ronin"
 
 	//	Weapon
 	ModdedTitanWeaponAbilityData HeavyShotgun
 	HeavyShotgun.custom = true
-	HeavyShotgun.displayName = "#TA_TITAN_WYVERN_WEAPON_AUTOROCKET"
+	HeavyShotgun.displayName = "#TA_TITAN_GEIST_WEAPON_BURSTSG"
 	HeavyShotgun.weaponName = "ta_geist_titanweapon_burstsg"
-	HeavyShotgun.description = "#TA_TITAN_WYVERN_WEAPON_AUTOROCKET_DESC"
+	HeavyShotgun.description = "#TA_TITAN_GEIST_WEAPON_BURSTSG_DESC"
 	HeavyShotgun.image = $""
 	Geist.Primary = HeavyShotgun
 
 	//	Tactical
 	ModdedTitanWeaponAbilityData Holo
 	Holo.custom = true
-	Holo.displayName = "#TA_TITAN_WYVERN_TACTICAL_AFTERBURNERS"
+	Holo.displayName = "#TA_TITAN_GEIST_TACTICAL_HOLODISTRACT"
 	Holo.weaponName = "ta_geist_titanability_holodistract"
-	Holo.description = "#TA_TITAN_WYVERN_TACTICAL_AFTERBURNERS_DESC"
+	Holo.description = "#TA_TITAN_GEIST_TACTICAL_HOLODISTRACT_DESC"
 	Holo.image = $""
 	Geist.Mid = Holo
 

@@ -10,7 +10,8 @@ global function OnWeaponPrimaryAttack_WyvernNorthstar_Flight
 global function OnWeaponNpcPrimaryAttack_WyvernNorthstar_Flight
 #endif
 
-//		Data
+//			Data
+//		Flight
 //	Flight usage perams
 const float FLIGHT_DRAIN_TIME = 10.0
 const float FLIGHT_REGEN_TIME = 15.0
