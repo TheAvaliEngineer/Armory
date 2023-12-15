@@ -1,4 +1,4 @@
-untyped
+//untyped
 
 //		Function definitions
 global function TArmory_Init_Weapon_ChargePistol

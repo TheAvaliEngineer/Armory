@@ -38,11 +38,7 @@ WeaponData
     //	Menu stat values (DNE)
 
 
-	//		Models
-//	"viewmodel"   									""
-//	"playermodel" 									""
-
-//	"projectilemodel" 								""
+	//		Models (N/A)
 
 
 	//		Effects
@@ -87,7 +83,7 @@ WeaponData
 	//	Fire rate
 	"fire_rate"										"15.0"
 
-	"cooldown_type"									"ammo" //"ammo_deployed" //"ammo_timed"
+	"cooldown_type"									"shared_energy"
 
 	//	Charge stats
 //	"charge_time" 									"0.5"
