@@ -68,20 +68,37 @@ void function GravityArrowThink( entity projectile, entity hitEnt, vector normal
 	//
 
 
-	//	Create triggers
+	//		Triggers
+	int range = projectile.GetProjectileWeaponSettingFloat( eWeaponVar.explosionRadius )
 
+	//	Gravity
+	entity gravTrig = CreateEntity( "trigger_point_gravity" )
+	SetTeam( gravTrig, projectile.GetTeam() )
+	gravTrig.SetOrigin( projectile.GetOrigin() )
+	gravTrig.RoundOriginAndAnglesToNearestNetworkValue()
 
+	//	Normal
 	entity trig = CreateEntity( "trigger_cylinder" )
-
-	trig.SetRadius( PULL_RANGE )
-	trig.SetAboveHeight( PULL_RANGE )
-	trig.SetBelowHeight( PULL_RANGE )
-
+	SetTeam( trig, projectile.GetTeam() )
 	trig.SetOrigin( projectile.GetOrigin() )
+
+	trig.SetRadius( range )
+	trig.SetAboveHeight( range )
+	trig.SetBelowHeight( range )
+
 	SetGravityGrenadeTriggerFilters( projectile, trig )
 
-	trig.SetEnterCallback( OnGravGrenadeTrigEnter )
-	trig.SetLeaveCallback( OnGravGrenadeTrigLeave )
+	//trig.SetEnterCallback( OnGravGrenadeTrigEnter )
+	//trig.SetLeaveCallback( OnGravGrenadeTrigLeave )
 
 	//	Spawn & such
+	DispatchSpawn( gravTrig )
+	gravTrig.SearchForNewTouchingEntity()
+
+	DispatchSpawn( trig )
+	trig.SearchForNewTouchingEntity()
 }
+
+//	Trigger handling
+void function OnGravTriggerEnter( entity trigger, entity ent ) {}
+void function OnGravTriggerLeave( entity trigger, entity ent ) {}
