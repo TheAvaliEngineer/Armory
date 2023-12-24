@@ -41,13 +41,13 @@ void function TA_TitanFramework_UIInit() {
 	Wyvern.Primary = AutoRocket
 
 	//	Tactical
-	ModdedTitanWeaponAbilityData Afterburners
-	Afterburners.custom = true
-	Afterburners.displayName = "#TA_TITAN_WYVERN_TACTICAL_AFTERBURNERS"
-	Afterburners.weaponName = "ta_wyvern_titanweapon_afterburners"
-	Afterburners.description = "#TA_TITAN_WYVERN_TACTICAL_AFTERBURNERS_DESC"
-	Afterburners.image = $""
-	Wyvern.Mid = Afterburners
+	ModdedTitanWeaponAbilityData Thrusters
+	Thrusters.custom = true
+	Thrusters.displayName = "#TA_TITAN_WYVERN_TACTICAL_THRUSTERS"
+	Thrusters.weaponName = "ta_wyvern_titanweapon_thrusters"
+	Thrusters.description = "#TA_TITAN_WYVERN_TACTICAL_THRUSTERS_DESC"
+	Thrusters.image = $""
+	Wyvern.Mid = Thrusters
 
 	//	Ordinance
 	ModdedTitanWeaponAbilityData ChargeBall
@@ -59,13 +59,13 @@ void function TA_TitanFramework_UIInit() {
 	Wyvern.Right = ChargeBall
 
 	//	Defensive
-	ModdedTitanWeaponAbilityData Flight
-	Flight.custom = true
-	Flight.displayName = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT"
-	Flight.weaponName = "ta_wyvern_titanweapon_thrusters" //"ta_wyvern_titanability_flight"
-	Flight.description = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT_DESC"
-	Flight.image = $""
-	Wyvern.Left = Flight
+	ModdedTitanWeaponAbilityData TitanCloak2
+	TitanCloak2.custom = true
+	TitanCloak2.displayName = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT"
+	TitanCloak2.weaponName = "ta_wyvern_titanweapon_thrusters" //"ta_wyvern_titanability_flight"
+	TitanCloak2.description = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT_DESC"
+	TitanCloak2.image = $""
+	Wyvern.Left = TitanCloak2
 
 	//Core
 	ModdedTitanWeaponAbilityData StormCore
@@ -138,9 +138,9 @@ void function TA_TitanFramework_UIInit() {
 	//	Defensive
 	ModdedTitanWeaponAbilityData TitanCloak
 	TitanCloak.custom = true
-	TitanCloak.displayName = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT"
+	TitanCloak.displayName = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK"
 	TitanCloak.weaponName = "ta_geist_titanability_titancloak"
-	TitanCloak.description = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT_DESC"
+	TitanCloak.description = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK_DESC"
 	TitanCloak.image = $""
 	Geist.Left = TitanCloak
 

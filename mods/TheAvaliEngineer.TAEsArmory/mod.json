@@ -161,10 +161,16 @@
 			"Path": "weapons/titan/ta_wyvern_titanweapon_autorocket.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
+
+		{
+			"Path": "weapons/titan/ta_wyvern_titanweapon_thrusters.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
 		{
 			"Path": "weapons/titan/ta_wyvern_titanability_flight.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
+
 		{
 			"Path": "weapons/titan/ta_wyvern_titanweapon_afterburners.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
