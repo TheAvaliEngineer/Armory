@@ -41,13 +41,13 @@ void function TA_TitanFramework_UIInit() {
 	Wyvern.Primary = AutoRocket
 
 	//	Tactical
-	ModdedTitanWeaponAbilityData Thrusters
-	Thrusters.custom = true
-	Thrusters.displayName = "#TA_TITAN_WYVERN_TACTICAL_THRUSTERS"
-	Thrusters.weaponName = "ta_wyvern_titanweapon_thrusters"
-	Thrusters.description = "#TA_TITAN_WYVERN_TACTICAL_THRUSTERS_DESC"
-	Thrusters.image = $""
-	Wyvern.Mid = Thrusters
+	ModdedTitanWeaponAbilityData WyvernThrusters
+	WyvernThrusters.custom = true
+	WyvernThrusters.displayName = "#TA_TITAN_WYVERN_TACTICAL_THRUSTERS"
+	WyvernThrusters.weaponName = "ta_wyvern_titanweapon_thrusters"
+	WyvernThrusters.description = "#TA_TITAN_WYVERN_TACTICAL_THRUSTERS_DESC"
+	WyvernThrusters.image = $""
+	Wyvern.Mid = WyvernThrusters
 
 	//	Ordinance
 	ModdedTitanWeaponAbilityData ChargeBall
@@ -61,9 +61,9 @@ void function TA_TitanFramework_UIInit() {
 	//	Defensive
 	ModdedTitanWeaponAbilityData TitanCloak2
 	TitanCloak2.custom = true
-	TitanCloak2.displayName = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT"
+	TitanCloak2.displayName = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK"
 	TitanCloak2.weaponName = "ta_geist_titanability_titancloak" //"ta_wyvern_titanability_flight"
-	TitanCloak2.description = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT_DESC"
+	TitanCloak2.description = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK_DESC"
 	TitanCloak2.image = $""
 	Wyvern.Left = TitanCloak2
 

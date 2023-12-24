@@ -125,7 +125,7 @@ WeaponData
 
 	//		Ammunition
 	//	Ammo
-	"ammo_display"									"bar"
+	"ammo_display"									"shared_energy"
 
 	"no_ammo_used_on_primary_attack"				"1"
 	"ammo_drains_to_empty_on_fire"					"0"
