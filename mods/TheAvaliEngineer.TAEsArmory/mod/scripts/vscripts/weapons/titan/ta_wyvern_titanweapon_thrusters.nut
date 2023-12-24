@@ -1,3 +1,5 @@
+untyped
+
 //		Func Declarations
 global function TAInit_Wyvern_Thrusters
 
