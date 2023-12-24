@@ -182,6 +182,81 @@ bool function ApplyActivationCost( entity weapon, float frac ) {
 
 
 #if SERVER
+//	Signaling
+void function FlightStartListener( entity owner, entity flightWeapon ) {
+	//	Math
+	int maxAmmo = flightWeapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
+	float dischargeRate = -(maxAmmo / FLIGHT_DRAIN_TIME)
+
+	//	Signaling
+	owner.EndSignal( "OnDeath" )
+	owner.EndSignal( "TitanEjectionStarted" )
+
+	flightWeapon.EndSignal( "OnDestroy" )
+
+	//	Listener loop
+	while(1) {
+		flightWeapon.WaitSignal( "StartFlight" )
+
+		//	Signal recieved
+		if( !flightWeapon.s.flightReady ) continue
+
+		print("[TAEsArmory] FlightSystem: Flight started (via signal)")
+
+		flightWeapon.s.changeRate = dischargeRate
+		flightWeapon.s.flightReady = false
+
+		//	Begin flight
+		BeginFlight( owner, flightWeapon )
+	}
+}
+
+void function FlightStopListener( entity owner, entity flightWeapon ) {
+	//	Signaling
+	owner.EndSignal( "OnDeath" )
+	owner.EndSignal( "TitanEjectionStarted" )
+
+	flightWeapon.EndSignal( "OnDestroy" )
+
+	//	Listener loop
+	while(1) {
+		flightWeapon.WaitSignal( "StopFlight" )
+
+		//	Signal recieved
+		print("[TAEsArmory] FlightSystem: Flight stopped (via signal)")
+
+		flightWeapon.s.nextUseTime = Time() + FLIGHT_COOL_DELAY
+		flightWeapon.s.flightReady = false
+
+		//	End flight
+		EndFlight( owner, flightWeapon )
+	}
+}
+
+void function FlightBreakListener( entity owner, entity flightWeapon ) {
+	//	Signaling
+	owner.EndSignal( "OnDeath" )
+	owner.EndSignal( "TitanEjectionStarted" )
+
+	flightWeapon.EndSignal( "OnDestroy" )
+
+	//	Listener loop
+	while(1) {
+		flightWeapon.WaitSignal( "BreakFlight" )
+
+		//	Signal recieved
+		print("[TAEsArmory] FlightSystem: Flight broken (via signal)")
+
+		flightWeapon.SetWeaponPrimaryClipCount( 0 )
+
+		flightWeapon.s.nextUseTime = Time() + FLIGHT_BREAK_DELAY
+		flightWeapon.s.flightReady = false
+
+		//	End flight
+		EndFlight( owner, flightWeapon )
+	}
+}
+
 //	Flight start/stop handling
 void function BeginFlight( entity owner, entity weapon ) {
 	if( !("flying" in weapon.s) ) {
@@ -275,81 +350,6 @@ void function EndFlight( entity owner, entity weapon ) {
 	//	SFX
 	StopSoundOnEntity( owner, "titan_flight_hover_1p" )
 	StopSoundOnEntity( owner, "titan_flight_hover_3p" )
-}
-
-//	Signaling
-void function FlightStartListener( entity owner, entity flightWeapon ) {
-	//	Math
-	int maxAmmo = flightWeapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
-	float dischargeRate = -(maxAmmo / FLIGHT_DRAIN_TIME)
-
-	//	Signaling
-	owner.EndSignal( "OnDeath" )
-	owner.EndSignal( "TitanEjectionStarted" )
-
-	flightWeapon.EndSignal( "OnDestroy" )
-
-	//	Listener loop
-	while(1) {
-		flightWeapon.WaitSignal( "StartFlight" )
-
-		//	Signal recieved
-		if( !flightWeapon.s.flightReady ) continue
-
-		print("[TAEsArmory] FlightSystem: Flight started (via signal)")
-
-		flightWeapon.s.changeRate = dischargeRate
-		flightWeapon.s.flightReady = false
-
-		//	Begin flight
-		BeginFlight( owner, flightWeapon )
-	}
-}
-
-void function FlightStopListener( entity owner, entity flightWeapon ) {
-	//	Signaling
-	owner.EndSignal( "OnDeath" )
-	owner.EndSignal( "TitanEjectionStarted" )
-
-	flightWeapon.EndSignal( "OnDestroy" )
-
-	//	Listener loop
-	while(1) {
-		flightWeapon.WaitSignal( "StopFlight" )
-
-		//	Signal recieved
-		print("[TAEsArmory] FlightSystem: Flight stopped (via signal)")
-
-		flightWeapon.s.nextUseTime = Time() + FLIGHT_COOL_DELAY
-		flightWeapon.s.flightReady = false
-
-		//	End flight
-		EndFlight( owner, flightWeapon )
-	}
-}
-
-void function FlightBreakListener( entity owner, entity flightWeapon ) {
-	//	Signaling
-	owner.EndSignal( "OnDeath" )
-	owner.EndSignal( "TitanEjectionStarted" )
-
-	flightWeapon.EndSignal( "OnDestroy" )
-
-	//	Listener loop
-	while(1) {
-		flightWeapon.WaitSignal( "BreakFlight" )
-
-		//	Signal recieved
-		print("[TAEsArmory] FlightSystem: Flight broken (via signal)")
-
-		flightWeapon.SetWeaponPrimaryClipCount( 0 )
-
-		flightWeapon.s.nextUseTime = Time() + FLIGHT_BREAK_DELAY
-		flightWeapon.s.flightReady = false
-
-		//	End flight
-		EndFlight( owner, flightWeapon )
-	}
 }
 
 //	Management thread

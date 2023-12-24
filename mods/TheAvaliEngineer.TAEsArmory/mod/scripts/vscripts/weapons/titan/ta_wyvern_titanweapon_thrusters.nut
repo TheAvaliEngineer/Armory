@@ -64,6 +64,13 @@ const asset THRUSTER_FLAMEOUT_FX = $""
 const float BLAST_SLOW_STRENGTH = 0.5
 const float BLAST_SLOW_DURATION = 2.0
 
+//		FX
+array<string> FX_ATTACH_POINTS = [
+	"FX_L_TOP_THRUST", "FX_R_TOP_THRUST",
+	"FX_L_BOT_THRUST", "FX_R_BOT_THRUST"
+]
+
+
 //		Funcs
 //	Init
 void function TAInit_Wyvern_Thrusters() {
@@ -171,6 +178,8 @@ int function Thrusters_OnFire( entity weapon, WeaponPrimaryAttackParams attackPa
 	if( owner.IsPlayer() ) {
 		PlayerUsedOffhand( owner, weapon )
 	}
+
+	return weapon.GetAmmoPerShot()
 }
 
 
@@ -222,7 +231,6 @@ float function GetChargeLevel( entity weapon ) {
 //		###        ########## ########### ########  ###    ###     ###
 
 #if SERVER
-
 //		Signaling functions
 //	This function listens for the StartFlight signal, triggered whenever flight
 //	is *started,* either by the user starting flight or via ascent ability.
@@ -250,7 +258,14 @@ void function FlightStartListener( entity owner, entity flightWeapon ) {
 		flightWeapon.s.flightReady = false
 
 		//	Begin flight
-		BeginFlight( owner, flightWeapon )
+		flightWeapon.s.flying = true
+
+		if( owner.IsPlayer() ) {
+			owner.SetTitanDisembarkEnabled( false )
+			SetFlightPhysics( owner, true )
+		}
+
+		StartFlightFX( owner, flightWeapon )
 	}
 }
 
@@ -274,7 +289,14 @@ void function FlightStopListener( entity owner, entity flightWeapon ) {
 		flightWeapon.s.flightReady = false
 
 		//	End flight
-		EndFlight( owner, flightWeapon )
+		flightWeapon.s.flying = false
+
+		if( owner.IsPlayer() ) {
+			owner.SetTitanDisembarkEnabled( true )
+			SetFlightPhysics( owner, false )
+		}
+
+		StopFlightFX( owner, flightWeapon )
 	}
 }
 
@@ -300,8 +322,78 @@ void function FlightBreakListener( entity owner, entity flightWeapon ) {
 		flightWeapon.s.flightReady = false
 
 		//	End flight
-		EndFlight( owner, flightWeapon )
+		flightWeapon.s.flying = false
+
+		if( owner.IsPlayer() ) {
+			owner.SetTitanDisembarkEnabled( true )
+			SetFlightPhysics( owner, false )
+		}
+
+		StopFlightFX( owner, flightWeapon )
 	}
+}
+
+//		Helper functions
+void function SetFlightPhysics( entity owner, bool flying ) {
+	if( flying ) {
+		owner.kv.airSpeed = FLIGHT_AIR_SPEED
+		owner.kv.airAcceleration = FLIGHT_AIR_ACCEL
+
+		owner.kv.gravity = 0
+
+		owner.SetGroundFrictionScale( FLIGHT_FRICTION )
+	} else {
+		owner.kv.airSpeed = owner.GetPlayerSettingsField( "airSpeed" )
+		owner.kv.airAcceleration = owner.GetPlayerSettingsField( "airAcceleration" )
+
+		owner.kv.gravity = owner.GetPlayerSettingsField( "gravityScale" )
+
+		owner.SetGroundFrictionScale( 1. )
+	}
+}
+
+void function StartFlightFX( entity owner, entity weapon ) {
+	//		FX
+	if( !("thrusterFX" in weapon.s) )
+		weapon.s.thrusterFX <- []
+
+	//	Attachment check
+	if( owner.LookupAttachment( "FX_L_BOT_THRUST" ) != 0 ) {
+		int largeJetIdx = GetParticleSystemIndex( $"P_xo_jet_fly_large" )
+		int smallJetIdx = GetParticleSystemIndex( $"P_xo_jet_fly_small" )
+
+		array<int> attachIdxs = [ smallJetIdx, smallJetIdx, largeJetIdx, largeJetIdx ]
+
+		for( int i = 0; i < 4; i++ ) {
+			int thrusterFXattachID = owner.LookupAttachment( FX_ATTACH_POINTS[i] )
+			entity fx = StartParticleEffectOnEntity_ReturnEntity( owner, attachIdxs[i], FX_PATTACH_POINT_FOLLOW, thrusterFXattachID )
+
+			fx.kv.VisibilityFlags = ENTITY_VISIBLE_TO_EVERYONE | ENTITY_VISIBLE_EXCLUDE_PARENT_PLAYER
+
+			weapon.s.thrusterFX.append( fx )
+		}
+	}
+
+	//		SFX
+	//	Liftoff
+	EmitSoundOnEntityOnlyToPlayer( owner, owner, "titan_flight_liftoff_1p" )
+	EmitSoundOnEntityExceptToPlayer( owner, owner, "titan_flight_liftoff_3p" )
+
+	//	Ambient
+	EmitSoundOnEntityOnlyToPlayer( owner, owner, "titan_flight_hover_1p" )
+	EmitSoundOnEntityExceptToPlayer( owner, owner, "titan_flight_hover_3p" )
+}
+
+void function StopFlightFX( entity owner, entity weapon ) {
+	//	FX
+	foreach( fx in weapon.s.thrusterFX ) {
+		if( IsValid(fx) )
+			fx.Destroy()
+	}
+
+	//	SFX
+	StopSoundOnEntity( owner, "titan_flight_hover_1p" )
+	StopSoundOnEntity( owner, "titan_flight_hover_3p" )
 }
 
 //		Management thread
@@ -322,9 +414,17 @@ void function FlightSystem( entity flightWeapon ) {
 
 	OnThreadEnd( function() : (owner, flightWeapon) {
 		print("[TAEsArmory] FlightSystem: Stopped FlightSystem")
+
+		if( IsValid(owner) && owner.IsPlayer() ) {
+			owner.SetTitanDisembarkEnabled( true )
+			SetFlightPhysics( owner, false )
+		}
+
 		if( IsValid(flightWeapon) ) {
-			EndFlight( owner, flightWeapon )
+			flightWeapon.s.flying = false
 			flightWeapon.s.shouldStartThreads = true
+
+			StopFlightFX( owner, flightWeapon )
 		}
 	})
 
@@ -333,20 +433,17 @@ void function FlightSystem( entity flightWeapon ) {
 	thread FlightStopListener( owner, flightWeapon )
 	thread FlightBreakListener( owner, flightWeapon )
 
-	//	Math
-	int maxAmmo = flightWeapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
-
-	float dischargeRate = -(maxAmmo / FLIGHT_DRAIN_TIME)
-	float chargeRate = maxAmmo / FLIGHT_REGEN_TIME
-
 	//	System
+	float prevTime = Time()
 	float changeStack = 0
 	while(1) {
 		WaitFrame()
 
-		FlightStateSystem( flightWeapon, dischargeRate, chargeRate )
-		FlightPhysicsSystem( flightWeapon, blastWeapon )
-		changeStack = FlightAmmoSystem( flightWeapon, changeStack )
+		FlightStateSystem( flightWeapon, DRAIN_RATE, CHARGE_RATE )
+		FlightPhysicsSystem( owner, flightWeapon, blastWeapon )
+		changeStack = FlightAmmoSystem( flightWeapon, changeStack, prevTime )
+
+		prevTime = Time()
 	}
 }
 
@@ -354,6 +451,7 @@ void function FlightSystem( entity flightWeapon ) {
 void function FlightStateSystem( entity flightWeapon, float dischargeRate, float chargeRate ) {
 	//		Change state
 	int ammo = flightWeapon.GetWeaponPrimaryClipCount()
+	int maxAmmo = flightWeapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
 
 	//	Flight battery is empty (negates startFlight)
 	if( ammo == 0 && flightWeapon.s.changeRate < 0. ) {
@@ -382,7 +480,7 @@ void function FlightStateSystem( entity flightWeapon, float dischargeRate, float
 	}
 }
 
-void function FlightPhysicsSystem( entity flightWeapon, entity blastWeapon ) {
+void function FlightPhysicsSystem( entity owner, entity flightWeapon, entity blastWeapon ) {
 	//	Retrieve changeRate
 	float changeRate = expect float( flightWeapon.s.changeRate )
 
@@ -424,7 +522,9 @@ void function FlightPhysicsSystem( entity flightWeapon, entity blastWeapon ) {
 	}
 }
 
-float function FlightAmmoSystem( entity flightWeapon, float changeStack ) {
+float function FlightAmmoSystem( entity flightWeapon, float changeStack, float prevTime ) {
+	int maxAmmo = flightWeapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
+
 	//	Retrieve changeRate
 	float changeRate = expect float( flightWeapon.s.changeRate )
 
@@ -438,7 +538,7 @@ float function FlightAmmoSystem( entity flightWeapon, float changeStack ) {
 
 	changeStack -= float( changeStack.tointeger() )
 
-	prevTime = Time()
+	return changeStack
 }
 #endif
 

@@ -62,7 +62,7 @@ void function TA_TitanFramework_UIInit() {
 	ModdedTitanWeaponAbilityData TitanCloak2
 	TitanCloak2.custom = true
 	TitanCloak2.displayName = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT"
-	TitanCloak2.weaponName = "ta_wyvern_titanweapon_thrusters" //"ta_wyvern_titanability_flight"
+	TitanCloak2.weaponName = "ta_geist_titanability_titancloak" //"ta_wyvern_titanability_flight"
 	TitanCloak2.description = "#TA_TITAN_WYVERN_DEFENSIVE_FLIGHT_DESC"
 	TitanCloak2.image = $""
 	Wyvern.Left = TitanCloak2
