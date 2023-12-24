@@ -138,7 +138,7 @@ var function OnWeaponNpcPrimaryAttack_Wyvern_Thrusters( entity weapon, WeaponPri
 }
 #endif
 
-int Thrusters_OnFire( entity weapon, WeaponPrimaryAttackParams attackParams, bool playerFired ) {
+int function Thrusters_OnFire( entity weapon, WeaponPrimaryAttackParams attackParams, bool playerFired ) {
 	//	Owner validation
 	entity owner = weapon.GetWeaponOwner()
 	if( !IsValid( owner ) )
