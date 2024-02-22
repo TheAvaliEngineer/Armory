@@ -10,6 +10,9 @@ global function OnWeaponReload_Archer_GravityBow
 global function OnWeaponReadyToFire_Archer_GravityBow
 
 //		Data
+//	Charge behavior
+const int CHARGE_SHOT_LEVEL = 2
+const int POWER_SHOT_LEVEL = 5
 
 //		Funcs
 //	Init
@@ -38,7 +41,58 @@ var function OnWeaponNpcPrimaryAttack_Archer_GravityBow( entity weapon, WeaponPr
 #endif
 
 int function FireGravityBow( entity weapon, WeaponPrimaryAttackParams attackParams, bool playerFired ) {
+	//	Owner validity check
+	entity owner = weapon.GetWeaponOwner()
+	if( !IsValid(owner) ) return 0
 
+	//	Projectile creation check
+    bool shouldCreateProjectile = false
+    if( IsServer() || weapon.ShouldPredictProjectiles() )
+		shouldCreateProjectile = true
+	#if CLIENT
+		if( !playerFired )
+			shouldCreateProjectile = false
+	#endif
+
+	if( !shouldCreateProjectile )
+		return 1
+
+	//	Get charge
+	int boltSpeed = expect int( weapon.GetWeaponInfoFileKeyField( "bolt_speed" ) )
+	int damageFlags = weapon.GetWeaponDamageFlags()
+
+	entity bolt = weapon.FireWeaponBolt( attackParams.pos, attackParams.dir, boltSpeed, damageFlags, damageFlags, playerFired, 0 )
+	if( bolt ) {
+		//	Set additional bullets
+		int chargeLevel = GravityBow_GetChargeLevel( weapon )
+		bolt.s.damageInstances <- chargeLevel
+
+		if( chargeLevel >= CHARGE_SHOT_LEVEL && chargeLevel < POWER_SHOT_LEVEL )
+			bolt.s.damageInstances = CHARGE_SHOT_LEVEL
+
+		//	Set additional damage
+		bolt.s.extraDamagePerBullet <- weapon.GetWeaponSettingInt( eWeaponVar.damage_additional_bullets )
+		bolt.s.extraDamagePerBullet_Titan <- weapon.GetWeaponSettingInt( eWeaponVar.damage_additional_bullets_titanarmor )
+	}
+}
+
+//	Charge handling
+int function GravityBow_GetChargeLevel( entity weapon ) {
+	if( !IsValid( weapon ) )
+		return 0
+
+	entity owner = weapon.GetWeaponOwner()
+	if( !IsValid( owner ) )
+		return 0
+
+	if( !owner.IsPlayer() )
+		return 3
+
+	if( !weapon.IsReadyToFire() )
+		return 0
+
+	int charge = weapon.GetWeaponChargeLevel()
+	return charge // (1 + charge)
 }
 
 //	Reload handling
@@ -65,9 +119,6 @@ void function OnWeaponReadyToFire_GeistRonin_BurstSG( entity weapon ) {
 
 //	Gravity handling
 void function GravityArrowThink( entity projectile, entity hitEnt, vector normal, vector pos ) {
-	//
-
-
 	//		Triggers
 	int range = projectile.GetProjectileWeaponSettingFloat( eWeaponVar.explosionRadius )
 
@@ -88,8 +139,9 @@ void function GravityArrowThink( entity projectile, entity hitEnt, vector normal
 
 	SetGravityGrenadeTriggerFilters( projectile, trig )
 
-	//trig.SetEnterCallback( OnGravGrenadeTrigEnter )
-	//trig.SetLeaveCallback( OnGravGrenadeTrigLeave )
+	//	Callbacks
+	trig.SetEnterCallback( OnGravTriggerEnter )
+	trig.SetLeaveCallback( OnGravTriggerLeave )
 
 	//	Spawn & such
 	DispatchSpawn( gravTrig )
@@ -100,5 +152,36 @@ void function GravityArrowThink( entity projectile, entity hitEnt, vector normal
 }
 
 //	Trigger handling
-void function OnGravTriggerEnter( entity trigger, entity ent ) {}
-void function OnGravTriggerLeave( entity trigger, entity ent ) {}
+void function OnGravTriggerEnter( entity trigger, entity ent ) {
+	//	NPC Check
+	if( !ent.IsNPC() )
+		return
+
+	//	Dead check
+	if( !IsAlive( ent ) )
+		return
+
+	//	Allied check
+	if( ent.GetTeam() == trigger.GetTeam() )
+		return
+
+	//	Gravable check
+	if( !(IsGrunt( ent ) || IsSpectre( ent ) || IsStalker( ent )) )
+		return
+
+	//	Interruptable check
+	if( !ent.ContextAction_IsActive() && ent.IsInterruptable() ) {
+		ent.ContextAction_SetBusy()
+		ent.Anim_ScriptedPlayActivityByName( "ACT_FALL", true, 0.2 )
+
+		if ( IsGrunt( ent ) )
+			EmitSoundOnEntity( ent, "diag_efforts_gravStruggle_gl_grunt_3p" )
+
+		thread EndNPCGravGrenadeAnim( ent )
+	}
+}
+
+void function OnGravTriggerLeave( entity trigger, entity ent ) {
+	if ( IsValid( ent ) )
+		ent.Signal( "LeftGravityMine" )
+}

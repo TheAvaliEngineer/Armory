@@ -154,7 +154,7 @@ int function Thrusters_OnFire( entity weapon, WeaponPrimaryAttackParams attackPa
 		return 0
 
 	//	Insert table slots
-	OnWeaponActivate_WyvernNorthstar_Flight( weapon )
+	OnWeaponActivate_Wyvern_Thrusters( weapon )
 
 	#if SERVER
 	//	Update flight state

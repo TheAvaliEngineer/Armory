@@ -35,12 +35,12 @@
 		{
 			"Path": "ta_titan_utils.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP",
-			"ClientCallback": {
-				"After": "TArmory_Init_TitanUtils"
-			},
-			"ServerCallback": {
-				"After": "TArmory_Init_TitanUtils"
-			}
+//			"ClientCallback": {
+//				"After": "TArmory_Init_TitanUtils"
+//			},
+//			"ServerCallback": {
+//				"After": "TArmory_Init_TitanUtils"
+//			}
 		},
 
 		//			Equipment
@@ -94,6 +94,12 @@
 		},
 
 		//		Titan
+		//	Archer
+		{
+			"Path": "weapons/titan/ta_archer_primary_gravitybow.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
 		//	Bruiser
 		{
 			"Path": "weapons/titan/ta_tyrant_titanability_titangrapple.nut",
@@ -164,15 +170,6 @@
 
 		{
 			"Path": "weapons/titan/ta_wyvern_titanweapon_thrusters.nut",
-			"RunOn": "( CLIENT || SERVER ) && MP"
-		},
-		{
-			"Path": "weapons/titan/ta_wyvern_titanability_flight.nut",
-			"RunOn": "( CLIENT || SERVER ) && MP"
-		},
-
-		{
-			"Path": "weapons/titan/ta_wyvern_titanweapon_afterburners.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
 

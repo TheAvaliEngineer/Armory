@@ -34,39 +34,8 @@ void function TArmory_Precache() {
 	//	Abilities
 
 	//		Titan
-	//	Mortar
-	TArmory_Init_MortarTone_QuadRocket()
-
-	TArmory_Init_MortarTone_FlareLauncher()
-	TArmory_Init_MortarTone_Flares()
-	TArmory_Init_MortarTone_Rockets()
-	PrecacheHelper( "ta_mortar_titanweapon_proxmines", "Minefield", cdsIds )
-	TArmory_Init_MortarTone_NuclearStrike()
-
-	//	Geist
-	TArmory_Init_GeistRonin_BurstSG()
-	TArmory_Init_GeistRonin_HoloDistract()
-	//
-	TArmory_Init_GeistRonin_TitanCloak()
-	//
-
-	//	Wyvern
-	PrecacheHelper( "ta_wyvern_titanweapon_autorocket", "Swarmer", cdsIds )
-	TAInit_Wyvern_Thrusters() //TArmory_Init_WyvernNorthstar_Afterburners()
-	//
-	//TArmory_Init_WyvernNorthstar_Flight()
-	//
-
-	//	Phosphor
-	TArmory_Init_PhosphorScorch_Flamethrower()
-	//
-	TArmory_Init_PhosphorScorch_IncendiaryShell()
-	//
-	//
-
-
-	//	Tyrant
-	PrecacheHelper( "ta_tyrant_titanweapon_autocannon", "Autocannon", cdsIds )
+	//	Archer
+	TAInit_Archer_GravityBow()
 	//
 	//
 	//
@@ -80,6 +49,42 @@ void function TArmory_Precache() {
 	//
 
 
+
+	//	Geist
+	TArmory_Init_GeistRonin_BurstSG()
+	TArmory_Init_GeistRonin_HoloDistract()
+	//
+	TArmory_Init_GeistRonin_TitanCloak()
+	//
+
+	//	Mortar
+	TArmory_Init_MortarTone_QuadRocket()
+	TArmory_Init_MortarTone_FlareLauncher()
+	TArmory_Init_MortarTone_Flares()
+	TArmory_Init_MortarTone_Rockets()
+	PrecacheHelper( "ta_mortar_titanweapon_proxmines", "Minefield", cdsIds )
+	TArmory_Init_MortarTone_NuclearStrike()
+
+	//	Phosphor
+	TArmory_Init_PhosphorScorch_Flamethrower()
+	//
+	TArmory_Init_PhosphorScorch_IncendiaryShell()
+	//
+	//
+
+	//	Tyrant
+	PrecacheHelper( "ta_tyrant_titanweapon_autocannon", "Autocannon", cdsIds )
+	//
+	//
+	//
+	//
+
+	//	Wyvern
+	PrecacheHelper( "ta_wyvern_titanweapon_autorocket", "Swarmer", cdsIds )
+	TAInit_Wyvern_Thrusters() //TArmory_Init_WyvernNorthstar_Afterburners()
+	//
+	//TArmory_Init_WyvernNorthstar_Flight()
+	//
 
 	//		Damage sources
 	#if SERVER

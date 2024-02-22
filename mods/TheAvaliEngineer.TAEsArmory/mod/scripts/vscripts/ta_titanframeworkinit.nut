@@ -105,7 +105,7 @@ void function TA_TitanFramework_UIInit() {
 	//	Images
 
 	//	Base titan
-	Geist.BaseSetFile = "titan_stryder_shotgun"
+	Geist.BaseSetFile = "titan_stryder_leadwall"	//	titan_stryder_shotgun
 	Geist.BaseName = "ronin"
 
 	//	Weapon

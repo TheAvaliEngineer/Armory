@@ -47,9 +47,9 @@ void function TArmory_Init_TitanUtils() {
 
 	file.giveTable["northstar"] <- {}
 	file.giveTable["northstar"][-7] <- "ta_wyvern_titanweapon_autorocket"
-	file.giveTable["northstar"][OFFHAND_ANTIRODEO] <- "ta_wyvern_titanweapon_afterburners"
+//	file.giveTable["northstar"][OFFHAND_ANTIRODEO] <- "ta_wyvern_titanweapon_afterburners"
 	file.giveTable["northstar"][OFFHAND_ORDNANCE] <- "mp_titanweapon_shoulder_rockets" //"mp_titanweapon_homing_rockets"
-	file.giveTable["northstar"][OFFHAND_SPECIAL] <- "ta_wyvern_titanability_flight"
+//	file.giveTable["northstar"][OFFHAND_SPECIAL] <- "ta_wyvern_titanability_flight"
 //	file.giveTable["northstar"][OFFHAND_EQUIPMENT] <- "ta_mortar_titancore_nuclearstrike"
 
 	#if SERVER
