@@ -96,7 +96,7 @@ int function GravityBow_GetChargeLevel( entity weapon ) {
 }
 
 //	Reload handling
-void function OnWeaponReload_GeistRonin_BurstSG( entity weapon, int milestoneIndex ) {
+void function OnWeaponReload_Archer_GravityBow( entity weapon, int milestoneIndex ) {
 	//	Mod cleanup
 	weapon.RemoveMod("TArmory_ChargedShot")
 	weapon.RemoveMod("TArmory_ReloadHelper")
@@ -110,7 +110,7 @@ void function OnWeaponReload_GeistRonin_BurstSG( entity weapon, int milestoneInd
 	}
 }
 
-void function OnWeaponReadyToFire_GeistRonin_BurstSG( entity weapon ) {
+void function OnWeaponReadyToFire_Archer_GravityBow( entity weapon ) {
 	bool isChargedShot = weapon.HasMod("TArmory_ChargedShot")
 	if( !weapon.IsReloading() && !isChargedShot ) {
 		weapon.AddMod("TArmory_ReloadHelper")
