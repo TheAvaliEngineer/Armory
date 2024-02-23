@@ -1,3 +1,5 @@
+untyped
+
 //		Func Decs
 global function TAInit_Archer_GravityBow
 
@@ -74,6 +76,8 @@ int function FireGravityBow( entity weapon, WeaponPrimaryAttackParams attackPara
 		bolt.s.extraDamagePerBullet <- weapon.GetWeaponSettingInt( eWeaponVar.damage_additional_bullets )
 		bolt.s.extraDamagePerBullet_Titan <- weapon.GetWeaponSettingInt( eWeaponVar.damage_additional_bullets_titanarmor )
 	}
+
+	return 1
 }
 
 //	Charge handling
@@ -105,7 +109,7 @@ void function OnWeaponReload_Archer_GravityBow( entity weapon, int milestoneInde
 	if( owner.GetWeaponAmmoLoaded(weapon) >= 1 ) {
 		weapon.AddMod("TArmory_ChargedShot")
 		#if SERVER
-		StartChargeFX( weapon, owner )
+		//StartChargeFX( weapon, owner )
 		#endif
 	}
 }
@@ -137,7 +141,7 @@ void function GravityArrowThink( entity projectile, entity hitEnt, vector normal
 	trig.SetAboveHeight( range )
 	trig.SetBelowHeight( range )
 
-	SetGravityGrenadeTriggerFilters( projectile, trig )
+	SetGravityTriggerFilters( projectile, trig )
 
 	//	Callbacks
 	trig.SetEnterCallback( OnGravTriggerEnter )
@@ -184,4 +188,12 @@ void function OnGravTriggerEnter( entity trigger, entity ent ) {
 void function OnGravTriggerLeave( entity trigger, entity ent ) {
 	if ( IsValid( ent ) )
 		ent.Signal( "LeftGravityMine" )
+}
+
+void function SetGravityTriggerFilters( entity grav, entity trig ) {
+	if ( grav.GetTeam() == TEAM_IMC )
+		trig.kv.triggerFilterTeamIMC = "0"
+	else if ( grav.GetTeam() == TEAM_MILITIA )
+		trig.kv.triggerFilterTeamMilitia = "0"
+	trig.kv.triggerFilterNonCharacter = "0"
 }
