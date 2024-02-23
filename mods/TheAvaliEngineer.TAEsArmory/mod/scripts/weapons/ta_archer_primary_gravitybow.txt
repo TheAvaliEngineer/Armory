@@ -328,16 +328,18 @@ WeaponData
 			adsFrac 					player_zoomFrac
 			isSprinting					player_is_sprinting
 			isReloading					weapon_is_reloading
+			readyFrac                   progress_ready_to_fire_frac
 			teamColor					crosshair_team_color
 			isAmped						weapon_is_amped
+			chargeFrac                  player_chargeFrac
 			crosshairMovementX          crosshair_movement_x
 			crosshairMovementY          crosshair_movement_y
 		}
 
 		Crosshair_1
 		{
-			"ui"						"ui/crosshair_scorch"
-			"base_spread"				"14.0"
+			"ui"						"ui/crosshair_titan_sniper"
+			"base_spread"				"10.0"
 			Args
 			{
 				isFiring				weapon_is_firing

@@ -136,34 +136,15 @@ void function OnHit_GravityBow( entity victim, var damageInfo ) {
 
 	//	Calculate extra damage
 	int damageMultiplier = 1
-	if( "damageInstances" in projectile.s ) {
-		damageMultiplier = projectile.s.damageInstances
+	if( "damageInstances" in inflictor.s ) {
+		damageMultiplier = expect int( inflictor.s.damageInstances )
 	}
 
 	float damage = DamageInfo_GetDamage( damageInfo )
 	damage *= float( damageMultiplier )
 
-	//	Get critical status
-	if( IsCriticalHit(
-		DamageInfo_GetAttacker( damageInfo ), victim,
-		DamageInfo_GetHitBox( damageInfo ), damage,
-		DamageInfo_GetDamageType( damageInfo )
-	)) {
-		array<string> projectileMods = inflictor.ProjectileGetMods()
-		damage *= expect float( inflictor.ProjectileGetWeaponInfoFileKeyField( "critical_hit_damage_scale" ) )
-	}
-
 	//	Set the damage
 	DamageInfo_SetDamage( damageInfo, int( damage ) )
-
-	//	Cause knockback
-	float nearRange = 1000
-	float farRange = 1500
-	float nearScale = 0.5
-	float farScale = 0
-
-	if ( victim.IsTitan() )
-		PushEntWithDamageInfoAndDistanceScale( victim, damageInfo, nearRange, farRange, nearScale, farScale, 0.25 )
 }
 
 //	Gravity handling
