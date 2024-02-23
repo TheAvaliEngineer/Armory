@@ -25,10 +25,10 @@ void function TArmory_Init_MortarTone_FlareLauncher() {
 	//	FX precache
 	PrecacheParticleSystem( FLARE_PARTICLE_FX )
 
+    #if SERVER
 	//  Precache weapon
     PrecacheWeapon( "ta_mortar_titanweapon_flarelauncher" )
 
-    #if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_mortar_titanweapon_flarelauncher = "Flare Launcher",

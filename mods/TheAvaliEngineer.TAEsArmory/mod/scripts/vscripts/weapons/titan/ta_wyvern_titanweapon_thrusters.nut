@@ -77,15 +77,15 @@ void function TAInit_Wyvern_Thrusters() {
 	//	FX Precache
 	PrecacheModel( THRUSTER_HITBOX )
 
-	//  Precache weapon
-    PrecacheWeapon( "ta_wyvern_titanweapon_thrusters" )
-
 	//	Signaling
 	RegisterSignal( "StartFlight" )
 	RegisterSignal( "StopFlight" )
 	RegisterSignal( "BreakFlight" )
 
     #if SERVER
+	//  Precache weapon
+    PrecacheWeapon( "ta_wyvern_titanweapon_thrusters" )
+
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_wyvern_titanweapon_thrusters = "Backblast",

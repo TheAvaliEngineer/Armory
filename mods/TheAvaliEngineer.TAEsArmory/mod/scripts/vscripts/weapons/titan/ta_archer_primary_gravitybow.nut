@@ -17,10 +17,10 @@ const int POWER_SHOT_LEVEL = 5
 //		Funcs
 //	Init
 void function TAInit_Archer_GravityBow() {
-	//  Precache weapon
-    PrecacheWeapon( "ta_archer_primary_gravitybow" )
-
     #if SERVER
+	//  Precache weapon
+	PrecacheWeapon( "ta_archer_primary_gravitybow" )
+
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_archer_primary_gravitybow = "Gravity Bow",

@@ -28,10 +28,10 @@ void function TArmory_Init_Weapon_PlasmaBurst() {
 	PrecacheParticleSystem( PWAVE_BURNOUT_EFFECT_1P )
 	PrecacheParticleSystem( PWAVE_BURNOUT_EFFECT_3P )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_weapon_plasmaburst" )
 
-	#if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_weapon_plasmaburst = "Plasma Burst Rifle",

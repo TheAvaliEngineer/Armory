@@ -61,15 +61,15 @@ void function TArmory_Init_WyvernNorthstar_Flight() {
 	//	FX Precache
 	PrecacheModel( THRUSTER_HITBOX )
 
-	//  Precache weapon
-    PrecacheWeapon( "ta_wyvern_titanability_flight" )
-
 	//	Signaling
 	RegisterSignal( "StartFlight" )
 	RegisterSignal( "StopFlight" )
 	RegisterSignal( "BreakFlight" )
 
     #if SERVER
+	//  Precache weapon
+    PrecacheWeapon( "ta_wyvern_titanability_flight" )
+
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_wyvern_titanability_flight = "Flare",

@@ -11,11 +11,11 @@ global function OnWeaponNpcPrimaryAttack_Weapon_ChargePistol
 //		Functions
 // 	Init
 void function TArmory_Init_Weapon_ChargePistol() {
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_weapon_chargepistol" )
 
 	//	Custom damage type
-	#if SERVER
 	table<string, string> customDamageSourceIds = {
 		ta_weapon_chargepistol = "Electron",
 	}

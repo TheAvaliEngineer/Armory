@@ -25,10 +25,10 @@ const float KNIFE_VEL_FRAC_PARALLEL = 1.0
 //      Functions
 //  Init
 void function TArmory_Init_GrenadeKnife() {
+    #if SERVER
     //  Precache weapon
     PrecacheWeapon( "ta_grenade_knife" )
 
-    #if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_grenade_knife = "Throwing Knife",

@@ -56,10 +56,10 @@ void function TArmory_Init_GrenadeFuelTrail() {
 	PrecacheParticleSystem( FUEL_CLOUD_FX )
 	PrecacheParticleSystem( CLOUD_EXPLOSION_FX )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_grenade_fueltrail" )
 
-	#if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_grenade_fueltrail = "Fuel Trail Grenade",

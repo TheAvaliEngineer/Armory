@@ -29,10 +29,10 @@ const float MORTAR_MAX_SPREAD = 250.0
 //			Functions
 //		Init
 void function TArmory_Init_MortarTone_Rockets() {
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_mortar_titanweapon_rockets" )
 
-	#if SERVER
 	//	Add eDamageSourceId using Dinorush's server code
 	table<string, string> customDamageSourceIds = {
 		ta_mortar_titanweapon_rockets = "Rocket Salvo",

@@ -29,10 +29,10 @@ const float MINE_ANGLE_LIMIT = 0.5
 //		Functions
 //	Init
 void function TArmory_Init_AntiTitan_MineLauncher() {
+    #if SERVER
 	//  Precache weapon
 	PrecacheWeapon( "ta_weapon_minelauncher" )
 
-    #if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_weapon_minelauncher = "Mine Launcher",

@@ -34,10 +34,10 @@ global table< entity, array< entity > > flareData
 //		Functions
 //	Init
 void function TArmory_Init_MortarTone_Flares() {
+    #if SERVER
 	//  Precache weapon
     PrecacheWeapon( "ta_mortar_titanability_flares" )
 
-    #if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_mortar_titanability_flares = "Flares",

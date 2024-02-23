@@ -49,10 +49,10 @@ void function TArmory_Init_PhosphorScorch_IncendiaryShell() {
 	array<asset> staticFX = [ PHOSPHORUS_FX_STATIC_MD, PHOSPHORUS_FX_STATIC_MD, PHOSPHORUS_FX_STATIC_SM ]
 	phosphorusTableIdx = ThermiteECS_RegisterFXGroup( movingFX, staticFX )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_phosphor_titanweapon_incendiaryshell" )
 
-	#if SERVER
 	//	Add eDamageSourceId using Dinorush's server code
 	table<string, string> customDamageSourceIds = {
 		ta_phosphor_titanweapon_incendiaryshell = "Incendiary Shell",

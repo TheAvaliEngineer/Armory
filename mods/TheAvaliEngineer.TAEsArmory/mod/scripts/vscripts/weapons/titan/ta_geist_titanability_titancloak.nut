@@ -31,10 +31,10 @@ const float ACTIVATION_COST_FRAC = 0.05
 //		Functions
 //	Init
 void function TArmory_Init_GeistRonin_TitanCloak() {
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_geist_titanability_titancloak" )
 
-	#if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_geist_titanability_titancloak = "Titan Cloak",

@@ -25,13 +25,13 @@ void function TArmory_Init_Weapon_Railgun() {
 	PrecacheParticleSystem( CHARGE_EFFECT_1P )
 	PrecacheParticleSystem( CHARGE_EFFECT_3P )
 
-	//	Weapon precache
-	PrecacheWeapon( "ta_weapon_railgun" )
-
 	//	Signaling
 	RegisterSignal( "OnConsumeAmmo" )
 
 	#if SERVER
+	//	Weapon precache
+	PrecacheWeapon( "ta_weapon_railgun" )
+
 	//	Add eDamageSourceId using Dinorush's server code
 	table<string, string> customDamageSourceIds = {
 		ta_weapon_railgun = "PilotRailgun",

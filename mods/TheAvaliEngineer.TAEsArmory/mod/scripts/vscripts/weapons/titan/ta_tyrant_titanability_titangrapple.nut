@@ -116,10 +116,10 @@ void function TArmory_Init_BruiserScorch_TitanGrapple() {
 	PrecacheModel( TETHER_ROPE_MODEL )
 	PrecacheModel( TETHER_HOOK_MODEL )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_tyrant_titanability_titangrapple" )
 
-	#if SERVER
 	//	Custom eDamageSourceId
 	table<string, string> customDamageSourceIds = {
 		ta_tyrant_titanability_titangrapple = "Heavy Grapple",

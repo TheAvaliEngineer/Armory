@@ -27,10 +27,10 @@ void function TArmory_Init_GeistRonin_BurstSG() {
 	PrecacheParticleSystem( CHARGE_EFFECT_1P )
 	PrecacheParticleSystem( CHARGE_EFFECT_3P )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_geist_titanweapon_burstsg" )
 
-	#if SERVER
 	//	Add eDamageSourceId using Dinorush's server code
 	table<string, string> customDamageSourceIds = {
 		ta_geist_titanweapon_burstsg = "Scatterburst",

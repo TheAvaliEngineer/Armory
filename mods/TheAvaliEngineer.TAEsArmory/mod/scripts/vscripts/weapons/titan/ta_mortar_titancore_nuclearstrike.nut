@@ -41,11 +41,11 @@ void function TArmory_Init_MortarTone_NuclearStrike() {
 	PrecacheParticleSystem( NUCLEAR_STRIKE_FX_1P )
 	PrecacheParticleSystem( NUCLEAR_STRIKE_SUN_FX )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_mortar_titancore_nuclearstrike" )
 
 	//	Custom damage type
-	#if SERVER
 	table<string, string> customDamageSourceIds = {
 		ta_mortar_titancore_nuclearstrike = "Nuclear Strike",
 	}

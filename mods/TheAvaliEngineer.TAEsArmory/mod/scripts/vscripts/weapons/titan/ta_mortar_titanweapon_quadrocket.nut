@@ -29,10 +29,10 @@ void function TArmory_Init_MortarTone_QuadRocket() {
 	PrecacheParticleSystem( $"wpn_muzzleflash_xo_fp" )
 	PrecacheParticleSystem( $"P_muzzleflash_xo_mortar" )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_mortar_titanweapon_quadrocket" )
 
-	#if SERVER
 	//	Add eDamageSourceId using Dinorush's server code
 	table<string, string> customDamageSourceIds = {
 		ta_mortar_titanweapon_quadrocket = "Quad Rocket",

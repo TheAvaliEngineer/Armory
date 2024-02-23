@@ -18,13 +18,13 @@ const float BLAST_SLOW_DURATION = 2.0
 //		Functions
 //	Init
 void function TArmory_Init_WyvernNorthstar_Afterburners() {
-	//  Precache weapon
-    PrecacheWeapon( "ta_wyvern_titanweapon_afterburners" )
-
 	//	Signaling
 	RegisterSignal( "AfterburnerBlast" )
 
     #if SERVER
+	//  Precache weapon
+    PrecacheWeapon( "ta_wyvern_titanweapon_afterburners" )
+
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_wyvern_titanweapon_afterburners = "Afterburner Backblast",

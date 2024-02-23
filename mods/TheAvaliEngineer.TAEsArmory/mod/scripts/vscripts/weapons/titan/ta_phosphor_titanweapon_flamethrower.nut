@@ -42,10 +42,10 @@ void function TArmory_Init_PhosphorScorch_Flamethrower() {
 	array<asset> staticFX = [ GASOLINE_FX_STATIC_MD, GASOLINE_FX_STATIC_MD, GASOLINE_FX_STATIC_SM ]
 	gasolineTableIdx = ThermiteECS_RegisterFXGroup( movingFX, staticFX )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_phosphor_titanweapon_flamethrower" )
 
-	#if SERVER
 	//	Add eDamageSourceId using Dinorush's server code
 	table<string, string> customDamageSourceIds = {
 		ta_phosphor_titanweapon_flamethrower = "T-257 Inferno",

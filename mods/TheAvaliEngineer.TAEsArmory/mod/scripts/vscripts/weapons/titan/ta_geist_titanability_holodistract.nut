@@ -31,10 +31,10 @@ void function TArmory_Init_GeistRonin_HoloDistract() {
 	//	FX Precache
 	PrecacheParticleSystem( EMP_EXPLOSION_FX )
 
+	#if SERVER
 	//	Weapon Precache
 	PrecacheWeapon( "ta_geist_titanability_holodistract" )
 
-	#if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_geist_titanability_holodistract = "Hologram EMP Pulse",

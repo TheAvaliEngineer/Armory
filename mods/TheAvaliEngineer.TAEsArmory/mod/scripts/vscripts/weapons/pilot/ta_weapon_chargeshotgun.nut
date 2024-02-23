@@ -123,10 +123,10 @@ void function TArmory_Init_Weapon_ChargeShotgun() {
 	PrecacheParticleSystem( CHARGE_SG_BURNOUT_EFFECT_1P )
 	PrecacheParticleSystem( CHARGE_SG_BURNOUT_EFFECT_3P )
 
+	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_weapon_chargeshotgun" )
 
-	#if SERVER
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
 		ta_weapon_chargeshotgun = "Sunflower",
