@@ -2,20 +2,18 @@ WeaponData
 {
 	//		General
 	//	Name
-	"printname"   									""
-	"shortprintname"								""
-	"description" 									""
-	"longdesc" 										""
+	"printname"   									"Gravity Bow"
+	"shortprintname"								"Gravity Bow"
+	"description" 									"gravitybow WIP desc"
+	"longdesc" 										"gravitybow WIP longdesc"
 
 	//	Icon (custom icons... someday)
 	"menu_icon"										""
 	"hud_icon"										""
 
 	//	Body type
-	"weaponClass" 									""
-	"weaponSubClass"								""
-    "body_type"										""
-	"fire_mode"   									""
+	"weaponClass" 									"titan"
+	"weaponSubClass"								"semi-auto"
 
 	//	Pickup
 	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
@@ -27,21 +25,25 @@ WeaponData
 	"minimap_reveal_distance"						"32000"
 
 	//	Weapon functionality
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_Archer_GravityBow"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_Archer_GravityBow"
 
+	"OnWeaponReload"								"OnWeaponReload_Archer_GravityBow"
+	"OnWeaponReadyToFire"							"OnWeaponReadyToFire_Archer_GravityBow"
 
 	//		Menu
     //	Menu stat values
-    "stat_damage" 									""
-	"stat_range"  									""
-	"stat_accuracy"   								""
-	"stat_rof"										""
+    "stat_damage" 									"100"
+	"stat_range"  									"75"
+	"stat_accuracy"   								"85"
+	"stat_rof"										"12"
 
 
 	//		Models
-	"viewmodel"   									""
-	"playermodel" 									""
+	"viewmodel"   									"models/weapons/titan_thermite_launcher/atpov_titan_thermite_launcher.mdl"
+	"playermodel" 									"models/weapons/titan_thermite_launcher/w_titan_thermite_launcher.mdl"
 
-	"projectilemodel" 								""
+	"projectilemodel" 								"models/weapons/titan_trip_wire/titan_trip_wire_projectile.mdl" //"models/dev/empty_model.mdl"
 
 
 
@@ -106,16 +108,16 @@ WeaponData
 	"charge_drain_sound_seek_to_charge_fraction"	""
 
 	//	Fire
-	"fire_sound_1_player_1p"						""
-	"fire_sound_1_player_3p"						""
+	"fire_sound_1_player_1p"						"Wpn_TetherTrap_Deploy_1P"
+	"fire_sound_1_player_3p"						"Wpn_TetherTrap_Deploy_3P" // Wpn_TetherTrap_PopOpen_3p
 
-	"fire_sound_1_npc"								""
+	"fire_sound_1_npc"								"Wpn_TetherTrap_Deploy_3P"
 
-	"sound_dryfire"									""
+	"sound_dryfire"									"titan_dryfire"
 
 	//	Vortex
-	"vortex_absorb_sound"							""
-	"vortex_absorb_sound_1p_vs_3p"					""
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletLarge"
+	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbBulletLarge_1P_VS_3P"
 
 
 	// ======== Weapon properties ========
@@ -146,13 +148,33 @@ WeaponData
 	"bolt_hitsize_growfinal_lerptime"				"0.18"
 	"bolt_hitsize_growfinal_size"					"9.0"
 
-	"bolt_speed"									"12000"
-	"bolt_gravity_enabled"							"0"
+	"bolt_speed"									"4000"
+	"bolt_gravity_enabled"							"1"
 
 	//	Vortex behavior
-	"vortex_refire_behavior"  						""
+	"vortex_refire_behavior"  						"explosive_round"
 
 	//	Spread
+	"spread_crouch_hip"								"1.0"
+	"spread_stand_hip" 								"1.5"
+	"spread_stand_hip_run" 							"1.5"
+	"spread_air_hip"	   							"1.5"
+
+	"spread_crouch_ads"  							"0.0"
+	"spread_stand_ads"  							"0.0"
+	"spread_air_ads"   								"0.0"
+
+
+//	"spread_kick_on_fire_crouch_hip"  				"8.0"
+//	"spread_kick_on_fire_stand_hip"   				"8.0"
+//	"spread_kick_on_fire_air_hip" 					"8.0"
+
+//	"spread_max_kick_crouch_hip"  					"24.0"
+//	"spread_max_kick_stand_hip"   					"36.0"
+//	"spread_max_kick_air_hip" 						"36.0"
+
+//	"spread_decay_delay"  							"0.2"
+//	"spread_decay_rate"   							"16.0"
 
 
 	//		Damage
@@ -205,8 +227,8 @@ WeaponData
 	"allow_empty_fire"								"0"
 	"allow_empty_click"   							"1"
 
-	"reload_time" 									"0.67"
-	"reloadempty_time"								"0.67"
+	"reload_time" 									"0.5"
+	"reloadempty_time"								"0.5"
 
 
 	//		Player usage

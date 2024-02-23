@@ -28,6 +28,8 @@ void function TAInit_Archer_GravityBow() {
 		ta_archer_primary_gravitybow = "Gravity Bow",
 	}
 	RegisterWeaponDamageSources( customDamageSourceIds )
+
+	AddDamageCallbackSourceID( eDamageSourceId.ta_archer_primary_gravitybow, OnHit_GravityBow )
 	#endif
 }
 
@@ -121,10 +123,53 @@ void function OnWeaponReadyToFire_Archer_GravityBow( entity weapon ) {
 	}
 }
 
+#if SERVER
+//	Hit handling
+void function OnHit_GravityBow( entity victim, var damageInfo ) {
+	entity inflictor = DamageInfo_GetInflictor( damageInfo )
+
+	//	Checks
+	if ( !IsValid( inflictor ) )
+		return
+	if ( !inflictor.IsProjectile() )
+		return
+
+	//	Calculate extra damage
+	int damageMultiplier = 1
+	if( "damageInstances" in projectile.s ) {
+		damageMultiplier = projectile.s.damageInstances
+	}
+
+	float damage = DamageInfo_GetDamage( damageInfo )
+	damage *= float( damageMultiplier )
+
+	//	Get critical status
+	if( IsCriticalHit(
+		DamageInfo_GetAttacker( damageInfo ), victim,
+		DamageInfo_GetHitBox( damageInfo ), damage,
+		DamageInfo_GetDamageType( damageInfo )
+	)) {
+		array<string> projectileMods = inflictor.ProjectileGetMods()
+		damage *= expect float( inflictor.ProjectileGetWeaponInfoFileKeyField( "critical_hit_damage_scale" ) )
+	}
+
+	//	Set the damage
+	DamageInfo_SetDamage( damageInfo, int( damage ) )
+
+	//	Cause knockback
+	float nearRange = 1000
+	float farRange = 1500
+	float nearScale = 0.5
+	float farScale = 0
+
+	if ( victim.IsTitan() )
+		PushEntWithDamageInfoAndDistanceScale( victim, damageInfo, nearRange, farRange, nearScale, farScale, 0.25 )
+}
+
 //	Gravity handling
 void function GravityArrowThink( entity projectile, entity hitEnt, vector normal, vector pos ) {
 	//		Triggers
-	int range = projectile.GetProjectileWeaponSettingFloat( eWeaponVar.explosionRadius )
+	float range = projectile.GetProjectileWeaponSettingFloat( eWeaponVar.explosionRadius )
 
 	//	Gravity
 	entity gravTrig = CreateEntity( "trigger_point_gravity" )
@@ -181,7 +226,7 @@ void function OnGravTriggerEnter( entity trigger, entity ent ) {
 		if ( IsGrunt( ent ) )
 			EmitSoundOnEntity( ent, "diag_efforts_gravStruggle_gl_grunt_3p" )
 
-		thread EndNPCGravGrenadeAnim( ent )
+		thread EndNPCGravAnim( ent )
 	}
 }
 
@@ -197,3 +242,15 @@ void function SetGravityTriggerFilters( entity grav, entity trig ) {
 		trig.kv.triggerFilterTeamMilitia = "0"
 	trig.kv.triggerFilterNonCharacter = "0"
 }
+
+void function EndNPCGravAnim( entity ent ) {
+	ent.EndSignal( "OnDestroy" )
+	ent.EndSignal( "OnAnimationInterrupted" )
+	ent.EndSignal( "OnAnimationDone" )
+
+	ent.WaitSignal( "LeftGravityMine", "OnDeath" )
+
+	ent.ContextAction_ClearBusy()
+	ent.Anim_Stop()
+}
+#endif
