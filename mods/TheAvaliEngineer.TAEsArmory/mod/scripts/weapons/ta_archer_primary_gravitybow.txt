@@ -129,7 +129,7 @@ WeaponData
 	"charge_time" 									"2.0"
 	"charge_levels"									"4"	//	"5"	//	Had to reduce by 1 because quick shots wouldn't work
 
-	"charge_cooldown_time"							"1.0"
+	"charge_cooldown_time"							"0.25"
 	"charge_cooldown_delay"   						"0.0"
 
 	"charge_end_forces_fire"						"0"
@@ -148,8 +148,8 @@ WeaponData
 	"bolt_hitsize_growfinal_size"					"9.0"
 
 	"projectile_launch_speed"						"8000"
-	"projectile_launch_pitch_offset"				"1.5"
-	"projectile_gravity_scale"						"2.25"
+	"projectile_launch_pitch_offset"				"2.0"
+	"projectile_gravity_scale"						"2.05"
 
 	//	Vortex behavior
 	"vortex_refire_behavior"  						"explosive_round"
@@ -179,11 +179,14 @@ WeaponData
 
 	//		Damage
 	//	Direct damage
-	"damage_near_value"   							"300"
-	"damage_far_value"								"300"
+	"damage_near_value"   							"600"
+	"damage_far_value"								"600"
 
-	"damage_near_value_titanarmor"					"300"
-	"damage_far_value_titanarmor" 					"300"
+	"damage_near_value_titanarmor"					"900"
+	"damage_far_value_titanarmor" 					"900"
+
+	"damage_additional_bullets"						"150"
+	"damage_additional_bullets_titanarmor"			"275"
 
 	"damage_near_distance"							"1200"
 	"damage_far_distance" 							"2400"
@@ -192,18 +195,18 @@ WeaponData
 	"damage_flags"									"DF_BULLET | DF_ELECTRICAL | DF_KNOCK_BACK | DF_DISMEMBERMENT"
 
 	//	Explosion damage
-	"explosion_damage"								"0"
-	"explosion_damage_heavy_armor"					"0"
+	"explosion_damage"								"40"
+	"explosion_damage_heavy_armor"					"360"
 
-	"explosion_inner_radius"  						"0"
-	"explosionradius" 								"0"
+	"explosion_inner_radius"  						"100"
+	"explosionradius" 								"225"
 
 	//	Crit & Headshots
 	"allow_headshots" 								"1"
-	"damage_headshot_scale"							"2.0"
+	"damage_headshot_scale"							"1.5"
 
 	"critical_hit"									"1"
-	"critical_hit_damage_scale"						"2.0"
+	"critical_hit_damage_scale"						"1.5"
 
 	"trigger_snipercam"   							"1"
 
@@ -227,8 +230,8 @@ WeaponData
 	"allow_empty_fire"								"0"
 	"allow_empty_click"   							"1"
 
-	"reload_time" 									"0.5"
-	"reloadempty_time"								"0.5"
+	"reload_time" 									"0.33"
+	"reloadempty_time"								"0.33"
 
 
 	//		Player usage

@@ -63,7 +63,7 @@ int function FireGravityBow( entity weapon, WeaponPrimaryAttackParams attackPara
 
 	//	Get speed
 	float chargeFrac = GravityBow_GetChargeFraction( weapon )
-	float vel = Graph( chargeFrac, 0.0, 1.0, pow(0.2, 0.5), 1 )
+	float vel = Graph( chargeFrac, 0.0, 1.0, pow(0.33, 0.5), 1 )
 
 	//	Fire bolt
 	int damageFlags = weapon.GetWeaponDamageFlags()
@@ -71,7 +71,7 @@ int function FireGravityBow( entity weapon, WeaponPrimaryAttackParams attackPara
 	if( bolt ) {
 		//	Set additional bullets
 		int chargeLevel = GravityBow_GetChargeLevel( weapon )
-		bolt.s.damageInstances <- chargeLevel + 1	//	This fixes quick shots
+		bolt.s.damageInstances <- chargeLevel
 
 		if( chargeLevel >= CHARGE_SHOT_LEVEL && chargeLevel < POWER_SHOT_LEVEL )
 			bolt.s.damageInstances = CHARGE_SHOT_LEVEL
@@ -155,16 +155,19 @@ void function OnHit_GravityBow( entity victim, var damageInfo ) {
 		return
 
 	//	Calculate extra damage
-	int damageMultiplier = 1
+	int damageMultiplier = 0
 	if( "damageInstances" in inflictor.s ) {
 		damageMultiplier = expect int( inflictor.s.damageInstances )
 	}
 
-	float damage = DamageInfo_GetDamage( damageInfo )
-	damage *= float( damageMultiplier )
+	int damagePerBullet = expect int( projectile.s.extraDamagePerBullet )
+	if ( hitent.IsTitan() )
+		damagePerBullet = expect int( projectile.s.extraDamagePerBullet_Titan )
 
 	//	Set the damage
-	DamageInfo_SetDamage( damageInfo, int( damage ) )
+	float damage = DamageInfo_GetDamage( damageInfo )
+	float extraDamage = float( damagePerBullet ) * damageMultiplier
+	DamageInfo_SetDamage( damageInfo, int( damage + extraDamage ) )
 }
 
 //	Gravity handling
