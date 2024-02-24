@@ -43,7 +43,7 @@ WeaponData
 	"viewmodel"   									"models/weapons/titan_thermite_launcher/atpov_titan_thermite_launcher.mdl"
 	"playermodel" 									"models/weapons/titan_thermite_launcher/w_titan_thermite_launcher.mdl"
 
-	"projectilemodel" 								"models/weapons/titan_trip_wire/titan_trip_wire_projectile.mdl" //"models/dev/empty_model.mdl"
+	"projectilemodel" 								"models/weapons/bullets/projectile_rocket_largest.mdl" //"models/dev/empty_model.mdl"
 
 
 
@@ -65,19 +65,18 @@ WeaponData
 	"fx_shell_eject_attach"							""
 
 	//	Tracer & trail fx
-	"tracer_effect"   								""
+	"projectile_trail_effect_0" 					"P_titan_sniper1"
+	"projectile_trail_effect_1" 					"P_titan_sniper2"
+	"projectile_trail_effect_2" 					"P_titan_sniper3"
 
-	"projectile_trail_effect_0" 					""
-
-	"projectile_adjust_to_gun_barrel"				""
+	"projectile_adjust_to_gun_barrel"				"1"
 
 	//	Impact/bounce fx
-	"impact_effect_table" 							""
+	"impact_effect_table" 							"titan_sniper"
 
 	//	Vortex fx
-	"vortex_absorb_effect"							""
-	"vortex_absorb_effect_third_person"				""
-
+	"vortex_absorb_effect"							"wpn_vortex_projectile_40mm_FP"
+	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_40mm"
 
 
 	//		Sounds
@@ -128,7 +127,7 @@ WeaponData
 
 	//	Charge stats
 	"charge_time" 									"2.0"
-	"charge_levels"									"5"
+	"charge_levels"									"4"	//	"5"	//	Had to reduce by 1 because quick shots wouldn't work
 
 	"charge_cooldown_time"							"1.0"
 	"charge_cooldown_delay"   						"0.0"
@@ -148,8 +147,9 @@ WeaponData
 	"bolt_hitsize_growfinal_lerptime"				"0.18"
 	"bolt_hitsize_growfinal_size"					"9.0"
 
-	"bolt_speed"									"4000"
-	"bolt_gravity_enabled"							"1"
+	"projectile_launch_speed"						"8000"
+	"projectile_launch_pitch_offset"				"1.5"
+	"projectile_gravity_scale"						"2.25"
 
 	//	Vortex behavior
 	"vortex_refire_behavior"  						"explosive_round"

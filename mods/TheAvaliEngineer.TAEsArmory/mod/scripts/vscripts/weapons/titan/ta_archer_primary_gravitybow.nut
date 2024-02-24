@@ -61,15 +61,17 @@ int function FireGravityBow( entity weapon, WeaponPrimaryAttackParams attackPara
 	if( !shouldCreateProjectile )
 		return 1
 
-	//	Get charge
-	int boltSpeed = expect int( weapon.GetWeaponInfoFileKeyField( "bolt_speed" ) )
-	int damageFlags = weapon.GetWeaponDamageFlags()
+	//	Get speed
+	float chargeFrac = GravityBow_GetChargeFraction( weapon )
+	float vel = Graph( chargeFrac, 0.0, 1.0, pow(0.2, 0.5), 1 )
 
-	entity bolt = weapon.FireWeaponBolt( attackParams.pos, attackParams.dir, boltSpeed, damageFlags, damageFlags, playerFired, 0 )
+	//	Fire bolt
+	int damageFlags = weapon.GetWeaponDamageFlags()
+	entity bolt = weapon.FireWeaponBolt( attackParams.pos, attackParams.dir, vel * vel, damageFlags, damageFlags, playerFired, 0 )
 	if( bolt ) {
 		//	Set additional bullets
 		int chargeLevel = GravityBow_GetChargeLevel( weapon )
-		bolt.s.damageInstances <- chargeLevel
+		bolt.s.damageInstances <- chargeLevel + 1	//	This fixes quick shots
 
 		if( chargeLevel >= CHARGE_SHOT_LEVEL && chargeLevel < POWER_SHOT_LEVEL )
 			bolt.s.damageInstances = CHARGE_SHOT_LEVEL
@@ -98,6 +100,24 @@ int function GravityBow_GetChargeLevel( entity weapon ) {
 		return 0
 
 	int charge = weapon.GetWeaponChargeLevel()
+	return charge // (1 + charge)
+}
+
+float function GravityBow_GetChargeFraction( entity weapon ) {
+	if ( !IsValid( weapon ) )
+		return 0
+
+	entity owner = weapon.GetWeaponOwner()
+	if ( !IsValid( owner ) )
+		return 0
+
+	if ( !owner.IsPlayer() )
+		return 3
+
+	if ( !weapon.IsReadyToFire() )
+		return 0
+
+	float charge = weapon.GetWeaponChargeFraction()
 	return charge // (1 + charge)
 }
 
