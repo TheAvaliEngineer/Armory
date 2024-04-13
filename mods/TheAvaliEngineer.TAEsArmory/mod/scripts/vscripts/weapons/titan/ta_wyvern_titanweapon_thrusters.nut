@@ -165,23 +165,35 @@ int function Thrusters_OnFire( entity weapon, WeaponPrimaryAttackParams attackPa
 
 	#if SERVER
 	//	Update flight state
-	bool isDraining = weapon.s.changeRate < 0.;
+	bool isFlying = weapon.s.changeRate < 0.;
 	bool isBoosted = chargeFrac >= 1.;
 
-	if( isDraining ) {
+	if( isFlying ) {
+		if( isBoosted ) {
+			isFlying = ApplyActivationCost( weapon, AFTERBURNERS_COST )
+		}
+
+		if( isFlying ) {
+			weapon.AddMod( "TArmory_Flight_DiveHelper" )
+			weapon.Signal( "Backblast" )
+		}
+
 		weapon.Signal( "StopFlight" )
-
-
 	} else if( weapon.s.flightReady ) {
-		isDraining = ApplyActivationCost( weapon, FLIGHT_COST )
+		float cost = isBoosted ? AFTERBURNERS_COST : FLIGHT_COST
+		isFlying = ApplyActivationCost( weapon, cost )
 
-		if( isDraining ) {
+		if( isFlying ) {
 			weapon.Signal( "StartFlight" )
 
+			if( isBoosted ) {
+				weapon.Signal( "Backblast" )
+				weapon.AddMod( "TArmory_Flight_RiseHelper" )
+			}
 		}
 	}
 
-	if( !isDraining ) {
+	if( !isFlying ) {
 		EmitSoundOnEntityOnlyToPlayer( owner, owner, "coop_sentrygun_deploymentdeniedbeep" )
 	}
 	#endif
