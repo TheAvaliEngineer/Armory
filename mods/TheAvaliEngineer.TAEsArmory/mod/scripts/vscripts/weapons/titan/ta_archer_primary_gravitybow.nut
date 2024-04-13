@@ -11,6 +11,8 @@ global function OnWeaponNpcPrimaryAttack_Archer_GravityBow
 global function OnWeaponReload_Archer_GravityBow
 global function OnWeaponReadyToFire_Archer_GravityBow
 
+global function OnProjectileCollision_Archer_GravityBow
+
 //		Data
 //	Charge behavior
 const int CHARGE_SHOT_LEVEL = 2
@@ -65,20 +67,30 @@ int function FireGravityBow( entity weapon, WeaponPrimaryAttackParams attackPara
 	float chargeFrac = GravityBow_GetChargeFraction( weapon )
 	float vel = Graph( chargeFrac, 0.0, 1.0, pow(0.33, 0.5), 1 )
 
-	//	Fire bolt
+	vector angVel = Vector( 0, 0, 0 )
+
+	//	Fire projectile
 	int damageFlags = weapon.GetWeaponDamageFlags()
-	entity bolt = weapon.FireWeaponBolt( attackParams.pos, attackParams.dir, vel * vel, damageFlags, damageFlags, playerFired, 0 )
-	if( bolt ) {
+	entity proj = weapon.FireWeaponGrenade( attackParams.pos, attackParams.dir * vel * vel,
+		angVel, 0.0, damageFlags, damageFlags, !playerFired, PROJECTILE_PREDICTED, false )
+	//weapon.FireWeaponBolt( attackParams.pos, attackParams.dir, vel * vel, damageFlags, damageFlags, playerFired, 0 )
+	if( proj ) {
 		//	Set additional bullets
 		int chargeLevel = GravityBow_GetChargeLevel( weapon )
-		bolt.s.damageInstances <- chargeLevel
+		proj.s.damageInstances <- chargeLevel
 
 		if( chargeLevel >= CHARGE_SHOT_LEVEL && chargeLevel < POWER_SHOT_LEVEL )
-			bolt.s.damageInstances = CHARGE_SHOT_LEVEL
+		proj.s.damageInstances = CHARGE_SHOT_LEVEL
 
 		//	Set additional damage
-		bolt.s.extraDamagePerBullet <- weapon.GetWeaponSettingInt( eWeaponVar.damage_additional_bullets )
-		bolt.s.extraDamagePerBullet_Titan <- weapon.GetWeaponSettingInt( eWeaponVar.damage_additional_bullets_titanarmor )
+		proj.s.extraDamagePerBullet <- weapon.GetWeaponSettingInt( eWeaponVar.damage_additional_bullets )
+		proj.s.extraDamagePerBullet_Titan <- weapon.GetWeaponSettingInt( eWeaponVar.damage_additional_bullets_titanarmor )
+
+		#if SERVER
+		Grenade_Init( proj, weapon )
+		#else
+		SetTeam( proj, owner.GetTeam() )
+		#endif
 	}
 
 	return 1
@@ -145,7 +157,7 @@ void function OnWeaponReadyToFire_Archer_GravityBow( entity weapon ) {
 
 #if SERVER
 //	Hit handling
-void function OnHit_GravityBow( entity victim, var damageInfo ) {
+void function OnHit_GravityBow( entity hitEnt, var damageInfo ) {
 	entity inflictor = DamageInfo_GetInflictor( damageInfo )
 
 	//	Checks
@@ -160,20 +172,87 @@ void function OnHit_GravityBow( entity victim, var damageInfo ) {
 		damageMultiplier = expect int( inflictor.s.damageInstances )
 	}
 
-	int damagePerBullet = expect int( projectile.s.extraDamagePerBullet )
-	if ( hitent.IsTitan() )
-		damagePerBullet = expect int( projectile.s.extraDamagePerBullet_Titan )
+	int damagePerBullet = expect int( inflictor.s.extraDamagePerBullet )
+	if ( hitEnt.IsTitan() )
+		damagePerBullet = expect int( inflictor.s.extraDamagePerBullet_Titan )
 
 	//	Set the damage
 	float damage = DamageInfo_GetDamage( damageInfo )
 	float extraDamage = float( damagePerBullet ) * damageMultiplier
 	DamageInfo_SetDamage( damageInfo, int( damage + extraDamage ) )
 }
+#endif
+
+//	Collision
+void function OnProjectileCollision_Archer_GravityBow( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
+	//		Checks
+	//	Skip if hit arrow
+	if( hitEnt.IsProjectile() )
+		return
+
+	//	Try plant & skip if failure
+	vector plantDir = Normalize( projectile.GetVelocity() )
+	vector plantAngles = AnglesCompose( VectorToAngles( plantDir ), <0, 90, 0> )
+
+	table collisionParams = {
+		pos = pos,
+		normal = plantDir,
+		hitEnt = hitEnt,
+		hitbox = hitbox
+	}
+
+	bool planted = PlantStickyEntity( projectile, collisionParams ) //, plantAngles )
+	if( !planted ) return
+
+	//	After collision: Make non-solid, stop trails, correct pos/angles
+	projectile.kv.solid = 0
+	projectile.SetProjectilTrailEffectIndex( 4 )
+
+	vector plantOrigin = projectile.GetOrigin()
+	projectile.SetOrigin( plantOrigin + plantDir * 15 )
+
+	#if SERVER
+	//	Owner validity check
+	entity owner = projectile.GetOwner()
+	if( !IsValid( owner ) )
+		return
+
+	//	Handle gravity
+	array<string> mods = projectile.ProjectileGetMods()
+	if( mods.contains("TArmory_ChargedShot") && hitEnt.IsWorld() ) {
+		thread GravityArrowThink( projectile, hitEnt, normal, pos )
+	} else {
+		RadiusDamageData radiusDamage = GetRadiusDamageDataFromProjectile( projectile, owner )
+
+		RadiusDamage(
+			plantOrigin,										// origin
+			owner,												// owner
+			projectile,		 									// inflictor
+			radiusDamage.explosionDamage,						// normal damage
+			radiusDamage.explosionDamageHeavyArmor,				// heavy armor damage
+			radiusDamage.explosionInnerRadius,					// inner radius
+			radiusDamage.explosionRadius,						// outer radius
+			SF_ENVEXPLOSION_NO_NPC_SOUND_EVENT,					// explosion flags
+			0, 													// distanceFromAttacker
+			0, 													// explosionForce
+			0,													// damage flags
+			eDamageSourceId.ta_archer_primary_gravitybow		// damage source id
+		)
+	}
+	#endif
+}
+
+#if SERVER
+void function DespawnAfterTime( entity projectile, float delay ) {
+	wait delay
+	if( IsValid(projectile) )
+		projectile.Dissolve( ENTITY_DISSOLVE_CORE, Vector( 0, 0, 0 ), 100 )
+}
 
 //	Gravity handling
 void function GravityArrowThink( entity projectile, entity hitEnt, vector normal, vector pos ) {
 	//		Triggers
-	float range = projectile.GetProjectileWeaponSettingFloat( eWeaponVar.explosionRadius )
+	float range = projectile.GetProjectileWeaponSettingFloat( eWeaponVar.explosionradius )
 
 	//	Gravity
 	entity gravTrig = CreateEntity( "trigger_point_gravity" )

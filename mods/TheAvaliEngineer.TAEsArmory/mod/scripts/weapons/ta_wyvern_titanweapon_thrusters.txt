@@ -16,8 +16,7 @@ WeaponData
 	"weaponType"									"tactical"
 	"fire_mode"   									"offhand_instant"
 
-	"offhand_default_inventory_slot"				"0"
-	"dev_menu_type"									"offhand"
+	"offhand_keep_primary_in_hand"					"1"
 
 	//	Pickup
 	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
@@ -83,15 +82,15 @@ WeaponData
 	//	Fire rate
 	"fire_rate"										"15.0"
 
-	"cooldown_type"									"shared_energy"
+	"cooldown_type"									"ammo"	//"shared_energy_drain"
 
 	//	Charge stats
-//	"charge_time" 									"0.5"
+	"charge_time" 									"0.5"
 
-//	"charge_cooldown_time"							"1.0"
-//	"charge_cooldown_delay"   						"1.0"
+	"charge_cooldown_time"							"1.0"
+	"charge_cooldown_delay"   						"1.0"
 
-//	"charge_end_forces_fire"						"1"
+	"charge_end_forces_fire"						"1"
 
 	//		Projectile/bullet handling
 	//	Projectile params
@@ -125,7 +124,7 @@ WeaponData
 
 	//		Ammunition
 	//	Ammo
-	"ammo_display"									"shared_energy"
+	"ammo_display"									"count" //"shared_energy"
 
 	"no_ammo_used_on_primary_attack"				"1"
 	"ammo_drains_to_empty_on_fire"					"0"

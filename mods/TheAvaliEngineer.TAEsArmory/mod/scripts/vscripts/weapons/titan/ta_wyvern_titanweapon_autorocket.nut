@@ -32,8 +32,8 @@ int function AutoRocket_OnFire( entity weapon, WeaponPrimaryAttackParams attackP
 		vector bulletVec = ApplyVectorSpread( attackParams.dir, owner.GetAttackSpreadAngle() - 1.0 )
 		attackParams.dir = bulletVec
 
-		entity missile = weapon.FireWeaponMissile( attackParams.pos, attackParams.dir, 1.0,
-			DF_GIB | DF_EXPLOSION, DF_GIB | DF_EXPLOSION, !playerFired, playerFired )
+		entity missile = weapon.FireWeaponMissile( attackParams.pos + bulletVec * 50, attackParams.dir,
+			1.0, DF_GIB | DF_EXPLOSION, DF_GIB | DF_EXPLOSION, !playerFired, playerFired )
 		if( missile ) {
 			#if SERVER
 			EmitSoundOnEntity( missile, "Weapon_Sidwinder_Projectile" )

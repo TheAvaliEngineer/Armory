@@ -31,6 +31,8 @@ WeaponData
 	"OnWeaponReload"								"OnWeaponReload_Archer_GravityBow"
 	"OnWeaponReadyToFire"							"OnWeaponReadyToFire_Archer_GravityBow"
 
+	"OnProjectileCollision"							"OnProjectileCollision_Archer_GravityBow"
+
 	//		Menu
     //	Menu stat values
     "stat_damage" 									"100"
@@ -150,6 +152,9 @@ WeaponData
 	"projectile_launch_speed"						"8000"
 	"projectile_launch_pitch_offset"				"2.0"
 	"projectile_gravity_scale"						"2.05"
+
+	//	Grenade params
+	"grenade_fuse_time"								"15"
 
 	//	Vortex behavior
 	"vortex_refire_behavior"  						"explosive_round"
@@ -313,6 +318,10 @@ WeaponData
 			//		Ammunition
 			//	Ammo
 			"ammo_clip_size"   								"++1"
+		}
+
+		TArmory_ChargedShot {
+
 		}
 	}
 
