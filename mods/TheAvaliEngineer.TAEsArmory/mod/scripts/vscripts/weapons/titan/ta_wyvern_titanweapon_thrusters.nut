@@ -25,7 +25,7 @@ const float FLIGHT_BREAK_DELAY = 10.0
 
 //	Activation costs
 const float FLIGHT_COST = 0.05
-const float AFTERBURNERS_COST = 0.35
+const float AFTERBURNERS_COST = 0.45
 
 //	Flight physics perams (normal)
 const float FLIGHT_MAX_ALTI_DRY = 750
@@ -84,7 +84,7 @@ void function TAInit_Wyvern_Thrusters() {
 	RegisterSignal( "StopFlight" )
 	RegisterSignal( "BreakFlight" )
 
-	RegisterSignal( "AfterburnerBlast" )
+	RegisterSignal( "Backblast" )
 
     #if SERVER
 	//  Precache weapon
@@ -165,35 +165,38 @@ int function Thrusters_OnFire( entity weapon, WeaponPrimaryAttackParams attackPa
 
 	#if SERVER
 	//	Update flight state
-	bool isFlying = weapon.s.changeRate < 0.;
+	bool flyState = weapon.s.changeRate < 0.;
 	bool isBoosted = chargeFrac >= 1.;
 
-	if( isFlying ) {
-		if( isBoosted ) {
-			isFlying = ApplyActivationCost( weapon, AFTERBURNERS_COST )
-		}
+	bool hasMods = weapon.HasMod( "TArmory_Flight_DiveHelper" )
+	hasMods = hasMods || weapon.HasMod( "TArmory_Flight_RiseHelper" )
 
-		if( isFlying ) {
-			weapon.AddMod( "TArmory_Flight_DiveHelper" )
-			weapon.Signal( "Backblast" )
-		}
+	if( flyState ) {
+		if( isBoosted && !hasMods ) {
+			flyState = ApplyActivationCost( weapon, AFTERBURNERS_COST )
 
-		weapon.Signal( "StopFlight" )
-	} else if( weapon.s.flightReady ) {
-		float cost = isBoosted ? AFTERBURNERS_COST : FLIGHT_COST
-		isFlying = ApplyActivationCost( weapon, cost )
-
-		if( isFlying ) {
-			weapon.Signal( "StartFlight" )
-
-			if( isBoosted ) {
-				weapon.Signal( "Backblast" )
-				weapon.AddMod( "TArmory_Flight_RiseHelper" )
+			if( flyState ) {
+				weapon.AddMod( "TArmory_Flight_DiveHelper" )	//	Add mod to modify behavior
+				weapon.Signal( "Backblast" )					//	Signal to do damage
 			}
+		} else {
+			weapon.Signal( "StopFlight" )	//	Signal to stop flight logic (dive needs flight to continue)
+		}
+	} else if( weapon.s.flightReady ) {
+		float cost = (isBoosted && !hasMods) ? AFTERBURNERS_COST : FLIGHT_COST
+		flyState = ApplyActivationCost( weapon, cost )
+
+		if( flyState ) {
+			if( isBoosted && !hasMods ) {
+				weapon.AddMod( "TArmory_Flight_RiseHelper" )	//	Add mod to modify behavior
+				weapon.Signal( "Backblast" )					//	Signal to do damage
+			}
+
+			weapon.Signal( "StartFlight" )
 		}
 	}
 
-	if( !isFlying ) {
+	if( !flyState ) {
 		EmitSoundOnEntityOnlyToPlayer( owner, owner, "coop_sentrygun_deploymentdeniedbeep" )
 	}
 	#endif
@@ -274,7 +277,7 @@ void function FlightStartListener( entity owner, entity flightWeapon ) {
 
 		//	Signal recieved
 		if( !flightWeapon.s.flightReady ) continue
-		//print("[TAEsArmory] FlightSystem: Flight started (via signal)")
+		print("[TAEsArmory] FlightSystem: Flight started (via signal)")
 
 		flightWeapon.s.changeRate = dischargeRate
 		flightWeapon.s.flightReady = false
@@ -305,7 +308,7 @@ void function FlightStopListener( entity owner, entity flightWeapon ) {
 		flightWeapon.WaitSignal( "StopFlight" )
 
 		//	Signal recieved
-		//print("[TAEsArmory] FlightSystem: Flight stopped (via signal)")
+		print("[TAEsArmory] FlightSystem: Flight stopped (via signal)")
 
 		flightWeapon.s.nextUseTime = Time() + FLIGHT_COOL_DELAY
 		flightWeapon.s.flightReady = false
@@ -336,7 +339,7 @@ void function FlightBreakListener( entity owner, entity flightWeapon ) {
 		flightWeapon.WaitSignal( "BreakFlight" )
 
 		//	Signal recieved
-		//print("[TAEsArmory] FlightSystem: Flight broken (via signal)")
+		print("[TAEsArmory] FlightSystem: Flight broken (via signal)")
 
 		flightWeapon.SetWeaponPrimaryClipCount( 0 )
 
@@ -427,9 +430,6 @@ void function FlightSystem( entity flightWeapon ) {
 	if( !IsValid( owner ) )
 		return
 
-	//	Get afterburner weapon
-	entity blastWeapon = owner.GetOffhandWeapon( OFFHAND_ANTIRODEO )
-
 	//	Signals
 	owner.EndSignal( "OnDeath" )
 	owner.EndSignal( "TitanEjectionStarted" )
@@ -462,7 +462,7 @@ void function FlightSystem( entity flightWeapon ) {
 		WaitFrame()
 
 		FlightStateSystem( flightWeapon, DRAIN_RATE, CHARGE_RATE )
-		FlightPhysicsSystem( owner, flightWeapon, blastWeapon )
+		FlightPhysicsSystem( owner, flightWeapon )
 		changeStack = FlightAmmoSystem( flightWeapon, changeStack, prevTime )
 
 		prevTime = Time()
@@ -502,7 +502,7 @@ void function FlightStateSystem( entity flightWeapon, float dischargeRate, float
 	}
 }
 
-void function FlightPhysicsSystem( entity owner, entity flightWeapon, entity blastWeapon ) {
+void function FlightPhysicsSystem( entity owner, entity flightWeapon ) {
 	//	Retrieve changeRate
 	float changeRate = expect float( flightWeapon.s.changeRate )
 
@@ -524,14 +524,14 @@ void function FlightPhysicsSystem( entity owner, entity flightWeapon, entity bla
 		//print("[TAEsArmory] FlightPhysicsSystem: altOffset = " + altOffset)
 		if( fabs(altOffset) <= 37.5 ) {
 			if( flightWeapon.HasMod("TArmory_Flight_RiseHelper") ) {
+				print("[TAEsArmory] FlightPhysicsSystem: Removing RiseHelper")
 				flightWeapon.RemoveMod( "TArmory_Flight_RiseHelper" )
 			}
 
 			if( flightWeapon.HasMod("TArmory_Flight_DiveHelper") ) {
+				print("[TAEsArmory] FlightPhysicsSystem: Removing DiveHelper")
 				flightWeapon.RemoveMod( "TArmory_Flight_DiveHelper" )
 				flightWeapon.Signal( "StopFlight" )
-
-				blastWeapon.Signal( "Backblast" )
 			}
 
 			zVel = 0.
@@ -573,16 +573,16 @@ float function FlightAmmoSystem( entity flightWeapon, float changeStack, float p
 //		#########  ###     ### ###       ### ###     ###  ########  ##########
 
 #if SERVER
-void function BackblastListener( entity owner, entity blastWeapon ) {
+void function BackblastListener( entity owner, entity flightWeapon ) {
 	//	Signaling
 	owner.EndSignal( "OnDeath" )
 	owner.EndSignal( "TitanEjectionStarted" )
 
-	blastWeapon.EndSignal( "OnDestroy" )
+	flightWeapon.EndSignal( "OnDestroy" )
 
 	//	Listener loop
 	while(1) {
-		blastWeapon.WaitSignal( "Backblast" )
+		flightWeapon.WaitSignal( "Backblast" )
 
 		//	Signal recieved
 		print("[TAEsArmory] BackblastListener: Doing blast")
@@ -591,9 +591,8 @@ void function BackblastListener( entity owner, entity blastWeapon ) {
 		CreateShake( owner.GetOrigin(), 80, 150, 0.50, 1500 )
 		PlayFX( FLIGHT_CORE_IMPACT_FX, owner.GetOrigin() )
 
-		//	Create projectile
-		int damageFlags = blastWeapon.GetWeaponDamageFlags()
-		blastWeapon.FireWeaponBolt( owner.GetOrigin(), <0, 0, -1.0>, 4500, damageFlags, damageFlags, false, 0 )
+		//	Create radiusDamage
+		int damageFlags = flightWeapon.GetWeaponDamageFlags()
 	}
 }
 
