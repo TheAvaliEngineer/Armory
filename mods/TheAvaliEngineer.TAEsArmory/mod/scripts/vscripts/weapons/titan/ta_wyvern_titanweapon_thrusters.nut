@@ -165,11 +165,18 @@ int function Thrusters_OnFire( entity weapon, WeaponPrimaryAttackParams attackPa
 
 	#if SERVER
 	//	Update flight state
-	bool flyState = weapon.s.changeRate < 0.;
-	bool isBoosted = chargeFrac >= 1.;
+	bool flyState = weapon.s.changeRate < 0.
+	bool isBoosted = chargeFrac >= 1.
 
-	bool hasMods = weapon.HasMod( "TArmory_Flight_DiveHelper" )
-	hasMods = hasMods || weapon.HasMod( "TArmory_Flight_RiseHelper" )
+	bool hasMods = false
+	if( weapon.HasMod( "TArmory_Flight_DiveHelper" ) ) {
+		weapon.RemoveMod( "TArmory_Flight_DiveHelper" )
+		hasMods = true
+	}
+	if( weapon.HasMod( "TArmory_Flight_RiseHelper" ) ) {
+		weapon.RemoveMod( "TArmory_Flight_RiseHelper" )
+		hasMods = true
+	}
 
 	if( flyState ) {
 		if( isBoosted && !hasMods ) {

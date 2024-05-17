@@ -80,7 +80,7 @@ WeaponData
 
 	//		Fire handling
 	//	Fire rate
-	"fire_rate"										"15.0"
+	"fire_rate"										"1.0"
 
 	"cooldown_type"									"ammo"	//"shared_energy_drain"
 
@@ -91,6 +91,7 @@ WeaponData
 	"charge_cooldown_delay"   						"0.0"
 
 	"charge_end_forces_fire"						"1"
+	"bypass_semiauto_hold_protection"				"1"
 
 	//		Projectile/bullet handling
 	//	Projectile params
@@ -144,7 +145,7 @@ WeaponData
 	"empty_reload_only"   							"0"
 
 	"allow_empty_fire"								"0"
-	"allow_empty_click"   							"1"
+	"allow_empty_click"   							"0"
 
 
 	//		Player usage
