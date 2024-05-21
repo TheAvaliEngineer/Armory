@@ -33,7 +33,7 @@ void function TArmory_Init_GeistRonin_BurstSG() {
 
 	//	Add eDamageSourceId using Dinorush's server code
 	table<string, string> customDamageSourceIds = {
-		ta_geist_titanweapon_burstsg = "Scatterburst",
+		ta_geist_titanweapon_burstsg = "Thumper",
 	}
 	RegisterWeaponDamageSources( customDamageSourceIds )
 	#endif

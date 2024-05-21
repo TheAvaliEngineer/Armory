@@ -2,8 +2,8 @@ WeaponData
 {
 	//		General
 	//	Name
-	"printname"   									"Scatterburst Heavy Shotgun"
-	"shortprintname"								"Scatterburst"
+	"printname"   									"Thumper Heavy Shotgun"
+	"shortprintname"								"Thumper"
 	"description" 									"burstsg WIP desc"
 	"longdesc" 										"burstsg WIP longdesc"
 
@@ -150,7 +150,7 @@ WeaponData
 
 	//		Ammunition
 	//	Ammo
-	"ammo_clip_size"   								"6"
+	"ammo_clip_size"   								"12"
 	"ammo_per_shot"									"1"
 	"ammo_min_to_fire"								"1"
 

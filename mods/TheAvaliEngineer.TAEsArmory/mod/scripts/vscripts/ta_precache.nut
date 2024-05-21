@@ -62,7 +62,7 @@ void function TArmory_Precache() {
 	TArmory_Init_MortarTone_FlareLauncher()
 	TArmory_Init_MortarTone_Flares()
 	TArmory_Init_MortarTone_Rockets()
-	PrecacheHelper( "ta_mortar_titanweapon_proxmines", "Minefield", cdsIds )
+	TArmory_Init_MortarTone_LoiterBomb()
 	TArmory_Init_MortarTone_NuclearStrike()
 
 	//	Phosphor

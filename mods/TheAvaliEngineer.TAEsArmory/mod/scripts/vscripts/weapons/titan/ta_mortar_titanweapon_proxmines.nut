@@ -100,7 +100,7 @@ int function FireProxMinefield( entity weapon, WeaponPrimaryAttackParams attackP
 	int numProjectiles = weapon.GetProjectilesPerShot()
 
 	int pendingShots = weapon.GetBurstFireShotsPending()
-	int shotNum = weapon.GetWeaponSettingInt( eWeaponVar.burst_fire_count) - pendingShots
+	int shotNum = weapon.GetWeaponSettingInt( eWeaponVar.burst_fire_count ) - pendingShots
 	for ( int index = 0; index < numProjectiles; index++ ) {
 		//	Apply offset
 		int offsetIdx = shotNum * 3 + index
