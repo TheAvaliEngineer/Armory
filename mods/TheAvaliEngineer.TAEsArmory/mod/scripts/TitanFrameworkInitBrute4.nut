@@ -146,6 +146,6 @@ void function Brute4_UIInit()
 		Pyrotechnics.customIcon = false
 		Brute.passiveFDArray.append(Pyrotechnics)
 
-		CreateModdedTitanSimple(Brute)
+		//CreateModdedTitanSimple(Brute)
 	#endif
 }

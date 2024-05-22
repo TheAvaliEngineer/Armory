@@ -150,6 +150,6 @@ void function ArchonUIInit()
 		RollingThunder.customIcon = true
 		Archon.passiveFDArray.append(RollingThunder)
 
-		CreateModdedTitanSimple(Archon)
+	//	CreateModdedTitanSimple(Archon)
 	#endif
 }

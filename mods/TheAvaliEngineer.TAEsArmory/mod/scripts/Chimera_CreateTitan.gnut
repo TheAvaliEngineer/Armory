@@ -282,7 +282,7 @@ void function ChimeraSetup()
 
 	Chimera.altChassisArray.append(Stryder)
 
-	CreateModdedTitanSimple(Chimera)//Ah yes """"""""""""Simple""""""""""""
+	//CreateModdedTitanSimple(Chimera)//Ah yes """"""""""""Simple""""""""""""
 
 
 	#if CLIENT
