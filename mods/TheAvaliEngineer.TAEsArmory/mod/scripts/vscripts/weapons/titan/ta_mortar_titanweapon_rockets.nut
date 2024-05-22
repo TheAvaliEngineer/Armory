@@ -23,8 +23,8 @@ global struct MortarFireData {
 //	Consts
 const float MORTAR_GRAVITY = 375.0
 
-const float MORTAR_INACCURACY = 0.50
-const float MORTAR_MAX_SPREAD = 250.0
+const float MORTAR_INACCURACY = 0.75
+const float MORTAR_MAX_SPREAD = 750.0
 
 //			Functions
 //		Init
