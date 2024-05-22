@@ -55,7 +55,6 @@ int function LoiterBomb_Fire( entity weapon, WeaponPrimaryAttackParams attackPar
 	if( !IsValid(owner) || !IsAlive(owner) )
 		return 0
 
-	#if SERVER
 	if(!(owner in flareData))
 		return 0
 
@@ -67,6 +66,7 @@ int function LoiterBomb_Fire( entity weapon, WeaponPrimaryAttackParams attackPar
 	if( !IsValid(flare) )
 		return 0
 
+	#if SERVER
 	//	Place trigger
 	LoiterBomb_Think( weapon, flare )
 	#endif

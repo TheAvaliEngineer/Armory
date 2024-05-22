@@ -101,7 +101,7 @@ WeaponData
 	"breaks_cloak"									"1"
 
 	//	Fire rate
-	"fire_rate"										"2.5"
+	"fire_rate"										"3.5"
 
 	//		Projectile/bullet handling
 	//	Projectile params
@@ -440,8 +440,8 @@ WeaponData
 			"damage_near_value"   							"++500"
 			"damage_far_value"								"++500"
 
-			"damage_near_value_titanarmor"					"++1000"
-			"damage_far_value_titanarmor" 					"++750"
+			"damage_near_value_titanarmor"					"++2000"
+			"damage_far_value_titanarmor" 					"++1500"
 
 			"impulse_force"									"++50000"
 
