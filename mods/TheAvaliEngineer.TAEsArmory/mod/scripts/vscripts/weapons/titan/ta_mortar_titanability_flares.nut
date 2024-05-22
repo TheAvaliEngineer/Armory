@@ -105,7 +105,7 @@ var function OnWeaponNpcPrimaryAttack_MortarTone_Flares( entity weapon, WeaponPr
 #endif
 
 void function ThrowMortarFlare( entity weapon, WeaponPrimaryAttackParams attackParams, float throwStrength, bool playerFired ) {
-	//	Validity checks
+	//	Sanity checks
 	entity owner = weapon.GetWeaponOwner()
 	if( !IsValid(owner) )
 		return

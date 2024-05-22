@@ -214,7 +214,7 @@ void function TA_TitanFramework_UIInit() {
 	//	Defensive
 	ModdedTitanWeaponAbilityData LoiterBomb
 	LoiterBomb.custom = true
-	LoiterBomb.weaponName = "ta_mortar_titanweapon_loiterbomb"
+	LoiterBomb.weaponName = "ta_mortar_titanweapon_proxmines"
 	LoiterBomb.displayName = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB"
 	LoiterBomb.description = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB_DESC"
 	LoiterBomb.image = $""
