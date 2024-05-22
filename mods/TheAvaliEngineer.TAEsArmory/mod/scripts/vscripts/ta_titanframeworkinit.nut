@@ -181,8 +181,8 @@ void function TA_TitanFramework_UIInit() {
 	//	Images
 
 	//	Base titan
-	Mortar.BaseSetFile = "titan_stryder_leadwall"	//	titan_stryder_shotgun
-	Mortar.BaseName = "ronin"
+	Mortar.BaseSetFile = "titan_atlas_tracker"	//	titan_atlas_tracker_mortar
+	Mortar.BaseName = "tone"
 
 	//	Weapon
 	ModdedTitanWeaponAbilityData FlareLauncher
