@@ -194,6 +194,10 @@ WeaponData
 	"allow_empty_fire"								"0"
 	"allow_empty_click"   							"1"
 
+	"reload_time" 									"1.5"
+	"reload_time_late1"								"1.25"
+	"reload_time_late2"								"0.87"
+
 
 	//		Player usage
 	//	Swap time
