@@ -162,7 +162,7 @@ void function OnProjectileCollision_MortarTone_Flares( entity projectile, vector
 		hitbox = hitbox
 	}
 
-	bool planted = = PlantStickyEntity( projectile, collisionParams )
+	bool planted = PlantStickyEntity( projectile, collisionParams )
 
 	#if SERVER
 	entity owner = projectile.GetOwner()
