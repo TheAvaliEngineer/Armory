@@ -13,7 +13,7 @@ WeaponData
 
 	//	Body type
 	"weaponClass" 									"titan"
-	"body_type"										"battle_rifle"
+//	"body_type"										"battle_rifle"
 	"fire_mode"   									"auto"
 
 	//	Pickup

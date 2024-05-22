@@ -196,7 +196,7 @@ void function TA_TitanFramework_UIInit() {
 	//	Tactical
 	ModdedTitanWeaponAbilityData Flares
 	Flares.custom = true
-	Flares.weaponName = "ta_mortar_titanweapon_flarelauncher"
+	Flares.weaponName = "ta_mortar_titanability_flares"
 	Flares.displayName = "#TA_TITAN_MORTAR_TACTICAL_FLARES"
 	Flares.description = "#TA_TITAN_MORTAR_TACTICAL_FLARES_DESC"
 	Flares.image = $""
