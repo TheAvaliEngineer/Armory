@@ -111,7 +111,7 @@ WeaponData
 	"charge_cooldown_delay"   						"1.0"
 
 	"charge_end_forces_fire"						"1"
-
+	"bypass_semiauto_hold_protection"				"1"
 
 	//		Projectile/bullet handling
 	//	Projectile params
