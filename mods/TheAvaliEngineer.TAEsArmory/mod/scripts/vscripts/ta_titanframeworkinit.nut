@@ -229,5 +229,8 @@ void function TA_TitanFramework_UIInit() {
 	NuclearStrike.image = $"archon/hud/storm_core"
 	Mortar.Core = NuclearStrike
 	//*/
+
+	CreateModdedTitanSimple(Mortar)
+
 	#endif
 }
