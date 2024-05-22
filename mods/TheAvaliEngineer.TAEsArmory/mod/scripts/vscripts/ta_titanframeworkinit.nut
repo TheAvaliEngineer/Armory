@@ -226,11 +226,11 @@ void function TA_TitanFramework_UIInit() {
 	NuclearStrike.weaponName = "ta_mortar_titancore_nuclearstrike"
 	NuclearStrike.displayName = "#TA_TITAN_MORTAR_CORE_NUCLEARSTRIKE"
 	NuclearStrike.description = "#TITANCORE_STORM_DESC"
-	NuclearStrike.image = $"archon/hud/storm_core"
+	NuclearStrike.image = $""
 	Mortar.Core = NuclearStrike
 	//*/
 
-	//CreateModdedTitanSimple(Mortar)
+	CreateModdedTitanSimple(Mortar)
 
 	#endif
 }
