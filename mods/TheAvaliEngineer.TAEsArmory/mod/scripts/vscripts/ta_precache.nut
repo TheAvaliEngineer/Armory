@@ -64,7 +64,7 @@ void function TArmory_Precache() {
 	TArmory_Init_MortarTone_Flares()
 	TArmory_Init_MortarTone_Rockets()
 	
-	PrecacheHelper( "ta_wyvern_titanweapon_proxmines", "Prox Mines", cdsIds )
+	PrecacheHelper( "ta_mortar_titanweapon_proxmines", "Prox Mines", cdsIds )
 	TArmory_Init_MortarTone_LoiterBomb()
 
 	TArmory_Init_MortarTone_NuclearStrike()
