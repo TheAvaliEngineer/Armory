@@ -230,7 +230,7 @@ void function TA_TitanFramework_UIInit() {
 	Mortar.Core = NuclearStrike
 	//*/
 
-	CreateModdedTitanSimple(Mortar)
+	//CreateModdedTitanSimple(Mortar)
 
 	#endif
 }
