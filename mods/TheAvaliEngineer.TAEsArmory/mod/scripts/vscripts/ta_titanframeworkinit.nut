@@ -167,9 +167,9 @@ void function TA_TitanFramework_UIInit() {
 	ModdedTitanData Mortar
 
 	//	Menu text
-	Mortar.Name = "#DEFAULT_TITAN_GEIST"
+	Mortar.Name = "#DEFAULT_TITAN_MORTAR"
 	Mortar.Description = "Your uncle"
-	Mortar.passiveDisplayNameOverride = "#TITAN_OS_GEIST_NAME"
+	Mortar.passiveDisplayNameOverride = "#TITAN_OS_MORTAR_NAME"
 
 	//	Menu hints
 	Mortar.difficulty = 3
