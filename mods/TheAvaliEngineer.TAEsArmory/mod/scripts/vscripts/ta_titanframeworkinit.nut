@@ -37,7 +37,7 @@ void function TA_TitanFramework_UIInit() {
 	AutoRocket.weaponName = "ta_wyvern_titanweapon_autorocket"
 	AutoRocket.displayName = "#TA_TITAN_WYVERN_WEAPON_AUTOROCKET"
 	AutoRocket.description = "#TA_TITAN_WYVERN_WEAPON_AUTOROCKET_DESC"
-	AutoRocket.image = $""
+	AutoRocket.image = $"ui/temp"
 	Wyvern.Primary = AutoRocket
 
 	//	Tactical
@@ -46,7 +46,7 @@ void function TA_TitanFramework_UIInit() {
 	WyvernThrusters.weaponName = "ta_wyvern_titanweapon_thrusters"
 	WyvernThrusters.displayName = "#TA_TITAN_WYVERN_TACTICAL_THRUSTERS"
 	WyvernThrusters.description = "#TA_TITAN_WYVERN_TACTICAL_THRUSTERS_DESC"
-	WyvernThrusters.image = $""
+	WyvernThrusters.image = $"ui/temp"
 	Wyvern.Mid = WyvernThrusters
 
 	//	Ordinance
@@ -64,7 +64,7 @@ void function TA_TitanFramework_UIInit() {
 	TitanCloak2.weaponName = "ta_geist_titanability_titancloak" //"ta_wyvern_titanability_flight"
 	TitanCloak2.displayName = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK"
 	TitanCloak2.description = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK_DESC"
-	TitanCloak2.image = $""
+	TitanCloak2.image = $"ui/temp"
 	Wyvern.Left = TitanCloak2
 
 	//	Core
@@ -114,7 +114,7 @@ void function TA_TitanFramework_UIInit() {
 	HeavyShotgun.weaponName = "ta_geist_titanweapon_burstsg"
 	HeavyShotgun.displayName = "#TA_TITAN_GEIST_WEAPON_BURSTSG"
 	HeavyShotgun.description = "#TA_TITAN_GEIST_WEAPON_BURSTSG_DESC"
-	HeavyShotgun.image = $""
+	HeavyShotgun.image = $"ui/temp"
 	Geist.Primary = HeavyShotgun
 
 	//	Tactical
@@ -123,7 +123,7 @@ void function TA_TitanFramework_UIInit() {
 	Holo.weaponName = "ta_geist_titanability_holodistract"
 	Holo.displayName = "#TA_TITAN_GEIST_TACTICAL_HOLODISTRACT"
 	Holo.description = "#TA_TITAN_GEIST_TACTICAL_HOLODISTRACT_DESC"
-	Holo.image = $""
+	Holo.image = $"ui/temp"
 	Geist.Mid = Holo
 
 	//	Ordinance
@@ -141,7 +141,7 @@ void function TA_TitanFramework_UIInit() {
 	TitanCloak.weaponName = "ta_geist_titanability_titancloak"
 	TitanCloak.displayName = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK"
 	TitanCloak.description = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK_DESC"
-	TitanCloak.image = $""
+	TitanCloak.image = $"ui/temp"
 	Geist.Left = TitanCloak
 
 	//	Core
@@ -190,7 +190,7 @@ void function TA_TitanFramework_UIInit() {
 	FlareLauncher.weaponName = "ta_mortar_titanweapon_quadrocket" //"ta_mortar_titanweapon_flarelauncher"
 	FlareLauncher.displayName = "#TA_TITAN_MORTAR_WEAPON_QUADROCKET" //"#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER"
 	FlareLauncher.description = "#TA_TITAN_MORTAR_WEAPON_QUADROCKET_DESC" //"#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER_DESC"
-	FlareLauncher.image = $""
+	FlareLauncher.image = $"ui/temp"
 	Mortar.Primary = FlareLauncher
 
 	//	Tactical
@@ -199,7 +199,7 @@ void function TA_TitanFramework_UIInit() {
 	Flares.weaponName = "ta_mortar_titanability_flares"
 	Flares.displayName = "#TA_TITAN_MORTAR_TACTICAL_FLARES"
 	Flares.description = "#TA_TITAN_MORTAR_TACTICAL_FLARES_DESC"
-	Flares.image = $""
+	Flares.image = $"ui/temp"
 	Mortar.Mid = Flares
 
 	//	Ordinance
@@ -217,7 +217,7 @@ void function TA_TitanFramework_UIInit() {
 	LoiterBomb.weaponName = "ta_mortar_titanweapon_proxmines"
 	LoiterBomb.displayName = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB"
 	LoiterBomb.description = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB_DESC"
-	LoiterBomb.image = $""
+	LoiterBomb.image = $"ui/temp"
 	Mortar.Left = LoiterBomb
 
 	//	Core
@@ -226,7 +226,7 @@ void function TA_TitanFramework_UIInit() {
 	NuclearStrike.weaponName = "ta_mortar_titancore_nuclearstrike"
 	NuclearStrike.displayName = "#TA_TITAN_MORTAR_CORE_NUCLEARSTRIKE"
 	NuclearStrike.description = "#TITANCORE_STORM_DESC"
-	NuclearStrike.image = $""
+	NuclearStrike.image = $"ui/temp"
 	Mortar.Core = NuclearStrike
 	//*/
 
