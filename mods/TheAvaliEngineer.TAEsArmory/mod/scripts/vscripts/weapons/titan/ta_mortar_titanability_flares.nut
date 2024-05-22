@@ -165,35 +165,50 @@ void function OnProjectileCollision_MortarTone_Flares( entity projectile, vector
 	bool planted = PlantStickyEntity( projectile, collisionParams )
 
 	#if SERVER
-	entity owner = projectile.GetOwner()
-	if ( !IsValid( owner ) ) {
-		return
+	//	Planted sounds
+	if( IsAlive( hitEnt ) && hitEnt.IsPlayer() ) {
+		EmitSoundOnEntityOnlyToPlayer( projectile, hitEnt, "weapon_softball_grenade_attached_1P" )
+		EmitSoundOnEntityExceptToPlayer( projectile, hitEnt, "weapon_softball_grenade_attached_3P" )
+	} else {
+		EmitSoundOnEntity( projectile, "weapon_softball_grenade_attached_3P" )
 	}
-
-	//	Play attach noise
-	EmitSoundOnEntity( projectile, "Weapon_R1_Satchel.Attach" )
 	#endif
+
+	thread FlareThink( projectile, hitEnt, owner )
 }
 
-/*
-#if SERVER
-void function FlareThink( entity flare, entity owner ) {
+void function FlareThink( entity projectile, entity hitEnt, entity owner ) {
+	//	Register flare
+	if( !(owner in flareData) ) {
+		flareData[owner] <- [projectile]
+	} else { flareData[owner].append( projectile ) }
+
+	//	Indicator
+	int fxHandle
+	if( hitEnt.IsWorld() ) {
+		#if CLIENT
+		int index = GetParticleSystemIndex( $"P_ar_titan_droppoint" )
+		vector origin = projectile.GetOrigin()
+
+		fxHandle = StartParticleEffectInWorldWithHandle( index, origin, <0, 10000, 0> ) //team )
+//		EffectSetControlPointVector( fxHandle, 1, <255, 80, 80> ) // <255, 127, 127>
+		#endif
+	}
+
 	//	Signaling
-	flare.EndSignal( "OnDeath" )
+	projectile.EndSignal( "OnDeath" )
+	projectile.EndSignal( "OnDestroy" )
 
-	//	FX
-	int index = GetParticleSystemIndex( $"P_ar_titan_droppoint" )
-	vector origin = flare.GetOrigin()
+	owner.EndSignal( "OnDeath" )
 
-	int fxHandle = StartParticleEffectInWorldWithHandle( index, origin, <0, 90, 0> ) //team )
-	EffectSetControlPointVector( fxHandle, 1, <255, 195, 127> ) // <255, 127, 127>
+	OnThreadEnd( function() : ( projectile, owner, fxHandle ) {
+		flareData[owner].fastremovebyvalue( projectile )
 
-	//	Thread
-	OnThreadEnd( function() : ( flare, owner ) {
-		flareData[owner].fastremovebyvalue(flare)
+		#if CLIENT
+		if( EffectDoesExist( fxHandle ) )
+			EffectStop( fxHandle, false, true )
+		#endif
 	})
 
 	WaitForever()
 }
-#endif
-*/

@@ -125,11 +125,7 @@ void function OnProjectileCollision_MortarTone_FlareLauncher( entity projectile,
 		return
 
 	//	Handle sticky flares mod
-	bool planted = false
-	array<string> mods = projectile.ProjectileGetMods()
-	if( mods.contains("pas_tone_sonar") || hitEnt.IsWorld() ) {
-		planted = PlantStickyEntity( projectile, collisionParams )
-	}
+	bool planted = PlantStickyEntity( projectile, collisionParams )
 
 	#if SERVER
 	//	Planted sounds
@@ -157,8 +153,8 @@ void function FlareThink( entity projectile, entity hitEnt, entity owner ) {
 		int index = GetParticleSystemIndex( $"P_ar_titan_droppoint" )
 		vector origin = projectile.GetOrigin()
 
-		fxHandle = StartParticleEffectInWorldWithHandle( index, origin, <0, 90, 0> ) //team )
-		EffectSetControlPointVector( fxHandle, 1, <255, 80, 80> ) // <255, 127, 127>
+		fxHandle = StartParticleEffectInWorldWithHandle( index, origin, <0, 10000, 0> ) //team )
+//		EffectSetControlPointVector( fxHandle, 1, <255, 80, 80> ) // <255, 127, 127>
 		#endif
 	}
 
