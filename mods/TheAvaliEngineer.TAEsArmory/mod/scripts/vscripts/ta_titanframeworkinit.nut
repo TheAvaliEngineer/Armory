@@ -187,20 +187,20 @@ void function TA_TitanFramework_UIInit() {
 	//	Weapon
 	ModdedTitanWeaponAbilityData FlareLauncher
 	FlareLauncher.custom = true
-	FlareLauncher.weaponName = "ta_mortar_titanweapon_flarelauncher"
-	FlareLauncher.displayName = "#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER"
-	FlareLauncher.description = "#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER_DESC"
+	FlareLauncher.weaponName = "ta_mortar_titanweapon_quadrocket" //"ta_mortar_titanweapon_flarelauncher"
+	FlareLauncher.displayName = "#TA_TITAN_MORTAR_WEAPON_QUADROCKET" //"#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER"
+	FlareLauncher.description = "#TA_TITAN_MORTAR_WEAPON_QUADROCKET_DESC" //"#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER_DESC"
 	FlareLauncher.image = $""
 	Mortar.Primary = FlareLauncher
 
 	//	Tactical
-	ModdedTitanWeaponAbilityData Holo2
-	Holo2.custom = true
-	Holo2.weaponName = "ta_geist_titanability_holodistract"
-	Holo2.displayName = "#TA_TITAN_GEIST_TACTICAL_HOLODISTRACT"
-	Holo2.description = "#TA_TITAN_GEIST_TACTICAL_HOLODISTRACT_DESC"
-	Holo2.image = $""
-	Mortar.Mid = Holo2
+	ModdedTitanWeaponAbilityData Flares
+	Flares.custom = true
+	Flares.weaponName = "ta_mortar_titanweapon_flarelauncher"
+	Flares.displayName = "#TA_TITAN_MORTAR_TACTICAL_FLARES"
+	Flares.description = "#TA_TITAN_MORTAR_TACTICAL_FLARES_DESC"
+	Flares.image = $""
+	Mortar.Mid = Flares
 
 	//	Ordinance
 	ModdedTitanWeaponAbilityData RocketSalvo
@@ -223,7 +223,7 @@ void function TA_TitanFramework_UIInit() {
 	//	Core
 	ModdedTitanWeaponAbilityData NuclearStrike
 	NuclearStrike.custom = true
-	NuclearStrike.weaponName = "mp_titancore_storm_core"
+	NuclearStrike.weaponName = "ta_mortar_titancore_nuclearstrike"
 	NuclearStrike.displayName = "#TA_TITAN_MORTAR_CORE_NUCLEARSTRIKE"
 	NuclearStrike.description = "#TITANCORE_STORM_DESC"
 	NuclearStrike.image = $"archon/hud/storm_core"
