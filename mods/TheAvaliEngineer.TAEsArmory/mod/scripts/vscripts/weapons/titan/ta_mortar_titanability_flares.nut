@@ -162,6 +162,11 @@ void function OnProjectileCollision_MortarTone_Flares( entity projectile, vector
 		hitbox = hitbox
 	}
 
+	entity owner = projectile.GetOwner()
+	if( !IsValid(owner) )
+		return
+	
+	//	Handle sticky flares mod
 	bool planted = PlantStickyEntity( projectile, collisionParams )
 
 	#if SERVER

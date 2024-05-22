@@ -124,7 +124,7 @@ void function OnProjectileCollision_MortarTone_FlareLauncher( entity projectile,
 	if( !IsValid(owner) )
 		return
 
-	//	Handle sticky flares mod
+	//	Handle sticky flares
 	bool planted = PlantStickyEntity( projectile, collisionParams )
 
 	#if SERVER
