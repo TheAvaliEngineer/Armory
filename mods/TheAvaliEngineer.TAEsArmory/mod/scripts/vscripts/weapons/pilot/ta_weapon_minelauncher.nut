@@ -88,6 +88,20 @@ void function FireLandmine( entity weapon, WeaponPrimaryAttackParams attackParam
 
 }
 
+//	Collision handling
+void function OnProjectileCollision_AntiTitan_MineLauncher( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
+	table collisionParams = {
+		pos = pos,
+		normal = normal,
+		hitEnt = hitEnt,
+		hitbox = hitbox
+	}
+
+	bool result = PlantStickyEntity( projectile, collisionParams )
+
+	thread OnMinePlanted( projectile )
+}
+
 //	Mine functionality
 void function OnMinePlanted( entity mine ) {
 	//	Angles correct
@@ -178,17 +192,3 @@ bool function MineTriggerCheck( entity mine, entity other ) {
 	return false
 }
 #endif
-
-//	Collision handling
-void function OnProjectileCollision_AntiTitan_MineLauncher( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
-	table collisionParams = {
-		pos = pos,
-		normal = normal,
-		hitEnt = hitEnt,
-		hitbox = hitbox
-	}
-
-	bool result = PlantStickyEntity( projectile, collisionParams )
-
-	thread OnMinePlanted( projectile )
-}

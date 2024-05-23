@@ -173,7 +173,7 @@ WeaponData
 	"explosion_inner_radius"  						"5"
 	"explosionradius" 								"50"
 
-	"grenade_fuse_time"								"5.0"
+	"grenade_fuse_time"								"20.0"
 
 	//	Crit & Headshots
 	"allow_headshots" 								"1"

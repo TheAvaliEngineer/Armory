@@ -187,9 +187,9 @@ void function TA_TitanFramework_UIInit() {
 	//	Weapon
 	ModdedTitanWeaponAbilityData FlareLauncher
 	FlareLauncher.custom = true
-	FlareLauncher.weaponName = "ta_mortar_titanweapon_quadrocket" //"ta_mortar_titanweapon_flarelauncher"
-	FlareLauncher.displayName = "#TA_TITAN_MORTAR_WEAPON_QUADROCKET" //"#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER"
-	FlareLauncher.description = "#TA_TITAN_MORTAR_WEAPON_QUADROCKET_DESC" //"#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER_DESC"
+	FlareLauncher.weaponName = "ta_mortar_titanweapon_flarelauncher"
+	FlareLauncher.displayName = "#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER"
+	FlareLauncher.description = "#TA_TITAN_MORTAR_WEAPON_FLARELAUNCHER_DESC"
 	FlareLauncher.image = $"ui/temp"
 	Mortar.Primary = FlareLauncher
 

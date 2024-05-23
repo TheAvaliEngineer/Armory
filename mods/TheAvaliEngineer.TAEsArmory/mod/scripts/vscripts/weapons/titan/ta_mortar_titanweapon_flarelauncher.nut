@@ -125,7 +125,7 @@ void function OnProjectileCollision_MortarTone_FlareLauncher( entity projectile,
 		return
 
 	//	Handle sticky flares
-	bool planted = PlantStickyEntity( projectile, collisionParams )
+	bool planted = PlantStickyEntityOnWorldThatBouncesOffWalls( projectile, collisionParams, <0, 0, 1> )
 
 	#if SERVER
 	//	Planted sounds
