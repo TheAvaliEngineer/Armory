@@ -125,7 +125,17 @@ void function OnProjectileCollision_MortarTone_FlareLauncher( entity projectile,
 		return
 
 	//	Handle sticky flares
-	bool planted = PlantStickyEntityOnWorldThatBouncesOffWalls( projectile, collisionParams, <0, 0, 1> )
+	bool place = true
+
+	if( hitEnt.IsWorld() ) {
+		float dot = normal.Dot( Vector( 0, 0, 1 ) )
+		place = place && dot > 0.8
+	}
+	
+	if( !place )
+		return
+
+	bool planted = PlantStickyEntity( hitEnt, collisionParams )
 
 	#if SERVER
 	//	Planted sounds
