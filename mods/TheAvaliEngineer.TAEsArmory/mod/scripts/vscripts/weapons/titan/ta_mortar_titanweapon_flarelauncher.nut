@@ -19,6 +19,9 @@ const int FLARE_HEALTH = 250
 //	Flare FX
 const asset FLARE_PARTICLE_FX = $"P_ar_titan_droppoint"
 
+//	Flare list
+global table< entity, array< entity > > flareData
+
 //		Functions
 //	Init
 void function TArmory_Init_MortarTone_FlareLauncher() {
