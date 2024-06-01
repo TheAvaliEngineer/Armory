@@ -71,7 +71,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	vector startNormal = Normalize( proj.GetVelocity() ) 
 	vector endNormal = Vector(0, 0, 1)
 
-	float projSpeed = Distance( proj.GetVelocity() )
+	float projSpeed = Length( proj.GetVelocity() )
 	float traceRange = projSpeed * delay * 0.5
 
 	vector startProj = proj.GetOrigin()
