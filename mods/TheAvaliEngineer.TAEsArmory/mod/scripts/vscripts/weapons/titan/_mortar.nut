@@ -78,7 +78,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	vector endProj = startProj + startNormal * (traceRange + MORTAR_OFFSET)
 	vector endTarget = target + startNormal * (traceRange + MORTAR_OFFSET)
 
-	TraceResults resultProj = TraceLine( startProj, traceEndProj, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
+	TraceResults resultProj = TraceLine( startProj, endProj, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
 	TraceResults resultTarget = TraceLine( target, endTarget, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
 
 	//	Calculate delay
