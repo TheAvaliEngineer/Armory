@@ -75,7 +75,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	float traceRange = projSpeed * delay * 0.5
 
 	vector startProj = proj.GetOrigin()
-	vector endProj = endProj + startNormal * (traceRange + MORTAR_OFFSET)
+	vector endProj = startProj + startNormal * (traceRange + MORTAR_OFFSET)
 	vector endTarget = target + startNormal * (traceRange + MORTAR_OFFSET)
 
 	TraceResults resultProj = TraceLine( startProj, traceEndProj, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
