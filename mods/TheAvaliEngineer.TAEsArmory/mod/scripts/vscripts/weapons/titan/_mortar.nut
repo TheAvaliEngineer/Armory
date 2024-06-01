@@ -1,3 +1,5 @@
+untyped 
+
 //		Function declarations
 global function TeleportProjectile
 global function CalculateFireArc
