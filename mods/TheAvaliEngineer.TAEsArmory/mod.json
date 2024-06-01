@@ -112,6 +112,11 @@
 
 		//	Mortar
 		{
+			"Path": "weapons/titan/_mortar.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
+
+		{
 			"Path": "weapons/titan/ta_mortar_titanweapon_flarelauncher.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
