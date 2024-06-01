@@ -104,7 +104,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 
 	//		Projectile handling
 	//	Handle projectile deletion
-	float fuse = proj.s.fuse
+	float fuse = expect float( proj.s.fuse )
 	proj.Destroy()
 
 	wait delayTarget
