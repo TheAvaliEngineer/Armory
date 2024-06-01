@@ -40,7 +40,7 @@ WeaponData
 
 	//		Models
 	"viewmodel"   									"models/weapons/titan_bt_rocket_pod/atpov_titan_bt_rocket_pod_right.mdl"
-	//"playermodel" 									""
+//	"playermodel" 									""
 
 	"projectilemodel" 								"models/weapons/bullets/projectile_rocket_large.mdl"
 
@@ -157,8 +157,8 @@ WeaponData
 	"damage_near_value"   							"100"
 	"damage_far_value"								"100"
 
-	"damage_near_value_titanarmor"					"150"
-	"damage_far_value_titanarmor" 					"150"
+	"damage_near_value_titanarmor"					"300"
+	"damage_far_value_titanarmor" 					"300"
 
 	"damage_near_distance"							"100000"
 	"damage_far_distance" 							"100000"

@@ -94,8 +94,10 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		entity rocket = weapon.FireWeaponBolt( attackParams.pos, Vector(0, 0, 1),
 			SALVO_SPEED, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
-			//rocket.kv.gravity = 1.0
-			rocket.SetProjectileLifetime( fuse )
+			if( "fuse" in weapon.s ) {
+				weapon.s.fuse = fuse
+			} else { weapon.s.fuse <- fuse }
+			rocket.SetProjectileLifetime( SALVO_DELAY )
 
 			#if SERVER
 			Grenade_Init( rocket, weapon )
