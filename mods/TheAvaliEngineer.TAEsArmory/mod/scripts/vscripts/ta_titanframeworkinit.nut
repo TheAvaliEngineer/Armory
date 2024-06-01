@@ -173,16 +173,16 @@ void function TA_TitanFramework_UIInit() {
 
 	//	Menu hints
 	Mortar.difficulty = 3
-	Mortar.speedStat = 2
+	Mortar.speedStat = 1
 	Mortar.damageStat = 3
-	Mortar.healthStat = 2
+	Mortar.healthStat = 3
 	Mortar.titanHints = []
 
 	//	Images
 
 	//	Base titan
-	Mortar.BaseSetFile = "titan_atlas_tracker"	//	titan_atlas_tracker_mortar
-	Mortar.BaseName = "tone"
+	Mortar.BaseSetFile = "titan_ogre_legion_prime"	//	titan_atlas_tracker_mortar
+	Mortar.BaseName = "legion"
 
 	//	Weapon
 	ModdedTitanWeaponAbilityData FlareLauncher

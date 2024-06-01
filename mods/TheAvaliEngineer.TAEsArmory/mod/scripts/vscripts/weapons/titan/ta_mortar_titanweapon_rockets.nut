@@ -8,23 +8,12 @@ global function OnWeaponNpcPrimaryAttack_MortarTone_Rockets
 
 global function OnProjectileCollision_MortarTone_Rockets
 
-global function CalculateFireArc
-
-
 //		Data
-//	Struct
-global struct MortarFireData {
-	vector launchDir
-	float speed
-
-	float flightTime
-}
-
 //	Consts
-const float MORTAR_GRAVITY = 375.0
+const float SALVO_INACCURACY = 0.75
+const float SALVO_MAX_SPREAD = 750.0
 
-const float MORTAR_INACCURACY = 0.75
-const float MORTAR_MAX_SPREAD = 750.0
+const float SALVO_DELAY = 1.0
 
 //			Functions
 //		Init
@@ -64,16 +53,10 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		flareData[owner] <- []
 	}
 
-	//	Variables
-	float arcHeight = 1500.0
-
 	//	Fire mortar in look direction if no flares have been fired
 	array<entity> flares = flareData[owner]
 	if( flares.len() == 0 ) {
 		print("[TAEsArmory] FireMortarRockets: No flares")
-
-		//	Adjust variables
-		arcHeight /= 2.5
 
 		//	Create flare ent
 		vector viewDir = owner.GetPlayerOrNPCViewVector()
@@ -92,31 +75,21 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		if( !IsValid(flare) )
 			continue
 
-		//	Get arc params
+		//	Get fire params
 		vector playerPos = attackParams.pos
-		vector flarePos = flare.GetOrigin()
-
-		float gravityAmount = MORTAR_GRAVITY * weapon.GetWeaponSettingFloat( eWeaponVar.projectile_gravity_scale )
+		vector targetPos = flare.GetOrigin()
 
 		//	Apply inaccuracy
 		vector up = Vector(0.0, 0.0, 1.0)
-		vector spreadVec = ApplyVectorSpread( up, MORTAR_INACCURACY * 180 )
-		vector spreadXY = Vector(spreadVec.x, spreadVec.y, 0.0) * MORTAR_MAX_SPREAD
+		vector spreadVec = ApplyVectorSpread( up, SALVO_INACCURACY * 180 )
+		vector spreadXY = Vector(spreadVec.x, spreadVec.y, 0.0) * SALVO_MAX_SPREAD
 
-		flarePos += spreadXY
+		targetPos += spreadXY
 
-		//	Calculate trajectory
-		MortarFireData fireData = CalculateFireArc( playerPos, flarePos, 1500.0, gravityAmount )
-
-		//	Calculate fire params
-		vector dir = fireData.launchDir * fireData.speed
-		vector angVel = Vector(0., 0., 0.)
-		float fuse = fireData.flightTime + 0.25
-
+		//	Fire rocket
+		float fuse = -0.2
 		int damageFlags = weapon.GetWeaponDamageFlags()
 
-		//entity rocket = weapon.FireWeaponGrenade( attackParams.pos, dir, angVel, fuse,
-		//	damageTypes.pinkMist, damageTypes.pinkMist, false, true, false )
 		entity rocket = weapon.FireWeaponBolt( attackParams.pos, fireData.launchDir,
 			fireData.speed, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
@@ -129,6 +102,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 			SetTeam( rocket, owner.GetTeam() )
 			#endif
 		}
+
+		thread TeleportProjectile( rocket, weapon, targetPos, SALVO_DELAY )
 	}
 
 	if( weapon.GetBurstFireShotsPending() == 1 ) {
@@ -144,63 +119,10 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 	return weapon.GetWeaponSettingInt( eWeaponVar.ammo_per_shot )
 }
 
-/*	Calculate throw direction + velocity for arc with params
- *	See https://github.com/Masterchef365/avali_projectile_path/blob/main/main.pdf
- *	Thanks Seg!
- */
-MortarFireData function CalculateFireArc( vector startPos, vector endPos, float maxHeight, float g ) {
-	//	Add pos to maxHeight
-	maxHeight += max(0, endPos.z - startPos.z)
-
-	//	Calculate offsets
-	float xOffset = endPos.x - startPos.x
-	float yOffset = endPos.y - startPos.y
-	float horizOffset = sqrt(xOffset * xOffset + yOffset * yOffset)
-	float vertOffset = endPos.z - startPos.z
-
-	//	Calculate velocity
-	float vertSpeed = 2 * sqrt(maxHeight * g)
-	float flightTime = (vertSpeed + sqrt(vertSpeed * vertSpeed - 4 * g * vertOffset)) / (2 * g)
-	float horizSpeed = horizOffset / flightTime
-
-	float projSpeed = sqrt( vertSpeed * vertSpeed + horizSpeed * horizSpeed )
-
-	//	Find angles
-	vector projAngles = VectorToAngles( Vector( horizSpeed, 0.0, vertSpeed ) )
-	vector xyAngles = VectorToAngles( Vector( xOffset, yOffset, 0.0 ) )
-
-	vector launchAngles = AnglesCompose( xyAngles, projAngles )
-
-	//	Create direction vector
-	vector dir = AnglesToForward( launchAngles )
-
-	//	Create data
-	MortarFireData data
-
-	data.launchDir = dir
-	data.speed = projSpeed
-
-	data.flightTime = flightTime
-
-	/*
-	print("\n[TAEsArmory] CalculateFireArc: Variables\n\tmaxHeight = " + maxHeight + "\n\tvertOffset = "
-		+ vertOffset + "\n\thorizOffset = " + horizOffset + "\n\tvertSpeed = " + vertSpeed +
-		"\n\tflightTime = " + flightTime + "\n\thorizSpeed = " + horizSpeed + "\n\n")
-	//	*/
-
-	//	Return
-	return data
-}
-
-
 //		Collision handling
 void function OnProjectileCollision_MortarTone_Rockets( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
 	//		Phasing check
 	//	Check fuse time left: If above or below certain threshold - explode (at end / as punishment for poor positioning)
 	//
-
-}
-
-void function PhasedProjectileThink( entity projectile ) {
 
 }
