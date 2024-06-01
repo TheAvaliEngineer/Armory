@@ -194,13 +194,13 @@ void function TA_TitanFramework_UIInit() {
 	Mortar.Primary = FlareLauncher
 
 	//	Tactical
-	ModdedTitanWeaponAbilityData Flares
-	Flares.custom = true
-	Flares.weaponName = "ta_mortar_titanability_flares"
-	Flares.displayName = "#TA_TITAN_MORTAR_TACTICAL_FLARES"
-	Flares.description = "#TA_TITAN_MORTAR_TACTICAL_FLARES_DESC"
-	Flares.image = $"ui/temp"
-	Mortar.Mid = Flares
+	ModdedTitanWeaponAbilityData SmokeStrike
+	SmokeStrike.custom = true
+	SmokeStrike.weaponName = "ta_mortar_titanweapon_loiterbomb"
+	SmokeStrike.displayName = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB"
+	SmokeStrike.description = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB_DESC"
+	SmokeStrike.image = $"ui/temp"
+	Mortar.Mid = SmokeStrike
 
 	//	Ordinance
 	ModdedTitanWeaponAbilityData RocketSalvo
@@ -212,13 +212,13 @@ void function TA_TitanFramework_UIInit() {
 	Mortar.Right = RocketSalvo
 
 	//	Defensive
-	ModdedTitanWeaponAbilityData SmokeStrike
-	SmokeStrike.custom = true
-	SmokeStrike.weaponName = "ta_mortar_titanweapon_loiterbomb"
-	SmokeStrike.displayName = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB"
-	SmokeStrike.description = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB_DESC"
-	SmokeStrike.image = $"ui/temp"
-	Mortar.Left = SmokeStrike
+	ModdedTitanWeaponAbilityData DomeShield
+	DomeShield.custom = true
+	DomeShield.weaponName = "ta_geist_titanability_titancloak"
+	DomeShield.displayName = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK"
+	DomeShield.description = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK_DESC"
+	DomeShield.image = $"ui/temp"
+	Mortar.Left = DomeShield
 
 	//	Core
 	ModdedTitanWeaponAbilityData NuclearStrike
