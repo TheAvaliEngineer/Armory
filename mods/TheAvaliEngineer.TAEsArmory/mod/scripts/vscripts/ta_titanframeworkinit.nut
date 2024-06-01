@@ -208,17 +208,17 @@ void function TA_TitanFramework_UIInit() {
 	RocketSalvo.weaponName = "ta_mortar_titanweapon_rockets"
 	RocketSalvo.displayName = "#TA_TITAN_MORTAR_ORDINANCE_ROCKETSALVO"
 	RocketSalvo.description = "#TA_TITAN_MORTAR_ORDINANCE_ROCKETSALVO_DESC"
-	RocketSalvo.image = $"archon/menu/charge_ball"
+	RocketSalvo.image = $"ui/temp"
 	Mortar.Right = RocketSalvo
 
 	//	Defensive
-	ModdedTitanWeaponAbilityData LoiterBomb
-	LoiterBomb.custom = true
-	LoiterBomb.weaponName = "ta_mortar_titanweapon_proxmines"
-	LoiterBomb.displayName = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB"
-	LoiterBomb.description = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB_DESC"
-	LoiterBomb.image = $"ui/temp"
-	Mortar.Left = LoiterBomb
+	ModdedTitanWeaponAbilityData SmokeStrike
+	SmokeStrike.custom = true
+	SmokeStrike.weaponName = "ta_mortar_titanweapon_loiterbomb"
+	SmokeStrike.displayName = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB"
+	SmokeStrike.description = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB_DESC"
+	SmokeStrike.image = $"ui/temp"
+	Mortar.Left = SmokeStrike
 
 	//	Core
 	ModdedTitanWeaponAbilityData NuclearStrike
