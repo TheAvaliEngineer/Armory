@@ -106,7 +106,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 
 	//		Projectile handling
 	//	Handle projectile deletion
-	float fuse = expect float( proj.s.fuse )
+//	float fuse = expect float( proj.s.fuse )
 	proj.Destroy()
 
 	wait delayTarget
@@ -119,9 +119,6 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	entity newProj = weapon.FireWeaponBolt( endTarget, -endNormal,
 		projSpeed, damageFlags, damageFlags, playerFired, 0 )
 	if( newProj ) {
-		//newProj.kv.gravity = 1.0
-		newProj.SetProjectileLifetime( delay + fuse )
-
 		#if SERVER
 		Grenade_Init( newProj, weapon )
 		#else

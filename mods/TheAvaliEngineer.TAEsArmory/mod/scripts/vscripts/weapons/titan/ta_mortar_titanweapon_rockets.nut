@@ -99,7 +99,6 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 			if( "fuse" in weapon.s ) {
 				weapon.s.fuse = fuse
 			} else { weapon.s.fuse <- fuse }
-			rocket.SetProjectileLifetime( SALVO_DELAY )
 
 			#if SERVER
 			Grenade_Init( rocket, weapon )
