@@ -13,6 +13,7 @@ global function OnProjectileCollision_MortarTone_Rockets
 const float SALVO_INACCURACY = 0.75
 const float SALVO_MAX_SPREAD = 750.0
 
+const float SALVO_SPEED = 750.0
 const float SALVO_DELAY = 1.0
 
 //			Functions
@@ -90,8 +91,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		float fuse = -0.2
 		int damageFlags = weapon.GetWeaponDamageFlags()
 
-		entity rocket = weapon.FireWeaponBolt( attackParams.pos, fireData.launchDir,
-			fireData.speed, damageFlags, damageFlags, playerFired, 0 )
+		entity rocket = weapon.FireWeaponBolt( attackParams.pos, Vector(0, 0, 1),
+			SALVO_SPEED, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
 			//rocket.kv.gravity = 1.0
 			rocket.SetProjectileLifetime( fuse )
