@@ -1,3 +1,5 @@
+untyped
+
 //		Function declarations
 global function TArmory_Init_MortarTone_Rockets
 
@@ -88,7 +90,7 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		targetPos += spreadXY
 
 		//	Fire rocket
-		float fuse = -0.2
+		float fuse = -0.1
 		int damageFlags = weapon.GetWeaponDamageFlags()
 
 		entity rocket = weapon.FireWeaponBolt( attackParams.pos, Vector(0, 0, 1),
