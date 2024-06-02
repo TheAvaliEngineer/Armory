@@ -99,12 +99,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 			if( "fuse" in weapon.s ) {
 				weapon.s.fuse = fuse
 			} else { weapon.s.fuse <- fuse }
-
-			#if SERVER
+			
 			Grenade_Init( rocket, weapon )
-			#else
-			SetTeam( rocket, owner.GetTeam() )
-			#endif
 		}
 
 		thread TeleportProjectile( rocket, weapon, targetPos, SALVO_DELAY )

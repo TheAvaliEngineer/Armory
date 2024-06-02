@@ -119,10 +119,6 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	entity newProj = weapon.FireWeaponBolt( endTarget, -endNormal,
 		projSpeed, damageFlags, damageFlags, playerFired, 0 )
 	if( newProj ) {
-		#if SERVER
 		Grenade_Init( newProj, weapon )
-		#else
-		SetTeam( newProj, owner.GetTeam() )
-		#endif
 	}
 }
