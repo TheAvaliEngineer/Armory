@@ -123,9 +123,9 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	if( newProj ) {
 		//	Grenade init
 		#if SERVER
-		Grenade_Init( rocket, weapon )
+		Grenade_Init( newProj, weapon )
 		#else
-		SetTeam( rocket, owner.GetTeam() )
+		SetTeam( newProj, owner.GetTeam() )
 		#endif
 	}
 }
