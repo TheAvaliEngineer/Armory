@@ -114,7 +114,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	//	Handle projectile creation
 	entity owner = weapon.GetWeaponOwner()
 
-	vector vel = -endNormal * SALVO_SPEED
+	vector vel = -endNormal * projSpeed
 	vector angVel = Vector(0, 0, 0)
 	int damageFlags = weapon.GetWeaponDamageFlags()
 
