@@ -114,11 +114,10 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	//	Handle projectile creation
 	entity owner = weapon.GetWeaponOwner()
 	int damageFlags = weapon.GetWeaponDamageFlags()
-	bool playerFired = weapon.GetWeaponOwner().IsPlayer()
 
 	entity newProj = weapon.FireWeaponBolt( endTarget, -endNormal,
-		projSpeed, damageFlags, damageFlags, playerFired, 0 )
+		projSpeed, damageFlags, damageFlags, false, 0 )
 	if( newProj ) {
-		Grenade_Init( newProj, weapon )
+		//	Other
 	}
 }

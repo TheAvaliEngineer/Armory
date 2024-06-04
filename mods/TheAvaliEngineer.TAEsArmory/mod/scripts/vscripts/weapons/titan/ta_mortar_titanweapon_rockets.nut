@@ -96,11 +96,12 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		entity rocket = weapon.FireWeaponBolt( attackParams.pos, Vector(0, 0, 1),
 			SALVO_SPEED, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
+			//	Table init
 			if( "fuse" in weapon.s ) {
 				weapon.s.fuse = fuse
 			} else { weapon.s.fuse <- fuse }
 			
-			Grenade_Init( rocket, weapon )
+			//	Other
 		}
 
 		thread TeleportProjectile( rocket, weapon, targetPos, SALVO_DELAY )
@@ -116,6 +117,11 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 	}
 	#endif
 
+	//	Player handling
+	if( playerFired )
+		PlayerUsedOffhand( owner, weapon )
+
+	//	Return
 	return weapon.GetWeaponSettingInt( eWeaponVar.ammo_per_shot )
 }
 
