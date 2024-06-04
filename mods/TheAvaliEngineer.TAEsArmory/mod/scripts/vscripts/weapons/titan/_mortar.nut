@@ -106,17 +106,20 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 
 	//		Projectile handling
 	//	Handle projectile deletion
-//	float fuse = expect float( proj.s.fuse )
+	float fuse = delay*0.5 + expect float( proj.s.fuse )
 	proj.Destroy()
 
 	wait delayTarget
 
 	//	Handle projectile creation
 	entity owner = weapon.GetWeaponOwner()
+	
+	vector vel = -endNormal * SALVO_SPEED
+	vector angVel = Vector(0, 0, 0)
 	int damageFlags = weapon.GetWeaponDamageFlags()
 
-	entity newProj = weapon.FireWeaponBolt( endTarget, -endNormal,
-		projSpeed, damageFlags, damageFlags, false, 0 )
+	entity newProj = weapon.FireWeaponGrenade( endTarget, -vel, angVel, 
+			fuse, damageFlags, damageFlags, false, false, false )
 	if( newProj ) {
 		//	Other
 	}

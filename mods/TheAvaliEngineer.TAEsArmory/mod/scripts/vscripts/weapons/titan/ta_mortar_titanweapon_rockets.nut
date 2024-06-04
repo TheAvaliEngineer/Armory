@@ -91,10 +91,13 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 
 		//	Fire rocket
 		float fuse = -0.1
+		vector vel = Vector(0, 0, 1) * SALVO_SPEED
+		vector angVel = Vector(0, 0, 0)
+
 		int damageFlags = weapon.GetWeaponDamageFlags()
 
-		entity rocket = weapon.FireWeaponBolt( attackParams.pos, Vector(0, 0, 1),
-			SALVO_SPEED, damageFlags, damageFlags, playerFired, 0 )
+		entity rocket = weapon.FireWeaponGrenade( attackParams.pos, vel, angVel, 
+			fuse, damageFlags, damageFlags, playerFired, playerFired, false )
 		if( rocket ) {
 			//	Table init
 			if( "fuse" in weapon.s ) {
@@ -102,6 +105,7 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 			} else { weapon.s.fuse <- fuse }
 			
 			//	Other
+
 		}
 
 		thread TeleportProjectile( rocket, weapon, targetPos, SALVO_DELAY )
