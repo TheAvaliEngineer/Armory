@@ -104,7 +104,12 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 				weapon.s.fuse = fuse
 			} else { weapon.s.fuse <- fuse }
 			
-			//	Other
+			//	Grenade init
+			#if SERVER
+			Grenade_Init( rocket, weapon )
+			#else
+			SetTeam( rocket, owner.GetTeam() )
+			#endif
 
 		}
 

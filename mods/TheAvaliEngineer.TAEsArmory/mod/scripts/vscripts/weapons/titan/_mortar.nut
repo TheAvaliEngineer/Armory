@@ -113,7 +113,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 
 	//	Handle projectile creation
 	entity owner = weapon.GetWeaponOwner()
-	
+
 	vector vel = -endNormal * SALVO_SPEED
 	vector angVel = Vector(0, 0, 0)
 	int damageFlags = weapon.GetWeaponDamageFlags()
@@ -121,6 +121,11 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	entity newProj = weapon.FireWeaponGrenade( endTarget, -vel, angVel, 
 			fuse, damageFlags, damageFlags, false, false, false )
 	if( newProj ) {
-		//	Other
+		//	Grenade init
+		#if SERVER
+		Grenade_Init( rocket, weapon )
+		#else
+		SetTeam( rocket, owner.GetTeam() )
+		#endif
 	}
 }
