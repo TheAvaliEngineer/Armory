@@ -121,7 +121,7 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 	if( playerFired )
 		PlayerUsedOffhand( owner, weapon )
 
-	//	Return
+	//	
 	return weapon.GetWeaponSettingInt( eWeaponVar.ammo_per_shot )
 }
 
