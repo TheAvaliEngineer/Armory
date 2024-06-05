@@ -67,7 +67,7 @@ MortarFireData function CalculateFireArc( vector startPos, vector endPos, float 
 }
 
 //	New method - teleport rockets to the new point after a delay
-void function TeleportProjectile( entity proj, entity weapon, vector target, float delay ) {
+void function TeleportProjectile( entity proj, entity weapon, vector targetPos, float delay ) {
 	//		Calculation
 	//	Raytraces
 	vector startNormal = Normalize( proj.GetVelocity() ) 
@@ -76,12 +76,12 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	float projSpeed = Length( proj.GetVelocity() )
 	float traceRange = projSpeed * delay * 0.5
 
-	vector startProj = proj.GetOrigin()
-	vector endProj = startProj + startNormal * (traceRange + MORTAR_OFFSET)
-	vector endTarget = target + endNormal * (traceRange + MORTAR_OFFSET)
+	vector projPos = proj.GetOrigin()
+	vector projTracePos = projPos + startNormal * (traceRange + MORTAR_OFFSET)
+	vector targetTracePos = targetPos + endNormal * (traceRange + MORTAR_OFFSET)
 
-	TraceResults resultProj = TraceLine( startProj, endProj, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
-	TraceResults resultTarget = TraceLine( target, endTarget, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
+	TraceResults resultProj = TraceLine( projPos, projTracePos, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
+	TraceResults resultTarget = TraceLine( targetPos, targetTracePos, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
 
 	//	Calculate delay
 	float delayProj = delay
@@ -96,11 +96,11 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 		delayTarget *= resultTarget.fraction
 		delayTarget += 0.1
 
-		endTarget = resultTarget.endPos
+		targetTracePos = resultTarget.endPos
 	}
 
 	delayTarget = delay - delayTarget
-	endTarget -= endNormal * MORTAR_OFFSET
+	targetTracePos -= endNormal * MORTAR_OFFSET
 
 	wait delayProj
 
@@ -114,19 +114,12 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 
 	//	Handle projectile creation
 	entity owner = weapon.GetWeaponOwner()
-
-	vector vel = -endNormal * projSpeed
-	vector angVel = Vector(0, 0, 0)
 	int damageFlags = weapon.GetWeaponDamageFlags()
 
-	entity newProj = weapon.FireWeaponGrenade( endTarget, vel, angVel, 
-			fuse, damageFlags, damageFlags, false, false, false )
+	entity newProj = weapon.FireWeaponBolt( targetTracePos, -endNormal,
+		projSpeed, damageFlags, damageFlags, false, 0 )
 	if( newProj ) {
 		//	Grenade init
-		#if SERVER
-		Grenade_Init( newProj, weapon )
-		#else
-		SetTeam( newProj, owner.GetTeam() )
-		#endif
+		newProj.SetProjectileLifetime( delay )
 	}
 }
