@@ -78,7 +78,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 
 	vector startProj = proj.GetOrigin()
 	vector endProj = startProj + startNormal * (traceRange + MORTAR_OFFSET)
-	vector endTarget = target + startNormal * (traceRange + MORTAR_OFFSET)
+	vector endTarget = target + endNormal * (traceRange + MORTAR_OFFSET)
 
 	TraceResults resultProj = TraceLine( startProj, endProj, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
 	TraceResults resultTarget = TraceLine( target, endTarget, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
@@ -106,8 +106,9 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 
 	//		Projectile handling
 	//	Handle projectile deletion
-	float fuse = delay*0.5 + expect float( proj.s.fuse )
-	proj.Destroy()
+	float fuse = delay*0.5 //+ expect float( proj.s.fuse )
+	if( IsValid(proj) )
+		proj.Destroy()
 
 	wait delayTarget
 
@@ -118,7 +119,7 @@ void function TeleportProjectile( entity proj, entity weapon, vector target, flo
 	vector angVel = Vector(0, 0, 0)
 	int damageFlags = weapon.GetWeaponDamageFlags()
 
-	entity newProj = weapon.FireWeaponGrenade( endTarget, -vel, angVel, 
+	entity newProj = weapon.FireWeaponGrenade( endTarget, vel, angVel, 
 			fuse, damageFlags, damageFlags, false, false, false )
 	if( newProj ) {
 		//	Grenade init
