@@ -76,10 +76,10 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		vector spreadVec = ApplyVectorSpread( up, SALVO_INACCURACY * 180 )
 		vector spreadXY = Vector(spreadVec.x, spreadVec.y, 0.0) * SALVO_MAX_SPREAD
 
-		//targetPos += spreadXY
+		targetPos += spreadXY
 
 		//	Get traj info
-		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 10, 750.0 )
+		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 3, 750.0 )
 		float speed = Length(dir)
 		dir = Normalize(dir)
 

@@ -81,11 +81,10 @@ vector function CalculateFireVecs( vector startPos, vector endPos, float tof, fl
 }
 
 //	New method - teleport rockets to the new point after a delay
-void function TeleportProjectile( entity proj, entity weapon, vector targetPos, float delay ) {
+void function TeleportProjectile( entity proj, entity weapon, vector targetPos, vector endNormal, float delay ) {
 	//		Calculation
 	//	Raytraces
 	vector startNormal = Normalize( proj.GetVelocity() ) 
-	vector endNormal = Vector(0, 0, 1)
 
 	float projSpeed = Length( proj.GetVelocity() )
 	float traceRange = projSpeed * delay * 0.5
