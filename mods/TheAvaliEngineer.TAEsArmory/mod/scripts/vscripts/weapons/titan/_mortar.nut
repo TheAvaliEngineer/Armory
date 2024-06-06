@@ -71,25 +71,13 @@ vector function CalculateFireVecs( vector startPos, vector endPos, float tof, fl
 	//	Calculate offsets
 	float xOffset = endPos.x - startPos.x
 	float yOffset = endPos.y - startPos.y
-	float horizOffset = sqrt(xOffset * xOffset + yOffset * yOffset)
 	float vertOffset = endPos.z - startPos.z
 
 	//	Calculate velocity
-	float vertSpeed = (g*tof*tof + vertOffset)/tof								//	
-	float horizSpeed = horizOffset/tof											//	meters (horiz offset) / sec (time of flight)
-	float projSpeed = sqrt( vertSpeed*vertSpeed + horizSpeed*horizSpeed )
+	float vertSpeed = (g*tof*tof + vertOffset)/tof		//	(m/s^2 * s * s + m) / s
 
-	//	Find angles
-	vector projAngles = VectorToAngles( Vector( horizSpeed, 0.0, vertSpeed ) )
-	vector xyAngles = VectorToAngles( Vector( xOffset, yOffset, 0.0 ) )
-
-	vector launchAngles = AnglesCompose( xyAngles, projAngles )
-
-	//	Create direction vector
-	vector dir = AnglesToForward( launchAngles )
-	vector vel = dir * projSpeed
-
-	return vel
+	//	Create & return velocity
+	return Vector(xOffset/tof, yOffset/tof, vertSpeed)
 }
 
 //	New method - teleport rockets to the new point after a delay
@@ -147,5 +135,6 @@ void function TeleportProjectile( entity proj, entity weapon, vector targetPos, 
 	if( newProj ) {
 		//	Grenade init
 		newProj.SetProjectileLifetime( delay )
+		newProj.kv.gravity = 2.0
 	}
 }

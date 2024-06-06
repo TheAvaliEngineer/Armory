@@ -15,7 +15,6 @@ global function OnProjectileCollision_MortarTone_Rockets
 const float SALVO_INACCURACY = 0.75
 const float SALVO_MAX_SPREAD = 750.0
 
-const float SALVO_SPEED = 5000.0
 const float SALVO_DELAY = 1.0 //1.0
 
 //			Functions
@@ -77,19 +76,19 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		vector spreadVec = ApplyVectorSpread( up, SALVO_INACCURACY * 180 )
 		vector spreadXY = Vector(spreadVec.x, spreadVec.y, 0.0) * SALVO_MAX_SPREAD
 
-		targetPos += spreadXY
+		//targetPos += spreadXY
 
 		//	Get traj info
-		vector dir = CalculateFireVecs( attackParams.pos, targetPos, SALVO_DELAY, 375.0 )
-		print("[TAEsArmory] FireMortarRockets: CalculateFireVecs v = " + dir )
-		dir = Normalize(dir) * SALVO_SPEED
+		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 10, 750.0 )
+		float speed = Length(dir)
+		dir = Normalize(dir)
 
 		//	Fire rocket
 		float fuse = -0.1
 		int damageFlags = weapon.GetWeaponDamageFlags()
 		
 		entity rocket = weapon.FireWeaponBolt( attackParams.pos, dir, 
-			SALVO_SPEED, damageFlags, damageFlags, playerFired, 0 )
+			speed, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
 			//	Table init
 			if( "fuse" in weapon.s ) {
@@ -98,6 +97,7 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 			
 			//	Grenade init
 			rocket.SetProjectileLifetime( SALVO_DELAY )
+			rocket.kv.gravity = 1.0
 
 		}
 

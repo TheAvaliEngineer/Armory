@@ -169,8 +169,8 @@ void function FlareThink( entity projectile, entity hitEnt, entity owner ) {
 		int index = GetParticleSystemIndex( $"P_ar_titan_droppoint" )
 		vector origin = projectile.GetOrigin()
 
-		fxHandle = StartParticleEffectInWorldWithHandle( index, origin, <0, 10000, 0> ) //team )
-//		EffectSetControlPointVector( fxHandle, 1, <255, 80, 80> ) // <255, 127, 127>
+		fxHandle = StartParticleEffectInWorldWithHandle( index, origin, <0, 0, 1> ) //team )
+		EffectSetControlPointVector( fxHandle, 1, <255, 80, 80> ) // <255, 127, 127>
 		#endif
 	}
 
