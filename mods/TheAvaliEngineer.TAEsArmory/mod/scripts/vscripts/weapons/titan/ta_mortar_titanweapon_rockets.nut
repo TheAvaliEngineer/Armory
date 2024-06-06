@@ -79,11 +79,13 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 
 		targetPos += spreadXY
 
+		//	Get traj info
+		vector dir = CalculateFireVecs( attackParams.pos, targetPos, SALVO_DELAY, 375.0 )
+
 		//	Fire rocket
 		float fuse = -0.1
 		int damageFlags = weapon.GetWeaponDamageFlags()
 		
-		vector dir = ApplyVectorSpread( up, SALVO_INACCURACY * 15 )
 		entity rocket = weapon.FireWeaponBolt( attackParams.pos, dir, 
 			SALVO_SPEED, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {

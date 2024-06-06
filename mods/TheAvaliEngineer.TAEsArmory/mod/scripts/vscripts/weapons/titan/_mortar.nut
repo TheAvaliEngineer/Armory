@@ -1,7 +1,8 @@
 untyped 
 
 //		Function declarations
-global function CalculateTrajVecs
+global function CalculateFireArc
+global function CalculateFireVecs
 global function TeleportProjectile
 
 //		Data
