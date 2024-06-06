@@ -81,6 +81,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 
 		//	Get traj info
 		vector dir = CalculateFireVecs( attackParams.pos, targetPos, SALVO_DELAY, 375.0 )
+		print("[TAEsArmory] FireMortarRockets: CalculateFireVecs len = " + Length(dir) )
+		dir = Normalize(dir) * SALVO_SPEED
 
 		//	Fire rocket
 		float fuse = -0.1
