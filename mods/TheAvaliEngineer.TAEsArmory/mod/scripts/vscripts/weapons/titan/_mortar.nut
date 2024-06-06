@@ -67,7 +67,7 @@ MortarFireData function CalculateFireArc( vector startPos, vector endPos, float 
 	return data
 }
 
-vector function CalculateTrajVecs( vector startPos, vector endPos, float delay, float g ) {
+vector function CalculateFireVecs( vector startPos, vector endPos, float delay, float g ) {
 	//	Calculate offsets
 	float xOffset = endPos.x - startPos.x
 	float yOffset = endPos.y - startPos.y
