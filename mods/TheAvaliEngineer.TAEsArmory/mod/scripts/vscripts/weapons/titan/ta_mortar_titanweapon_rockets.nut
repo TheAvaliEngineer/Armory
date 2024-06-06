@@ -56,18 +56,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		flareData[owner] <- []
 	}
 
-	//	Fire mortar in look direction if no flares have been fired
 	array<entity> flares = flareData[owner]
-	if( flares.len() == 0 ) {
-		print("[TAEsArmory] FireMortarRockets: No flares")
-
-		//	Create flare ent
-		vector viewDir = owner.GetPlayerOrNPCViewVector()
-		vector searchPos = owner.EyePosition() + viewDir * 2500
-
-		TraceResults trace = TraceLine( owner.EyePosition(), searchPos, owner, (TRACE_MASK_SHOT | CONTENTS_BLOCKLOS), TRACE_COLLISION_GROUP_NONE )
-		flares.append( CreateScriptMover( trace.endPos ) )
-	}
+	print("[TAEsArmory] FireMortarRockets: flares.len() = " + flares.len() )
 
 	foreach( flare in flares ) {
 		//	Check if owner is alive
@@ -92,8 +82,9 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		//	Fire rocket
 		float fuse = -0.1
 		int damageFlags = weapon.GetWeaponDamageFlags()
-
-		entity rocket = weapon.FireWeaponBolt( attackParams.pos, spreadVec, 
+		
+		vector dir = ApplyVectorSpread( up, SALVO_INACCURACY * 15 )
+		entity rocket = weapon.FireWeaponBolt( attackParams.pos, dir, 
 			SALVO_SPEED, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
 			//	Table init
@@ -106,13 +97,12 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 
 		}
 
+		//	Teleport projectile
 		thread TeleportProjectile( rocket, weapon, targetPos, SALVO_DELAY )
-	}
 
-	if( weapon.GetBurstFireShotsPending() == 1 ) {
-		foreach( flare in flares ) {
+		//	Remove flares
+		if( weapon.GetBurstFireShotsPending() == 1 ) {
 			flareData[owner].fastremovebyvalue(flare)
-
 			if( IsValid(flare) )
 				flare.Destroy()
 		}

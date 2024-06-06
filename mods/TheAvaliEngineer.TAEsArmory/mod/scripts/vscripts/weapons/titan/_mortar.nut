@@ -1,8 +1,8 @@
 untyped 
 
 //		Function declarations
+global function CalculateTrajVecs
 global function TeleportProjectile
-global function CalculateFireArc
 
 //		Data
 //	Struct
@@ -64,6 +64,31 @@ MortarFireData function CalculateFireArc( vector startPos, vector endPos, float 
 
 	//	Return
 	return data
+}
+
+vector function CalculateTrajVecs( vector startPos, vector endPos, float delay, float g ) {
+	//	Calculate offsets
+	float xOffset = endPos.x - startPos.x
+	float yOffset = endPos.y - startPos.y
+	float horizOffset = sqrt(xOffset * xOffset + yOffset * yOffset)
+	float vertOffset = endPos.z - startPos.z
+
+	//	Calculate velocity
+	float vertSpeed = g*delay + vertOffset/delay
+	float horizSpeed = horizOffset/delay
+	float projSpeed = sqrt( vertSpeed*vertSpeed + horizSpeed*horizSpeed )
+
+	//	Find angles
+	vector projAngles = VectorToAngles( Vector( horizSpeed, 0.0, vertSpeed ) )
+	vector xyAngles = VectorToAngles( Vector( xOffset, yOffset, 0.0 ) )
+
+	vector launchAngles = AnglesCompose( xyAngles, projAngles )
+
+	//	Create direction vector
+	vector dir = AnglesToForward( launchAngles )
+	vector vel = dir * projSpeed
+
+	return vel
 }
 
 //	New method - teleport rockets to the new point after a delay
