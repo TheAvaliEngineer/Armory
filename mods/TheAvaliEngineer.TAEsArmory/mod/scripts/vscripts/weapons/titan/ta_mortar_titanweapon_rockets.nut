@@ -16,7 +16,7 @@ const float SALVO_INACCURACY = 0.75
 const float SALVO_MAX_SPREAD = 750.0
 
 const float SALVO_SPEED = 5000.0
-const float SALVO_DELAY = 1.0
+const float SALVO_DELAY = 1.0 //1.0
 
 //			Functions
 //		Init
@@ -81,7 +81,7 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 
 		//	Get traj info
 		vector dir = CalculateFireVecs( attackParams.pos, targetPos, SALVO_DELAY, 375.0 )
-		print("[TAEsArmory] FireMortarRockets: CalculateFireVecs len = " + Length(dir) )
+		print("[TAEsArmory] FireMortarRockets: CalculateFireVecs v = " + dir )
 		dir = Normalize(dir) * SALVO_SPEED
 
 		//	Fire rocket

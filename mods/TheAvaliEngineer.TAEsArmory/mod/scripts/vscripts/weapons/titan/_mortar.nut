@@ -67,7 +67,7 @@ MortarFireData function CalculateFireArc( vector startPos, vector endPos, float 
 	return data
 }
 
-vector function CalculateFireVecs( vector startPos, vector endPos, float delay, float g ) {
+vector function CalculateFireVecs( vector startPos, vector endPos, float tof, float g ) {
 	//	Calculate offsets
 	float xOffset = endPos.x - startPos.x
 	float yOffset = endPos.y - startPos.y
@@ -75,8 +75,8 @@ vector function CalculateFireVecs( vector startPos, vector endPos, float delay, 
 	float vertOffset = endPos.z - startPos.z
 
 	//	Calculate velocity
-	float vertSpeed = g*delay + vertOffset/delay
-	float horizSpeed = horizOffset/delay
+	float vertSpeed = (g*tof*tof + vertOffset)/tof								//	
+	float horizSpeed = horizOffset/tof											//	meters (horiz offset) / sec (time of flight)
 	float projSpeed = sqrt( vertSpeed*vertSpeed + horizSpeed*horizSpeed )
 
 	//	Find angles
