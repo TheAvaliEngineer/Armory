@@ -12,8 +12,8 @@ global function OnProjectileCollision_MortarTone_Rockets
 
 //		Data
 //	Consts
-const float SALVO_INACCURACY = 0.75
-const float SALVO_MAX_SPREAD = 750.0
+const float SALVO_INACCURACY = 0.25
+const float SALVO_MAX_SPREAD = 50.0
 
 const float SALVO_DELAY = 1.0 //1.0
 
@@ -31,7 +31,6 @@ void function TArmory_Init_MortarTone_Rockets() {
 	RegisterWeaponDamageSources( customDamageSourceIds )
 	#endif
 }
-
 
 //		Fire handling
 var function OnWeaponPrimaryAttack_MortarTone_Rockets( entity weapon, WeaponPrimaryAttackParams attackParams ) {
@@ -56,8 +55,6 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 	}
 
 	array<entity> flares = flareData[owner]
-	print("[TAEsArmory] FireMortarRockets: flares.len() = " + flares.len() )
-
 	foreach( flare in flares ) {
 		//	Check if owner is alive
 		if( !IsAlive(owner) )
@@ -79,7 +76,7 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		targetPos += spreadXY
 
 		//	Get traj info
-		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 3, 750.0 )
+		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 5.0, 750.0 )
 		float speed = Length(dir)
 		dir = Normalize(dir)
 
@@ -91,18 +88,17 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 			speed, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
 			//	Table init
-			if( "fuse" in weapon.s ) {
-				weapon.s.fuse = fuse
-			} else { weapon.s.fuse <- fuse }
-			
+			weapon.s.fuse <- fuse
+			weapon.s.phase <- true
+
 			//	Grenade init
 			rocket.SetProjectileLifetime( SALVO_DELAY )
-			rocket.kv.gravity = 1.0
-
+			rocket.kv.gravity = 0.0
 		}
 
 		//	Teleport projectile
-		thread TeleportProjectile( rocket, weapon, targetPos, SALVO_DELAY )
+		vector endNormal = Vector(-dir.x, -dir.y, dir.z)
+		thread TeleportProjectile( rocket, weapon, targetPos, endNormal, SALVO_DELAY )
 
 		//	Remove flares
 		if( weapon.GetBurstFireShotsPending() == 1 ) {
@@ -117,14 +113,11 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 	if( playerFired )
 		PlayerUsedOffhand( owner, weapon )
 
-	//	
+	//	Return
 	return weapon.GetWeaponSettingInt( eWeaponVar.ammo_per_shot )
 }
 
 //		Collision handling
 void function OnProjectileCollision_MortarTone_Rockets( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
-	//		Phasing check
-	//	Check fuse time left: If above or below certain threshold - explode (at end / as punishment for poor positioning)
-	//
 
 }

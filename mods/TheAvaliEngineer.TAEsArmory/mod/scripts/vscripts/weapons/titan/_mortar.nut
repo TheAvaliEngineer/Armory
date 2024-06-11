@@ -132,8 +132,10 @@ void function TeleportProjectile( entity proj, entity weapon, vector targetPos, 
 	entity newProj = weapon.FireWeaponBolt( targetTracePos, -endNormal,
 		projSpeed, damageFlags, damageFlags, false, 0 )
 	if( newProj ) {
+		if( "phase" in weapon.s ) { weapon.s.phase = false } else { weapon.s.phase <- false }
+
 		//	Grenade init
 		newProj.SetProjectileLifetime( delay )
-		newProj.kv.gravity = 2.0
+		newProj.kv.gravity = 0.0
 	}
 }

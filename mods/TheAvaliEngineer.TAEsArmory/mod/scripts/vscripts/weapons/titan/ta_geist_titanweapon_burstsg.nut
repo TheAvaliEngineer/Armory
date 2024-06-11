@@ -13,10 +13,12 @@ global function OnWeaponReadyToFire_GeistRonin_BurstSG
 
 
 //		Data
-//	Shot FX
-const int SHOT_TRACER_COUNT = 8
+//	Stun
+const float STUN_DURATION = 0.5
+const float STUN_FADEOUT = 0.25
 
 //	FX
+const int SHOT_TRACER_COUNT = 8
 const asset CHARGE_EFFECT_1P = $"P_rail_charge" //$"P_wpn_xo_sniper_charge_FP"
 const asset CHARGE_EFFECT_3P = $"P_rail_charge" //$"P_wpn_xo_sniper_charge"
 
@@ -36,6 +38,9 @@ void function TArmory_Init_GeistRonin_BurstSG() {
 		ta_geist_titanweapon_burstsg = "Thumper",
 	}
 	RegisterWeaponDamageSources( customDamageSourceIds )
+
+	//	Callback
+	AddDamageCallbackSourceID( eDamageSourceId.ta_geist_titanweapon_burstsg, BurstSG_DamagedTarget )
 	#endif
 }
 
@@ -100,6 +105,27 @@ void function OnWeaponReadyToFire_GeistRonin_BurstSG( entity weapon ) {
 	bool isChargedShot = weapon.HasMod("TArmory_ChargedShot")
 	if( !weapon.IsReloading() && !isChargedShot ) {
 		weapon.AddMod("TArmory_ReloadHelper")
+	}
+}
+
+//	Damage handling
+void function BurstSG_DamagedTarget( entity hitEnt, var damageInfo ) {
+	//	Retrieval + sanity checks
+	entity weapon = DamageInfo_GetWeapon( damageInfo )
+	if( !IsValid(weapon) )
+		return
+
+	if( weapon.HasMod("TArmory_ChargedShot") ) {
+		entity target = ent.IsTitan() ? ent.GetTitanSoul() : ent
+		int slowEffect = StatusEffect_AddTimed( target, eStatusEffect.turn_slow, EMP_SEVERITY_SLOWTURN, STUN_DURATION, STUN_FADEOUT )
+		int turnEffect = StatusEffect_AddTimed( target, eStatusEffect.move_slow, EMP_SEVERITY_SLOWMOVE, STUN_DURATION, STUN_FADEOUT )
+
+		#if SERVER
+		if( ent.IsPlayer() ) {
+			ent.p.empStatusEffectsToClearForPhaseShift.append( slowEffect )
+			ent.p.empStatusEffectsToClearForPhaseShift.append( turnEffect )
+		}
+		#endif
 	}
 }
 
