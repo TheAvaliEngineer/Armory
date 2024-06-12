@@ -22,6 +22,9 @@ const int SHOT_TRACER_COUNT = 8
 const asset CHARGE_EFFECT_1P = $"P_rail_charge" //$"P_wpn_xo_sniper_charge_FP"
 const asset CHARGE_EFFECT_3P = $"P_rail_charge" //$"P_wpn_xo_sniper_charge"
 
+const FX_EMP_BODY_HUMAN			= $"P_emp_body_human"
+const FX_EMP_BODY_TITAN			= $"P_emp_body_titan"
+
 //		Functions
 //	Init
 void function TArmory_Init_GeistRonin_BurstSG() {
@@ -115,15 +118,32 @@ void function BurstSG_DamagedTarget( entity hitEnt, var damageInfo ) {
 	if( !IsValid(weapon) )
 		return
 
+	//	Apply charged stun
 	if( weapon.HasMod("TArmory_ChargedShot") ) {
+		//	Add status effects
 		entity target = hitEnt.IsTitan() ? hitEnt.GetTitanSoul() : hitEnt
-		int slowEffect = StatusEffect_AddTimed( target, eStatusEffect.turn_slow, EMP_SEVERITY_SLOWTURN, STUN_DURATION, STUN_FADEOUT )
-		int turnEffect = StatusEffect_AddTimed( target, eStatusEffect.move_slow, EMP_SEVERITY_SLOWMOVE, STUN_DURATION, STUN_FADEOUT )
+		int slowEffect = StatusEffect_AddTimed( target, eStatusEffect.turn_slow, 0.35, STUN_DURATION, STUN_FADEOUT )
+		int turnEffect = StatusEffect_AddTimed( target, eStatusEffect.move_slow, 0.50, STUN_DURATION, STUN_FADEOUT )
 
 		#if SERVER
 		if( hitEnt.IsPlayer() ) {
 			hitEnt.p.empStatusEffectsToClearForPhaseShift.append( slowEffect )
 			hitEnt.p.empStatusEffectsToClearForPhaseShift.append( turnEffect )
+		}
+
+		//	Add FX
+		string tag = ""
+		asset effect
+		if( hitEnt.IsTitan() || IsGunship(hitEnt) ) {
+    		tag = hitEnt.IsTitan() ? "exp_torso_front" : "ORIGIN";
+			effect = FX_EMP_BODY_TITAN;
+		} else {
+			tag = ChestFocusTarget(hitEnt) ? "CHESTFOCUS" : "HEADSHOT";
+			effect = FX_EMP_BODY_HUMAN;
+		}
+
+		if( tag != "" ) {
+			thread ApplyEMPFX( hitEnt, effect, tag, STUN_DURATION )
 		}
 		#endif
 	}
@@ -133,7 +153,6 @@ void function BurstSG_DamagedTarget( entity hitEnt, var damageInfo ) {
 //	FX
 void function StartChargeFX( entity weapon, entity owner ) {
 	//	Particle FX
-	//*
 	int attachIdx = owner.LookupAttachment( "origin" )
 
 	entity fx1p = StartParticleEffectOnEntity_ReturnEntity( weapon, GetParticleSystemIndex( CHARGE_EFFECT_1P ), FX_PATTACH_POINT_FOLLOW, attachIdx )
@@ -141,18 +160,10 @@ void function StartChargeFX( entity weapon, entity owner ) {
 
 	fx1p.kv.VisibilityFlags = ENTITY_VISIBLE_TO_EVERYONE | ENTITY_VISIBLE_ONLY_PARENT_PLAYER
 	fx3p.kv.VisibilityFlags = ENTITY_VISIBLE_TO_EVERYONE | ENTITY_VISIBLE_EXCLUDE_PARENT_PLAYER
-	//*/
 
-	/*
-	int attachID = owner.LookupAttachment( "muzzle_flash" )
-	weapon.PlayWeaponEffect( CHARGE_EFFECT_1P, CHARGE_EFFECT_3P, "muzzle_flash" )
-	//*/
-
-	//*
 	if( "chargeFX" in weapon.s ) {
 		weapon.s.chargeFX = [fx1p, fx3p]
 	} else { weapon.s.chargeFX <- [fx1p, fx3p] }
-	//*/
 
 	//	SFX
 	EmitSoundOnEntityOnlyToPlayer( weapon, owner, "Weapon_Predator_Powershot_ChargeUp_1P" )
@@ -163,14 +174,56 @@ void function StartChargeFX( entity weapon, entity owner ) {
 
 void function StopChargeFX(	entity weapon ) {
 	//	Particle FX
-	//*
 	foreach( fx in weapon.s.chargeFX ) {
 		fx.Destroy()
-	} //*/
-
-//	weapon.StopWeaponEffect( CHARGE_EFFECT_1P, CHARGE_EFFECT_3P )
+	}
 
 	//	SFX
 	StopSoundOnEntity( weapon, "Weapon_Titan_Sniper_SustainLoop" )
+}
+
+void function ApplyEMPFX( entity ent, asset effect, string tag, float duration ) {
+	//	Sanity checks
+	if( !IsValid(ent) )
+		return
+	
+	if( !IsAlive(ent) )
+		return
+
+	//	Signaling
+	ent.Signal( "EMP_FX" )		//	Kill duplicates
+	ent.EndSignal( "EMP_FX" )
+
+	ent.EndSignal( "OnDestroy" )
+	ent.EndSignal( "OnDeath" )
+	ent.EndSignal( "StartPhaseShift" )
+
+	//		Apply FX
+	//	Get attach point
+	int fxId = GetParticleSystemIndex( effect )
+	int attachId = ent.LookupAttachment( tag )
+
+	entity fxHandle = StartParticleEffectOnEntity_ReturnEntity( ent, fxId, FX_PATTACH_POINT_FOLLOW, attachId )
+	fxHandle.kv.VisibilityFlags = ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY
+	fxHandle.SetOwner( ent )
+
+	//	End handling
+	OnThreadEnd( function() : ( fxHandle, ent ) {
+		if( IsValid(fxHandle) )
+			EffectStop( fxHandle )
+
+		if( IsValid(ent) )
+			StopSoundOnEntity( ent, "Titan_Blue_Electricity_Cloud" )
+	})
+
+	//	Play FX
+	if( ent.IsPlayer() ) {
+		EmitSoundOnEntityExceptToPlayer( ent, ent, "Titan_Blue_Electricity_Cloud" )
+	} else {
+		EmitSoundOnEntity( ent, "Titan_Blue_Electricity_Cloud" )
+	}
+	EffectWake( fxHandle )
+
+	wait duration
 }
 #endif
