@@ -226,4 +226,18 @@ void function ApplyEMPFX( entity ent, asset effect, string tag, float duration )
 
 	wait duration
 }
+
+bool function ChestFocusTarget( entity ent ) {
+	if( IsSpectre(ent) )
+		return true
+	if( IsStalker(ent) )
+		return true
+	if( IsSuperSpectre(ent) )
+		return true
+	if( IsGrunt(ent) )
+		return true
+	if( IsPilot(ent) )
+		return true
+	return false
+}
 #endif
