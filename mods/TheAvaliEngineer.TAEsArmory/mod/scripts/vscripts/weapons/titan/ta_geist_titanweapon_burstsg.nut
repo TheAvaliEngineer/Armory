@@ -116,14 +116,14 @@ void function BurstSG_DamagedTarget( entity hitEnt, var damageInfo ) {
 		return
 
 	if( weapon.HasMod("TArmory_ChargedShot") ) {
-		entity target = ent.IsTitan() ? ent.GetTitanSoul() : ent
+		entity target = hitEnt.IsTitan() ? hitEnt.GetTitanSoul() : hitEnt
 		int slowEffect = StatusEffect_AddTimed( target, eStatusEffect.turn_slow, EMP_SEVERITY_SLOWTURN, STUN_DURATION, STUN_FADEOUT )
 		int turnEffect = StatusEffect_AddTimed( target, eStatusEffect.move_slow, EMP_SEVERITY_SLOWMOVE, STUN_DURATION, STUN_FADEOUT )
 
 		#if SERVER
-		if( ent.IsPlayer() ) {
-			ent.p.empStatusEffectsToClearForPhaseShift.append( slowEffect )
-			ent.p.empStatusEffectsToClearForPhaseShift.append( turnEffect )
+		if( hitEnt.IsPlayer() ) {
+			hitEnt.p.empStatusEffectsToClearForPhaseShift.append( slowEffect )
+			hitEnt.p.empStatusEffectsToClearForPhaseShift.append( turnEffect )
 		}
 		#endif
 	}
