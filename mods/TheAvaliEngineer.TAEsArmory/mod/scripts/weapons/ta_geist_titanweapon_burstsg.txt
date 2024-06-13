@@ -127,8 +127,8 @@ WeaponData
 	"damage_near_value"   							"100"
 	"damage_far_value"								"75"
 
-	"damage_near_value_titanarmor"					"200"
-	"damage_far_value_titanarmor" 					"150"
+	"damage_near_value_titanarmor"					"300"
+	"damage_far_value_titanarmor" 					"250"
 
 	"damage_near_distance"							"800"
 	"damage_far_distance" 							"1250"
@@ -225,8 +225,8 @@ WeaponData
 	"npc_min_burst"									"1"
 	"npc_max_burst"									"1"
 
-	"npc_rest_time_between_bursts_min"					"0.1"
-	"npc_rest_time_between_bursts_max"					"0.4"
+	"npc_rest_time_between_bursts_min"				"0.1"
+	"npc_rest_time_between_bursts_max"				"0.4"
 
     //	Proficiency (same as leadwall)
 	"proficiency_poor_spreadscale"					"7.0"

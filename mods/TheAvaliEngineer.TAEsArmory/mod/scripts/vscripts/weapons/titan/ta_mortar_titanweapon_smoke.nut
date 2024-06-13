@@ -26,7 +26,7 @@ void function OnProjectileCollision_MortarTone_Smoke() {
 
 	//	Add eDamageSourceId using Dinorush's server code
 	table<string, string> customDamageSourceIds = {
-		ta_mortar_titanweapon_rockets = "Smoke Strike",
+		ta_mortar_titanweapon_smoke = "Smoke Strike",
 	}
 	RegisterWeaponDamageSources( customDamageSourceIds )
 	#endif
@@ -119,3 +119,52 @@ int function FireMortarSmoke( entity weapon, WeaponPrimaryAttackParams attackPar
 void function OnProjectileCollision_MortarTone_Smoke( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
 	
 }
+
+#if SERVER
+void function MortarSmokescreen( entity proj ) {
+	//		Sanity checks
+	if( !IsValid(proj) )
+		return
+	
+	entity owner = proj.GetOwner()
+	if( !IsValid(owner) )
+		return
+
+	//		Create smokescreen
+	//	Initialization
+	SmokescreenStruct smoke
+	smoke.isElectric = true
+	smoke.weaponOrProjectile = proj
+
+	smoke.ownerTeam = owner.GetTeam()
+	smoke.attacker = owner
+	smoke.inflictor = proj
+
+	//	Position
+	smoke.origin = proj.GetOrigin()
+	smoke.angles = proj.GetAngles()
+	smoke.fxUseWeaponOrProjectileAngles = true
+	smoke.fxOffsets = [ <0.0, 0.0, 2.0> ]
+
+	//	Stats (damage & radius)
+	RadiusDamageData radiusDamage 	= GetRadiusDamageDataFromProjectile( proj, owner )
+
+	smoke.damageInnerRadius = radiusDamage.explosionInnerRadius
+	smoke.damageOuterRadius = radiusDamage.explosionRadius
+	
+	smoke.dpsPilot = radiusDamage.explosionDamage
+	smoke.dpsTitan = radiusDamage.explosionDamageHeavyArmor
+
+	smoke.dangerousAreaRadius = smoke.damageOuterRadius * 1.5
+
+	//	Stats (behavior)
+	smoke.damageDelay = 1.0
+	smoke.damageSource = eDamageSourceId.ta_mortar_titanweapon_smoke
+
+	smoke.deploySound1p = "explo_electric_smoke_impact"
+	smoke.deploySound3p = "explo_electric_smoke_impact"
+
+	//	Creation
+	Smokescreen( smoke )
+}
+#endif
