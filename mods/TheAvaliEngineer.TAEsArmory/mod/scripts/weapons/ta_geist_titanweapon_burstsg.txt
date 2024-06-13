@@ -105,7 +105,7 @@ WeaponData
 
 	//		Projectile/bullet handling
 	//	Projectile params
-	"projectiles_per_shot"							"8"
+	"projectiles_per_shot"							"12"
 
 	//	Vortex behavior
 	"vortex_refire_behavior"  						"bullet"
@@ -150,7 +150,7 @@ WeaponData
 
 	//		Ammunition
 	//	Ammo
-	"ammo_clip_size"   								"12"
+	"ammo_clip_size"   								"8"
 	"ammo_per_shot"									"1"
 	"ammo_min_to_fire"								"1"
 
@@ -422,14 +422,14 @@ WeaponData
 		TArmory_ChargedShot {
 			//		Effects
 			//	Muzzle flash
-			"fx_muzzle_flash_view"							"P_muzzleflash_predator_alt_FP"
-			"fx_muzzle_flash_world"							"P_muzzleflash_predator_alt"
+			"fx_muzzle_flash_view"							"P_wpn_mflash_arcball_FP"
+			"fx_muzzle_flash_world"							"P_wpn_mflash_arcball"
 
 			//	Tracer & trail fx
-			"tracer_effect"   								"P_weapon_tracers_predator_alt"
+			"tracer_effect"   								"wpn_tracer_BC_CH_arc_shotgun" //"P_weapon_tracers_predator_alt"
 
 			//	Impact/bounce fx
-			"impact_effect_table" 							"predator_bullet_alt"
+			"impact_effect_table" 							"doubletake_bullet" //"predator_bullet_alt"
 
 			//		Projectile/bullet handling
 			//	Projectile params

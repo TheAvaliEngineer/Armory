@@ -96,7 +96,7 @@ void function OnWeaponReload_GeistRonin_BurstSG( entity weapon, int milestoneInd
 	weapon.RemoveMod("TArmory_ReloadHelper")
 
 	entity owner = weapon.GetWeaponOwner()
-	if( owner.GetWeaponAmmoLoaded(weapon) >= 4 ) {
+	if( owner.GetWeaponAmmoLoaded(weapon) >= 7 ) {
 		weapon.AddMod("TArmory_ChargedShot")
 		#if SERVER
 		StartChargeFX( weapon, owner )
