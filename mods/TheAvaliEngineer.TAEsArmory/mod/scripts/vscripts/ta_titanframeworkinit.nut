@@ -196,9 +196,9 @@ void function TA_TitanFramework_UIInit() {
 	//	Tactical
 	ModdedTitanWeaponAbilityData SmokeStrike
 	SmokeStrike.custom = true
-	SmokeStrike.weaponName = "ta_mortar_titanweapon_loiterbomb"
-	SmokeStrike.displayName = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB"
-	SmokeStrike.description = "#TA_TITAN_MORTAR_DEFENSIVE_LOITERBOMB_DESC"
+	SmokeStrike.weaponName = "ta_mortar_titanweapon_smoke"
+	SmokeStrike.displayName = "#TA_TITAN_MORTAR_TACTICAL_SMOKESTRIKE"
+	SmokeStrike.description = "#TA_TITAN_MORTAR_TACTICAL_SMOKESTRIKE_DESC"
 	SmokeStrike.image = $"ui/temp"
 	Mortar.Mid = SmokeStrike
 

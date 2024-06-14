@@ -12,7 +12,7 @@ global function OnProjectileCollision_MortarTone_Rockets
 
 //		Data
 //	Consts
-const float SALVO_INACCURACY = 0.75
+const float SALVO_INACCURACY = 0.50
 const float SALVO_MAX_SPREAD = 750.0
 
 const float SALVO_DELAY = 1.0 //1.0
