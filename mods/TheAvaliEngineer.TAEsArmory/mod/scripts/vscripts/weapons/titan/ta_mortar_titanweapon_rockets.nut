@@ -12,8 +12,8 @@ global function OnProjectileCollision_MortarTone_Rockets
 
 //		Data
 //	Consts
-const float SALVO_INACCURACY = 0.25
-const float SALVO_MAX_SPREAD = 50.0
+const float SALVO_INACCURACY = 0.75
+const float SALVO_MAX_SPREAD = 750.0
 
 const float SALVO_DELAY = 1.0 //1.0
 
@@ -121,8 +121,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 void function OnProjectileCollision_MortarTone_Rockets( entity proj, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
 	//	Destroy projectile check
 	bool destroy = false
-	if( "phase" in weapon.s ) {
-		destroy = weapon.s.phase
+	if( "phase" in proj.s ) {
+		destroy = expect bool( proj.s.phase )
 	} else { destroy = true }
 
 	if( destroy )

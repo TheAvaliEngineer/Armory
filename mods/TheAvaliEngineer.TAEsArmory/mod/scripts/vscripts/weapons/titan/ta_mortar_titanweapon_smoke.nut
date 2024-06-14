@@ -1,4 +1,4 @@
-
+untyped
 
 //		Function declarations
 global function TArmory_Init_MortarTone_Smoke
@@ -12,8 +12,8 @@ global function OnProjectileCollision_MortarTone_Smoke
 
 //		Data
 //	Consts
-const float SALVO_INACCURACY = 0.75
-const float SALVO_MAX_SPREAD = 750.0
+const float SALVO_INACCURACY = 0.25
+const float SALVO_MAX_SPREAD = 150.0
 
 const float SALVO_DELAY = 1.0 //1.0
 
@@ -119,8 +119,8 @@ int function FireMortarSmoke( entity weapon, WeaponPrimaryAttackParams attackPar
 void function OnProjectileCollision_MortarTone_Smoke( entity proj, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
 	//	Destroy projectile check
 	bool destroy = false
-	if( "phase" in weapon.s ) {
-		destroy = weapon.s.phase
+	if( "phase" in proj.s ) {
+		destroy = expect bool( proj.s.phase )
 	} else { destroy = true }
 
 	if( destroy )
