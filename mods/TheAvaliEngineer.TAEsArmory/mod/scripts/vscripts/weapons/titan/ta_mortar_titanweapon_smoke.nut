@@ -116,8 +116,15 @@ int function FireMortarSmoke( entity weapon, WeaponPrimaryAttackParams attackPar
 }
 
 //		Collision handling
-void function OnProjectileCollision_MortarTone_Smoke( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
-	
+void function OnProjectileCollision_MortarTone_Smoke( entity proj, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
+	//	Destroy projectile check
+	bool destroy = false
+	if( "phase" in weapon.s ) {
+		destroy = weapon.s.phase
+	} else { destroy = true }
+
+	if( destroy )
+		proj.Destroy()
 }
 
 #if SERVER

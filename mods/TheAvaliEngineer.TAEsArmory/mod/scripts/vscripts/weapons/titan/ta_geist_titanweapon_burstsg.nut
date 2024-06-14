@@ -14,7 +14,7 @@ global function OnWeaponReadyToFire_GeistRonin_BurstSG
 
 //		Data
 //	Stun
-const float STUN_DURATION = 0.5
+const float STUN_DURATION = 2.5
 const float STUN_FADEOUT = 0.25
 
 //	FX
