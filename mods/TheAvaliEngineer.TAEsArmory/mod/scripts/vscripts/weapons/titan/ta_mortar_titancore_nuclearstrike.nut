@@ -1,3 +1,5 @@
+untyped
+
 //		Function Declarations
 global function TArmory_Init_MortarTone_NuclearStrike
 
