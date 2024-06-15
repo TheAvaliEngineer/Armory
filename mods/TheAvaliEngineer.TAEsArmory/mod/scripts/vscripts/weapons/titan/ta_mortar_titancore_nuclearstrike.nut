@@ -145,24 +145,27 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 		return 0
 
 	#if SERVER
-	if(!(owner in flareData))
+	//	Add owner to flareData if they aren't in there already
+	if( !(owner in flareData) ) {
+		flareData[owner] <- []
 		return 0
+	}
 
+	//		Retrieve fire pos
 	array<entity> flares = flareData[owner]
-	if( flares.len() == 0 )
+	if( flares.len() == 0 ) {
 		return 0
-
+	}
+	
 	entity flare = flares[flares.len() - 1]
-
-	//	Check if flare is valid
-	if( !IsValid(flare) )
+	if( !IsValid(flare) ) {
 		return 0
-
-	//	Get arc params
+	}
+		
+	//		Fire calculation
+	//	Get fire params
 	vector playerPos = attackParams.pos
-	vector flarePos = flare.GetOrigin()
-
-	float gravityAmount = MORTAR_GRAVITY * weapon.GetWeaponSettingFloat( eWeaponVar.projectile_gravity_scale )
+	vector targetPos = flare.GetOrigin()
 
 	//	Apply inaccuracy
 	vector up = Vector(0.0, 0.0, 1.0)
@@ -171,29 +174,35 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 
 	flarePos += spreadXY
 
-	//	Calculate trajectory
-	MortarFireData fireData = CalculateFireArc( playerPos, flarePos, 1500.0, gravityAmount )
+	//	Get traj info
+	vector dir = CalculateFireVecs( attackParams.pos, targetPos, 5.0, 750.0 )
+	float speed = Length(dir)
+	dir = Normalize(dir)
 
-	//	Calculate fire params
-	vector dir = fireData.launchDir * fireData.speed
+	//	Fire nuke
 	vector angVel = Vector(0., 0., 0.)
-	float fuse = 0.0 	//	Infinite fuse	//	fireData.flightTime + 1.0
-
+	float fuse = 0.0 	//	Infinite fuse
 	entity rocket = weapon.FireWeaponGrenade( attackParams.pos, dir, angVel, fuse,
 		damageTypes.pinkMist, damageTypes.pinkMist, false, true, false )
-	//entity rocket = weapon.FireWeaponBolt( attackParams.pos, fireData.launchDir,
-	//	fireData.speed, damageTypes.pinkMist, damageTypes.pinkMist, playerFired, 0 )
 	if( rocket ) {
 		rocket.kv.gravity = 1.0
-		rocket.SetProjectileLifetime( fuse )
 
+		//	Table init
+		weapon.s.fuse <- fuse
+		weapon.s.phase <- true
+
+		//	Grenade init
 		#if SERVER
-			Grenade_Init( rocket, weapon )
+		Grenade_Init( rocket, weapon )
 		#else
-			entity weaponOwner = weapon.GetWeaponOwner()
-			SetTeam( rocket, weaponOwner.GetTeam() )
+		entity weaponOwner = weapon.GetWeaponOwner()
+		SetTeam( rocket, weaponOwner.GetTeam() )
 		#endif
 	}
+
+	//	Teleport projectile
+	vector endNormal = Vector(-dir.x, -dir.y, dir.z)
+	thread TeleportProjectile( rocket, weapon, targetPos, endNormal, SALVO_DELAY )
 
 	//	Remove flare
 	flareData[owner].fastremovebyvalue(flare)
@@ -208,15 +217,22 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 
 //	Collision/ignite handling
 void function OnProjectileCollision_MortarTone_NuclearStrike( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
-	table collisionParams = {
-		pos = pos,
-		normal = normal,
-		hitEnt = hitEnt,
-		hitbox = hitbox
-	}
+	//	Destroy projectile check
+	bool destroy = false
+	if( "phase" in proj.s ) {
+		destroy = expect bool( proj.s.phase )
+	} else { destroy = true }
 
+	if( destroy )
+		proj.Destroy()
+	
+	//	Stick
+	table collisionParams = { pos = pos, normal = normal, hitEnt = hitEnt, hitbox = hitbox }
 	bool result = PlantStickyEntity( projectile, collisionParams )
+	if( !result )
+		return
 
+	//	Nuke
 	#if SERVER
 	thread TArmory_DoNuclearExplosion( projectile )
 	#endif
