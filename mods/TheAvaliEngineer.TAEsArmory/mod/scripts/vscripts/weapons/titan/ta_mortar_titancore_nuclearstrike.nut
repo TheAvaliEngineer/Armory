@@ -21,7 +21,7 @@ global function OnProjectileIgnite_MortarTone_NuclearStrike
 const float NUKE_INACCURACY = 0.05
 const float NUKE_MAX_SPREAD = 50.0
 
-const float NUKE_DELAY = 2.0
+const float NUKE_DELAY = 1.0
 
 //	Nuclear explosion properties
 const int NUCLEAR_STRIKE_EXPLOSION_COUNT = 16
@@ -178,8 +178,6 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 
 	//	Get traj info
 	vector dir = CalculateFireVecs( attackParams.pos, targetPos, 8.0, 750.0 )
-	float speed = Length(dir)
-	dir = Normalize(dir)
 
 	//	Fire nuke
 	vector angVel = Vector(0., 0., 0.)
@@ -187,11 +185,11 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 	entity rocket = weapon.FireWeaponGrenade( attackParams.pos, dir, angVel, fuse,
 		damageTypes.pinkMist, damageTypes.pinkMist, false, true, false )
 	if( rocket ) {
-		rocket.kv.gravity = 1.0
+		rocket.kv.gravity = 0.0
 
 		//	Table init
-		weapon.s.fuse <- fuse
-		weapon.s.phase <- true
+		rocket.s.fuse <- fuse
+		rocket.s.phase <- true
 
 		//	Grenade init
 		#if SERVER
@@ -203,6 +201,7 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 	}
 
 	//	Teleport projectile
+	dir = Normalize(dir)
 	vector endNormal = Vector(-dir.x, -dir.y, dir.z)
 	thread TeleportProjectile( rocket, weapon, targetPos, endNormal, NUKE_DELAY )
 
@@ -218,7 +217,7 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 }
 
 //	Collision/ignite handling
-void function OnProjectileCollision_MortarTone_NuclearStrike( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
+void function OnProjectileCollision_MortarTone_NuclearStrike( entity proj, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
 	//	Destroy projectile check
 	bool destroy = false
 	if( "phase" in proj.s ) {
@@ -229,14 +228,12 @@ void function OnProjectileCollision_MortarTone_NuclearStrike( entity projectile,
 		proj.Destroy()
 	
 	//	Stick
-	table collisionParams = { pos = pos, normal = normal, hitEnt = hitEnt, hitbox = hitbox }
-	bool result = PlantStickyEntity( projectile, collisionParams )
-	if( !result )
-		return
+	table params = { pos = pos, normal = normal, hitEnt = hitEnt, hitbox = hitbox }
+	bool result = PlantStickyEntity( proj, params )
 
 	//	Nuke
 	#if SERVER
-	thread TArmory_DoNuclearExplosion( projectile )
+	thread TArmory_DoNuclearExplosion( proj )
 	#endif
 }
 

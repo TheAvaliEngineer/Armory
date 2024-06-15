@@ -19,7 +19,7 @@ const float SALVO_DELAY = 1.0 //1.0
 
 //			Functions
 //		Init
-void function OnProjectileCollision_MortarTone_Smoke() {
+void function TArmory_Init_MortarTone_Smoke() {
 	#if SERVER
 	//	Weapon precache
 	PrecacheWeapon( "ta_mortar_titanweapon_smoke" )
@@ -88,8 +88,8 @@ int function FireMortarSmoke( entity weapon, WeaponPrimaryAttackParams attackPar
 			speed, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
 			//	Table init
-			weapon.s.fuse <- fuse
-			weapon.s.phase <- true
+			rocket.s.fuse <- fuse
+			rocket.s.phase <- true
 
 			//	Grenade init
 			rocket.SetProjectileLifetime( SALVO_DELAY )

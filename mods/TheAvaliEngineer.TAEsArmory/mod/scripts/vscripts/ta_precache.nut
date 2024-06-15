@@ -59,7 +59,7 @@ void function TArmory_Precache() {
 
 	//	Mortar
 	TArmory_Init_MortarTone_FlareLauncher()
-	TArmory_Init_MortarTone_LoiterBomb()
+	TArmory_Init_MortarTone_Smoke()
 	TArmory_Init_MortarTone_Rockets()
 	//
 	TArmory_Init_MortarTone_NuclearStrike()

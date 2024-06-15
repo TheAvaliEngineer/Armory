@@ -4,6 +4,7 @@ untyped
 global function CalculateFireArc
 global function CalculateFireVecs
 global function TeleportProjectile
+global function TeleportGrenade
 
 //		Data
 //	Struct
@@ -132,10 +133,83 @@ void function TeleportProjectile( entity proj, entity weapon, vector targetPos, 
 	entity newProj = weapon.FireWeaponBolt( targetTracePos, -endNormal,
 		projSpeed, damageFlags, damageFlags, false, 0 )
 	if( newProj ) {
-		if( "phase" in weapon.s ) { weapon.s.phase = false } else { weapon.s.phase <- false }
+		if( "phase" in newProj.s ) { 
+			newProj.s.phase = false 
+		} else { newProj.s.phase <- false }
 
 		//	Grenade init
 		newProj.SetProjectileLifetime( delay )
 		newProj.kv.gravity = 0.0
+	}
+}
+
+void function TeleportGrenade( entity proj, entity weapon, vector targetPos, vector endNormal, float delay ) {
+	//		Calculation
+	//	Raytraces
+	vector startNormal = Normalize( proj.GetVelocity() ) 
+
+	float projSpeed = Length( proj.GetVelocity() )
+	float traceRange = projSpeed * delay * 0.5
+
+	vector projPos = proj.GetOrigin()
+	vector projTracePos = projPos + startNormal * (traceRange + MORTAR_OFFSET)
+	vector targetTracePos = targetPos + endNormal * (traceRange + MORTAR_OFFSET)
+
+	TraceResults resultProj = TraceLine( projPos, projTracePos, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
+	TraceResults resultTarget = TraceLine( targetPos, targetTracePos, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
+
+	//	Calculate delay
+	float delayProj = delay
+	float delayTarget = delay
+
+	if( resultProj.fraction < 1.0 ) {
+		delayProj *= resultProj.fraction
+		delayProj -= 0.1
+	}
+
+	if( resultTarget.fraction < 1.0 ) {
+		delayTarget *= resultTarget.fraction
+		delayTarget += 0.1
+
+		targetTracePos = resultTarget.endPos
+	}
+
+	delayTarget = delay - delayTarget
+	targetTracePos -= endNormal * MORTAR_OFFSET
+
+	wait delayProj
+
+	//		Projectile handling
+	//	Handle projectile deletion
+	float fuse = delay*0.5 //+ expect float( proj.s.fuse )
+	if( IsValid(proj) )
+		proj.Destroy()
+
+	wait delayTarget
+
+	//	Handle projectile creation
+	entity owner = weapon.GetWeaponOwner()
+	int damageFlags = weapon.GetWeaponDamageFlags()
+
+	vector vel = -endNormal * projSpeed
+	vector angVel = Vector(0., 0., 0.)
+
+	entity newProj = weapon.FireWeaponGrenade( targetTracePos, -vel,
+		angVel, 0.0, damageFlags, damageFlags, false, false, false )
+	if( newProj ) {
+		newProj.kv.gravity = 0.0
+
+		//	Table init
+		if( "phase" in newProj.s ) { 
+			newProj.s.phase = false 
+		} else { newProj.s.phase <- false }
+
+		//	Grenade init
+		#if SERVER
+		Grenade_Init( rocket, weapon )
+		#else
+		entity weaponOwner = weapon.GetWeaponOwner()
+		SetTeam( rocket, weaponOwner.GetTeam() )
+		#endif
 	}
 }

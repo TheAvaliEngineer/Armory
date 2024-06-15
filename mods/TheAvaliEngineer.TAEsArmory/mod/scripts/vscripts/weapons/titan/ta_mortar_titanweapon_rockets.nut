@@ -88,8 +88,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 			speed, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
 			//	Table init
-			weapon.s.fuse <- fuse
-			weapon.s.phase <- true
+			rocket.s.fuse <- fuse
+			rocket.s.phase <- true
 
 			//	Grenade init
 			rocket.SetProjectileLifetime( SALVO_DELAY )

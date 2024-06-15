@@ -121,13 +121,14 @@
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
 		{
-			"Path": "weapons/titan/ta_mortar_titanweapon_rockets.nut",
+			"Path": "weapons/titan/ta_mortar_titanweapon_smoke.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
 		{
-			"Path": "weapons/titan/ta_mortar_titanweapon_loiterbomb.nut",
+			"Path": "weapons/titan/ta_mortar_titanweapon_rockets.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
+		//
 		{
 			"Path": "weapons/titan/ta_mortar_titancore_nuclearstrike.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
