@@ -16,10 +16,10 @@ global function OnProjectileIgnite_MortarTone_NuclearStrike
 
 //		Data
 //	Mortar properties
-const float MORTAR_GRAVITY = 375.0
-
 const float NUKE_INACCURACY = 0.05
 const float NUKE_MAX_SPREAD = 50.0
+
+const float NUKE_DELAY = 2.0
 
 //	Nuclear explosion properties
 const int NUCLEAR_STRIKE_EXPLOSION_COUNT = 16
@@ -172,10 +172,10 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 	vector spreadVec = ApplyVectorSpread( up, NUKE_INACCURACY * 180 )
 	vector spreadXY = Vector(spreadVec.x, spreadVec.y, 0.0) * NUKE_MAX_SPREAD
 
-	flarePos += spreadXY
+	targetPos += spreadXY
 
 	//	Get traj info
-	vector dir = CalculateFireVecs( attackParams.pos, targetPos, 5.0, 750.0 )
+	vector dir = CalculateFireVecs( attackParams.pos, targetPos, 8.0, 750.0 )
 	float speed = Length(dir)
 	dir = Normalize(dir)
 
@@ -202,7 +202,7 @@ int function FireNuclearStrike( entity weapon, WeaponPrimaryAttackParams attackP
 
 	//	Teleport projectile
 	vector endNormal = Vector(-dir.x, -dir.y, dir.z)
-	thread TeleportProjectile( rocket, weapon, targetPos, endNormal, SALVO_DELAY )
+	thread TeleportProjectile( rocket, weapon, targetPos, endNormal, NUKE_DELAY )
 
 	//	Remove flare
 	flareData[owner].fastremovebyvalue(flare)
