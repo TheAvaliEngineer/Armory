@@ -76,7 +76,7 @@ int function FlareLauncher_Fire( entity weapon, WeaponPrimaryAttackParams attack
 	if( !IsValid(owner) )
 		return 0
 
-	//	Test for projectile creation
+	//	Test for proj creation
 	bool shouldCreateProjectile = false
 	if( IsServer() || weapon.ShouldPredictProjectiles() ) {
 		shouldCreateProjectile = true
@@ -86,7 +86,7 @@ int function FlareLauncher_Fire( entity weapon, WeaponPrimaryAttackParams attack
 		#endif
 	}
 
-	//	Create projectile
+	//	Create proj
 	if( shouldCreateProjectile ) {
 		int damageFlags = weapon.GetWeaponDamageFlags()
 
@@ -115,15 +115,9 @@ int function FlareLauncher_Fire( entity weapon, WeaponPrimaryAttackParams attack
 }
 
 //	Collision handling
-void function OnProjectileCollision_MortarTone_FlareLauncher( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
-	table collisionParams = {
-		pos = pos,
-		normal = normal,
-		hitEnt = hitEnt,
-		hitbox = hitbox
-	}
-
-	entity owner = projectile.GetOwner()
+void function OnProjectileCollision_MortarTone_FlareLauncher( entity proj, vector pos, vector norm, entity hitEnt, int hitbox, bool isCrit ) {
+	//	Sanity checks
+	entity owner = proj.GetOwner()
 	if( !IsValid(owner) )
 		return
 
@@ -131,7 +125,7 @@ void function OnProjectileCollision_MortarTone_FlareLauncher( entity projectile,
 	bool place = true
 
 	if( hitEnt.IsWorld() ) {
-		float dot = normal.Dot( Vector( 0, 0, 1 ) )
+		float dot = norm.Dot( Vector( 0, 0, 1 ) )
 		place = place && (dot > 0.8)
 	}
 
@@ -139,35 +133,35 @@ void function OnProjectileCollision_MortarTone_FlareLauncher( entity projectile,
 		return
 	
 	//	Attempt planted
-	bool planted = PlantStickyEntity( projectile, collisionParams )
+	bool planted = PlantStickyEntity( proj, collisionParams )
 	if( !planted )
 		return
 
 	#if SERVER
 	//	Planted sounds
 	if( IsAlive( hitEnt ) && hitEnt.IsPlayer() ) {
-		EmitSoundOnEntityOnlyToPlayer( projectile, hitEnt, "weapon_softball_grenade_attached_1P" )
-		EmitSoundOnEntityExceptToPlayer( projectile, hitEnt, "weapon_softball_grenade_attached_3P" )
+		EmitSoundOnEntityOnlyToPlayer( proj, hitEnt, "weapon_softball_grenade_attached_1P" )
+		EmitSoundOnEntityExceptToPlayer( proj, hitEnt, "weapon_softball_grenade_attached_3P" )
 	} else {
-		EmitSoundOnEntity( projectile, "weapon_softball_grenade_attached_3P" )
+		EmitSoundOnEntity( proj, "weapon_softball_grenade_attached_3P" )
 	}
 	#endif
 
-	thread FlareThink( projectile, hitEnt, owner )
+	thread FlareThink( proj, hitEnt, owner )
 }
 
-void function FlareThink( entity projectile, entity hitEnt, entity owner ) {
+void function FlareThink( entity proj, entity hitEnt, entity owner ) {
 	//	Register flare
 	if( !(owner in flareData) ) {
-		flareData[owner] <- [projectile]
-	} else { flareData[owner].append( projectile ) }
+		flareData[owner] <- [proj]
+	} else { flareData[owner].append( proj ) }
 
 	//	Indicator
 	int fxHandle
 	if( hitEnt.IsWorld() ) {
 		#if CLIENT
 		int index = GetParticleSystemIndex( $"P_ar_titan_droppoint" )
-		vector origin = projectile.GetOrigin()
+		vector origin = proj.GetOrigin()
 
 		fxHandle = StartParticleEffectInWorldWithHandle( index, origin, <0, 0, 1> ) //team )
 		EffectSetControlPointVector( fxHandle, 1, <255, 80, 80> ) // <255, 127, 127>
@@ -175,13 +169,13 @@ void function FlareThink( entity projectile, entity hitEnt, entity owner ) {
 	}
 
 	//	Signaling
-	projectile.EndSignal( "OnDeath" )
-	projectile.EndSignal( "OnDestroy" )
+	proj.EndSignal( "OnDeath" )
+	proj.EndSignal( "OnDestroy" )
 
 	owner.EndSignal( "OnDeath" )
 
-	OnThreadEnd( function() : ( projectile, owner, fxHandle ) {
-		flareData[owner].fastremovebyvalue( projectile )
+	OnThreadEnd( function() : ( proj, owner, fxHandle ) {
+		flareData[owner].fastremovebyvalue( proj )
 
 		#if CLIENT
 		if( EffectDoesExist( fxHandle ) )

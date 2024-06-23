@@ -8,12 +8,12 @@ WeaponData
 	"longdesc" 										"mortarsmoke WIP longdesc"
 
 	//	Icon (custom icons... someday)
-	"menu_icon"										"rui/titan_loadout/tactical/titan_tactical_electric_smoke"
-	"hud_icon"										"rui/titan_loadout/tactical/titan_tactical_electric_smoke"
+	"menu_icon"										"rui/titan_loadout/defensive/titan_defensive_particle_wall_menu"
+	"hud_icon"										"rui/titan_loadout/defensive/titan_defensive_particle_wall"
 
 	//	Body type
 	"weaponClass" 									"titan"
-	"weaponType"									"shoulder"
+	"weaponType"									"tactical"
 	"fire_mode"   									"offhand"
 
 	//	Pickup
@@ -42,7 +42,7 @@ WeaponData
 	"viewmodel"   									"models/weapons/titan_bt_rocket_pod/atpov_titan_bt_rocket_pod_right.mdl"
 //	"playermodel" 									""
 
-	"projectilemodel" 								"models/weapons/bullets/projectile_rocket_large.mdl"
+	"projectilemodel" 								"models/weapons/titan_trip_wire/titan_trip_wire_projectile.mdl"
 
 
 

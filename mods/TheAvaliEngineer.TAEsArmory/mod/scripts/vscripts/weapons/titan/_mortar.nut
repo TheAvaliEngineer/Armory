@@ -206,10 +206,10 @@ void function TeleportGrenade( entity proj, entity weapon, vector targetPos, vec
 
 		//	Grenade init
 		#if SERVER
-		Grenade_Init( rocket, weapon )
+		Grenade_Init( newProj, weapon )
 		#else
 		entity weaponOwner = weapon.GetWeaponOwner()
-		SetTeam( rocket, weaponOwner.GetTeam() )
+		SetTeam( newProj, weaponOwner.GetTeam() )
 		#endif
 	}
 }
