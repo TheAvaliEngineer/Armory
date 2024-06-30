@@ -38,7 +38,7 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 	shieldEnt.Hide()
 
 	//	Health
-	int health = proj.GetProjectileWeaponSettingFloat( eWeaponVar.damage_far_value )
+	int health = proj.GetProjectileWeaponSettingInt( eWeaponVar.damage_far_value )
 	shieldEnt.SetMaxHealth( health )
 	shieldEnt.SetHealth( health )
 
