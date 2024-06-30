@@ -113,8 +113,8 @@ WeaponData
 	"explosion_damage"								"0"			//	
 	"explosion_damage_heavy_armor"					"0"			//	
 
-	"explosion_inner_radius"  						"0"			//	Shield Damage Height
-	"explosionradius" 								"0"			//	Shield Damage Width
+	"explosion_inner_radius"  						"0"			//	
+	"explosionradius" 								"0"			//	
 
 	//	Crit & Headshots
 	"allow_headshots" 								"0"

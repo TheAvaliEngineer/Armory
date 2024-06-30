@@ -54,7 +54,12 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		flareData[owner] <- []
 	}
 
+	//	Check flares
 	array<entity> flares = flareData[owner]
+	if( flares.len() == 0 ) {
+		return 0
+	} 
+	
 	foreach( flare in flares ) {
 		//	Check if owner is alive
 		if( !IsAlive(owner) )

@@ -49,6 +49,8 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 	shieldEnt.SetDamageNotifications( true )
 	shieldEnt.SetDeathNotifications( true )
 
+	shieldEnt.SetBlocksRadiusDamage( true )
+
 	SetObjectCanBeMeleed( shieldEnt, true )
 	SetVisibleEntitiesInConeQueriableEnabled( shieldEnt, true )
 	SetCustomSmartAmmoTarget( shieldEnt, false )
@@ -64,12 +66,11 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 	#endif
 
 	//	FX
-	array<entity> shieldFX
 	vector fxOrigin = origin + Vector( 0, 0, 25 )
-
-	entity vortexFX = StartParticleEffectInWorld_ReturnEntity(
+	entity shieldFX = StartParticleEffectInWorld_ReturnEntity(
 		BUBBLE_SHIELD_FX_PARTICLE_SYSTEM_INDEX, fxOrigin, <0, 0, 0> )
-	shieldEnt.s.vortexFX <- vortexFX
+	shieldFX.SetParent( shieldEnt )	
+	shieldEnt.s.shieldFX <- shieldFX
 
 	DomeShield_UpdateColor( shieldEnt )
 
@@ -85,11 +86,12 @@ void function DomeShield_Destroy( entity shieldEnt ) {
 	if( !IsValid( shieldEnt ) )
 		return
 
-	if( IsValid_ThisFrame( shieldEnt.s.vortexFX ) )
-		EffectStop( shieldEnt.s.vortexFX )
-
 	#if SERVER
 	//	Functionality
+	entity shieldFX = expect entity( shieldEnt.s.shieldFX )
+	if( IsValid( shieldFX ) )
+		EffectStop( shieldEnt.s.shieldFX )
+	
 	RemoveEntityCallback_OnPostDamaged( shieldEnt, DomeShield_OnPostDamaged )
 
 	ClearChildren( shieldEnt )
@@ -108,8 +110,8 @@ void function DomeShield_UpdateColor( entity shieldEnt ) {
 	float domeHealth = 1 - GetHealthFrac( shieldEnt )
 	vector domeColor = TriLerpColor( domeHealth, DOME_COLOR_FULL, DOME_COLOR_MED, DOME_COLOR_LOW )
 
-	entity vortexFX = expect entity( shieldEnt.s.vortexFX )
-	EffectSetControlPointVector( vortexFX, 1, domeColor )
+	entity shieldFX = expect entity( shieldEnt.s.shieldFX )
+	EffectSetControlPointVector( shieldFX, 1, domeColor )
 }
 #endif
 
