@@ -133,7 +133,8 @@ void function OnProjectileCollision_MortarTone_FlareLauncher( entity proj, vecto
 		return
 	
 	//	Attempt planted
-	bool planted = PlantStickyEntity( proj, collisionParams )
+	table params = { pos = pos, normal = norm, hitEnt = hitEnt, hitbox = hitbox }
+	bool planted = PlantStickyEntity( proj, params )
 	if( !planted )
 		return
 

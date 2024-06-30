@@ -29,13 +29,8 @@ WeaponData
 	"minimap_reveal_distance"						"32000"
 
 	//	Weapon functionality
-	"OnWeaponActivate"								""
-
-	"OnWeaponOwnerChanged"							""
-
-	"OnWeaponPrimaryAttack"							""
-	"OnWeaponNpcPrimaryAttack"						""
-
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_MortarTone_DomeShield"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_MortarTone_DomeShield"
 
 	//		Menu
     //	Menu stat values (DNE)
@@ -45,7 +40,7 @@ WeaponData
 //	"viewmodel"   									""
 //	"playermodel" 									""
 
-//	"projectilemodel" 								""
+	"projectilemodel" 								"models/weapons/sentry_shield/sentry_shield_proj.mdl"
 
 
 
@@ -105,8 +100,8 @@ WeaponData
 
 	//		Damage
 	//	Direct damage
-	"damage_near_value"   							"0"			//	Shield health
-	"damage_far_value"								"0"			
+	"damage_near_value"   							"0"			//	Tower health
+	"damage_far_value"								"0"			//	Shield health
 
 	"damage_near_distance"							"0"
 	"damage_far_distance" 							"0"

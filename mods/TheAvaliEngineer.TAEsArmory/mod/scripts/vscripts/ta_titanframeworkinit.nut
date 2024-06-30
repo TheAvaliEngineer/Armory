@@ -214,9 +214,9 @@ void function TA_TitanFramework_UIInit() {
 	//	Defensive
 	ModdedTitanWeaponAbilityData DomeShield
 	DomeShield.custom = true
-	DomeShield.weaponName = "ta_geist_titanability_titancloak"
-	DomeShield.displayName = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK"
-	DomeShield.description = "#TA_TITAN_GEIST_DEFENSIVE_TITANCLOAK_DESC"
+	DomeShield.weaponName = "ta_mortar_titanability_domeshield"
+	DomeShield.displayName = "#TA_TITAN_MORTAR_DEFENSIVE_DOMESHIELD"
+	DomeShield.description = "#TA_TITAN_MORTAR_DEFENSIVE_DOMESHIELD_DESC"
 	DomeShield.image = $"ui/temp"
 	Mortar.Left = DomeShield
 

@@ -61,7 +61,7 @@ void function TArmory_Precache() {
 	TArmory_Init_MortarTone_FlareLauncher()
 	TArmory_Init_MortarTone_Smoke()
 	TArmory_Init_MortarTone_Rockets()
-	//
+	TArmory_Init_MortarTone_DomeShield()
 	TArmory_Init_MortarTone_NuclearStrike()
 
 	//	Phosphor

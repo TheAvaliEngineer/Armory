@@ -115,6 +115,10 @@
 			"Path": "weapons/titan/_mortar.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
+		{
+			"Path": "weapons/titan/_domeshield.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
 
 		{
 			"Path": "weapons/titan/ta_mortar_titanweapon_flarelauncher.nut",
@@ -128,7 +132,10 @@
 			"Path": "weapons/titan/ta_mortar_titanweapon_rockets.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
 		},
-		//
+		{
+			"Path": "weapons/titan/ta_mortar_titanability_domeshield.nut",
+			"RunOn": "( CLIENT || SERVER ) && MP"
+		},
 		{
 			"Path": "weapons/titan/ta_mortar_titancore_nuclearstrike.nut",
 			"RunOn": "( CLIENT || SERVER ) && MP"
