@@ -31,6 +31,7 @@ WeaponData
 	//	Weapon functionality
 	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_MortarTone_DomeShield"
 	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_MortarTone_DomeShield"
+	"OnProjectileCollision"							"OnProjectileCollision_weapon_deployable"
 
 	//		Menu
     //	Menu stat values (DNE)
@@ -126,12 +127,9 @@ WeaponData
 	//	Ammo
 	"ammo_display"									"bar"
 
-	"no_ammo_used_on_primary_attack"				"1"
-	"ammo_drains_to_empty_on_fire"					"0"
-
 	"ammo_clip_size"   								"300"
-	"ammo_per_shot"									"1"
-	"ammo_min_to_fire"								"1"
+	"ammo_per_shot"									"300"
+	"ammo_min_to_fire"								"300"
 
 	"ammo_default_total"							"300"
 	"ammo_stockpile_max"							"300"
@@ -139,12 +137,16 @@ WeaponData
 	"ammo_no_remove_from_clip"                      "0"
     "ammo_no_remove_from_stockpile"                 "1"
 
+	// Regen Ammo
+	"regen_ammo_refill_rate"						"20.0"
+	"regen_ammo_refill_start_delay"					"1.0"
+
 	//	Reloading/regen
 	"reload_enabled"  								"0"
 	"empty_reload_only"   							"0"
 
 	"allow_empty_fire"								"0"
-	"allow_empty_click"   							"1"
+	"allow_empty_click"   							"0"
 
 
 	//		Player usage

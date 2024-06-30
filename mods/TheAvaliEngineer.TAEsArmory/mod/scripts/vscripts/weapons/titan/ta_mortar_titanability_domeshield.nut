@@ -24,7 +24,9 @@ void function TArmory_Init_MortarTone_DomeShield() {
 
 //		Fire handling
 var function OnWeaponPrimaryAttack_MortarTone_DomeShield( entity weapon, WeaponPrimaryAttackParams attackParams ) {
-	return LaunchDomeShield( weapon, attackParams, true )
+	#if SERVER
+		return LaunchDomeShield( weapon, attackParams, true )
+	#endif
 }
 
 #if SERVER
@@ -38,16 +40,20 @@ int function LaunchDomeShield( entity weapon, WeaponPrimaryAttackParams params, 
 	entity owner = weapon.GetWeaponOwner()
 	if( !IsValid(owner) )
 		return 0
-	
+
 	//	Direction handling
 	vector dir = params.dir
 	dir.z = min( dir.z, 0.2588 )
 	params.dir = dir
-	
+
 	//	Create deployable
-	float throwPower = weapon.GetWeaponSettingFloat( eWeaponVar.projectile_launch_speed )
-	entity deployable = ThrowDeployable( weapon, params, throwPower, OnDomeShieldPlanted )
-	
+	entity deployable = ThrowDeployable( weapon, params, 1, OnDomeShieldPlanted )
+
+	//Fire Grenade
+	//vector angularVelocity = Vector( RandomFloatRange( -1200, 1200 ), 100, 0 )
+	//int damageType = DF_RAGDOLL | DF_EXPLOSION
+	//entity deployable = weapon.FireWeaponGrenade( params.pos, params.dir, angularVelocity, 0.0 , damageType, damageType, playerFired, true, false )
+
 	#if SERVER
 	deployable.SetOwner( weapon )
 	#endif
@@ -61,11 +67,13 @@ int function LaunchDomeShield( entity weapon, WeaponPrimaryAttackParams params, 
 }
 
 //	Collision handling
-void function OnDomeShieldPlanted( entity proj ) {
+void function OnDomeShieldPlanted( entity projectile ) {
 	//	Sanity checks
-	entity owner = proj.GetOwner()
-	if( !IsValid(owner) )
-		return
+	//entity owner = projectile.GetOwner()
+	//if( !IsValid(owner) )
+		//return
+
+	printt("I AM PLANTED SIRRRRRRRRRRRRRR")
 
 	/*	Handle angles
 	vector pos = proj.GetOrigin()
@@ -85,10 +93,32 @@ void function OnDomeShieldPlanted( entity proj ) {
 	}
 	proj.SetAngles(norm)
 	//*/
-	
+
+	#if SERVER
+		Assert( IsValid( projectile ) )
+		vector origin = projectile.GetOrigin()
+
+		vector endOrigin = origin - < 0.0, 0.0, 32.0 >
+		vector surfaceAngles = projectile.proj.savedAngles
+		vector oldUpDir = AnglesToUp( surfaceAngles )
+
+		TraceResults traceResult = TraceLine( origin, endOrigin, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
+		if ( traceResult.fraction < 1.0 )
+		{
+			vector forward = AnglesToForward( projectile.proj.savedAngles )
+			surfaceAngles = AnglesOnSurface( traceResult.surfaceNormal, forward )
+
+			vector newUpDir = AnglesToUp( surfaceAngles )
+			if ( DotProduct( newUpDir, oldUpDir ) < 0.55 )
+				surfaceAngles = projectile.proj.savedAngles
+		}
+
+		projectile.SetAngles( surfaceAngles )
+	#endif
+
 	#if SERVER
 	//	Start thread
-	thread DomeShieldThink( proj )
+	thread DomeShieldThink( projectile )
 	#endif
 }
 
@@ -112,10 +142,10 @@ void function DomeShieldThink( entity proj ) {
 	//	Parent
 	entity projParent = proj.GetParent()
 
-	shieldEnt.SetParent( proj, "ORIGIN" )	
+	shieldEnt.SetParent( proj )
 	if( projParent != null )
 		towerEnt.SetParent( projParent )
-	
+
 	//	Signaling
 	shieldEnt.EndSignal( "OnDestroy" )
 	towerEnt.EndSignal( "OnDestroy" )
@@ -151,7 +181,7 @@ entity function Tower_Create( entity proj, entity weapon, entity owner ) {
 	tower.SetTitle( "Shield Projector" )
 
 	//	Health
-	int health = weapon.GetWeaponSettingInt( eWeaponVar.damage_near_value )
+	int health = 250
 	tower.SetMaxHealth( health )
 	tower.SetHealth( health )
 
@@ -186,7 +216,7 @@ void function Tower_Destroy( entity tower ) {
 	//	Sanity checks
 	if( !IsValid( tower ) )
 		return
-	
+
 	#if SERVER
 	//	Functionality
 	ClearChildren( tower )
