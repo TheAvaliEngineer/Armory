@@ -181,7 +181,7 @@ entity function Tower_Create( entity proj, entity weapon, entity owner ) {
 	tower.SetTitle( "Shield Projector" )
 
 	//	Health
-	int health = 250
+	int health = proj.GetProjectileWeaponSettingFloat( eWeaponVar.damage_near_value )
 	tower.SetMaxHealth( health )
 	tower.SetHealth( health )
 

@@ -30,6 +30,7 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 	//	Setup
 	entity shieldEnt = CreatePropScript( DOME_SHIELD_ASSET, origin, angles, SOLID_VPHYSICS )
 	shieldEnt.kv.CollisionGroup = TRACE_COLLISION_GROUP_BLOCK_WEAPONS
+	shieldEnt.kv.contents = (int(shieldEnt.kv.contents) | CONTENTS_NOGRAPPLE)
 
 	SetTeam( shieldEnt, owner.GetTeam() )
 	shieldEnt.SetOwner( owner )
@@ -37,7 +38,7 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 	shieldEnt.Hide()
 
 	//	Health
-	int health = 250
+	int health = proj.GetProjectileWeaponSettingFloat( eWeaponVar.damage_far_value )
 	shieldEnt.SetMaxHealth( health )
 	shieldEnt.SetHealth( health )
 
@@ -83,6 +84,9 @@ void function DomeShield_Destroy( entity shieldEnt ) {
 	//	Sanity checks
 	if( !IsValid( shieldEnt ) )
 		return
+
+	if( IsValid_ThisFrame( shieldEnt.s.vortexFX ) )
+		EffectStop( shieldEnt.s.vortexFX )
 
 	#if SERVER
 	//	Functionality

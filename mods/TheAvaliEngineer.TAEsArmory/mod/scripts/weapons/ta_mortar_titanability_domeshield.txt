@@ -101,8 +101,8 @@ WeaponData
 
 	//		Damage
 	//	Direct damage
-	"damage_near_value"   							"0"			//	Tower health
-	"damage_far_value"								"0"			//	Shield health
+	"damage_near_value"   							"1000"		//	Tower health
+	"damage_far_value"								"3000"		//	Shield health
 
 	"damage_near_distance"							"0"
 	"damage_far_distance" 							"0"
@@ -137,16 +137,15 @@ WeaponData
 	"ammo_no_remove_from_clip"                      "0"
     "ammo_no_remove_from_stockpile"                 "1"
 
-	// Regen Ammo
-	"regen_ammo_refill_rate"						"20.0"
-	"regen_ammo_refill_start_delay"					"1.0"
-
 	//	Reloading/regen
 	"reload_enabled"  								"0"
 	"empty_reload_only"   							"0"
 
 	"allow_empty_fire"								"0"
 	"allow_empty_click"   							"0"
+
+	"regen_ammo_refill_rate"						"20.0"
+	"regen_ammo_refill_start_delay"					"1.0"
 
 
 	//		Player usage
