@@ -25,7 +25,7 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 	//	Info retrieval
 	vector origin = proj.GetOrigin()
 	vector angles = proj.GetAngles()
-	
+
 	//		Create shield
 	//	Setup
 	entity shieldEnt = CreatePropScript( DOME_SHIELD_ASSET, origin, angles, SOLID_VPHYSICS )
@@ -34,8 +34,10 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 	SetTeam( shieldEnt, owner.GetTeam() )
 	shieldEnt.SetOwner( owner )
 
+	shieldEnt.Hide()
+
 	//	Health
-	int health = weapon.GetWeaponSettingInt( eWeaponVar.damage_far_value )
+	int health = 250
 	shieldEnt.SetMaxHealth( health )
 	shieldEnt.SetHealth( health )
 
@@ -56,7 +58,7 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 
 	//	AI
 	#if MP
-	DisableTitanfallForLifetimeOfEntityNearOrigin( shieldEnt, 
+	DisableTitanfallForLifetimeOfEntityNearOrigin( shieldEnt,
 		origin, TITANHOTDROP_DISABLE_ENEMY_TITANFALL_RADIUS )
 	#endif
 
@@ -66,7 +68,9 @@ entity function DomeShield_Create( entity proj, entity weapon, entity owner ) {
 
 	entity vortexFX = StartParticleEffectInWorld_ReturnEntity(
 		BUBBLE_SHIELD_FX_PARTICLE_SYSTEM_INDEX, fxOrigin, <0, 0, 0> )
-	shieldEnt.s <- vortexFX
+	shieldEnt.s.vortexFX <- vortexFX
+
+	DomeShield_UpdateColor( shieldEnt )
 
 	EmitSoundOnEntity( shieldEnt, DOME_SHIELD_SFX )
 
@@ -79,7 +83,7 @@ void function DomeShield_Destroy( entity shieldEnt ) {
 	//	Sanity checks
 	if( !IsValid( shieldEnt ) )
 		return
-	
+
 	#if SERVER
 	//	Functionality
 	RemoveEntityCallback_OnPostDamaged( shieldEnt, DomeShield_OnPostDamaged )
@@ -122,7 +126,7 @@ vector function TriLerpColor( float fraction, vector color1, vector color2, vect
 		g = Graph( fraction, l1, l2, color2.y, color3.y )
 		b = Graph( fraction, l1, l2, color2.z, color3.z )
 		return <r, g, b>
-	} 
+	}
 	// for the last bit of overload timer, keep it max danger color
 	r = color3.x
 	g = color3.y
