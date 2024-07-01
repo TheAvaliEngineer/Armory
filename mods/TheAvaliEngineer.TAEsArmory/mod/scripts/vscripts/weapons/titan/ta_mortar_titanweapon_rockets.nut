@@ -3,8 +3,8 @@ untyped
 //		Function declarations
 global function TArmory_Init_MortarTone_Rockets
 
-global function OnWeaponPrimaryAttack_MortarTone_Rockets
 global function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets
+global function OnWeaponPrimaryAttack_MortarTone_Rockets
 #if SERVER
 global function OnWeaponNpcPrimaryAttack_MortarTone_Rockets
 #endif
