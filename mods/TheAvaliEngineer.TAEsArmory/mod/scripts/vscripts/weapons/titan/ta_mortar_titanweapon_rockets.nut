@@ -4,6 +4,7 @@ untyped
 global function TArmory_Init_MortarTone_Rockets
 
 global function OnWeaponPrimaryAttack_MortarTone_Rockets
+global function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets
 #if SERVER
 global function OnWeaponNpcPrimaryAttack_MortarTone_Rockets
 #endif
@@ -12,10 +13,19 @@ global function OnProjectileCollision_MortarTone_Rockets
 
 //		Data
 //	Consts
-const float SALVO_INACCURACY = 0.50
-const float SALVO_MAX_SPREAD = 750.0
+const float SALVO_INACCURACY = 0.35
+const float SALVO_MAX_SPREAD = 400.0
 
 const float SALVO_DELAY = 1.0 //1.0
+
+#if CLIENT
+struct
+{
+	float lastFireFailedTime = 0.0
+	float fireFailedDebounceTime = 0.25
+} file
+#endif
+
 
 //			Functions
 //		Init
@@ -58,8 +68,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 	array<entity> flares = flareData[owner]
 	if( flares.len() == 0 ) {
 		return 0
-	} 
-	
+	}
+
 	foreach( flare in flares ) {
 		//	Check if owner is alive
 		if( !IsAlive(owner) )
@@ -81,15 +91,15 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		targetPos += spreadXY
 
 		//	Get traj info
-		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 5.0, 750.0 )
+		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 3.0, 750.0 )
 		float speed = Length(dir)
 		dir = Normalize(dir)
 
 		//	Fire rocket
 		float fuse = -0.1
 		int damageFlags = weapon.GetWeaponDamageFlags()
-		
-		entity rocket = weapon.FireWeaponBolt( attackParams.pos, dir, 
+
+		entity rocket = weapon.FireWeaponBolt( attackParams.pos, dir,
 			speed, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
 			//	Table init
@@ -120,6 +130,30 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 
 	//	Return
 	return weapon.GetWeaponSettingInt( eWeaponVar.ammo_per_shot )
+}
+
+bool function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets( entity weapon )
+{
+	entity owner = weapon.GetWeaponOwner()
+	if( !(owner in flareData) ) //Add Owner to Flare Data in case they aren't
+		flareData[owner] <- []
+
+	array<entity> flares = flareData[owner] //Get Flares
+	if (flares.len() >= 0) {
+		return true
+	}
+
+	#if CLIENT
+	float currentTime = Time()
+	if ( currentTime - file.lastFireFailedTime > file.fireFailedDebounceTime && !weapon.IsBurstFireInProgress() )
+	{
+		file.lastFireFailedTime = currentTime
+		EmitSoundOnEntity( weapon, "UI_MapPing_Fail" )
+		AddPlayerHint( 1.0, 0.25, $"rui/hud/tone_tracker_hud/tone_tracker_3marks", "NO FLARES" ) //Localise me
+	}
+	#endif
+
+	return false
 }
 
 //		Collision handling
