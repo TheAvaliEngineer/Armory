@@ -119,7 +119,7 @@ WeaponData
 
 	//		Fire handling
 	//	Fire rate
-	"fire_rate"										"14"
+	"fire_rate"										"3.333"
 
 	"burst_fire_count"								"8"
 	"burst_fire_delay"								"0.7"
@@ -158,8 +158,8 @@ WeaponData
 	"damage_near_value"   							"100"
 	"damage_far_value"								"100"
 
-	"damage_near_value_titanarmor"					"250"
-	"damage_far_value_titanarmor" 					"250"
+	"damage_near_value_titanarmor"					"300"
+	"damage_far_value_titanarmor" 					"300"
 
 	"damage_near_distance"							"100000"
 	"damage_far_distance" 							"100000"
@@ -169,10 +169,10 @@ WeaponData
 
 	//	Explosion damage
 	"explosion_damage"								"200"
-	"explosion_damage_heavy_armor"					"250"
+	"explosion_damage_heavy_armor"					"200"
 
-	"explosion_inner_radius"  						"150"
-	"explosionradius" 								"350"
+	"explosion_inner_radius"  						"50"
+	"explosionradius" 								"150"
 
 	//	Crit & Headshots
 	"allow_headshots" 								"0"
@@ -185,13 +185,13 @@ WeaponData
 
 	//		Ammunition
 	//	Ammo
-	"ammo_clip_size"   								"400"
+	"ammo_clip_size"   								"200"
 
-	"ammo_per_shot"									"50"
-	"ammo_min_to_fire"								"400"
+	"ammo_per_shot"									"25"
+	"ammo_min_to_fire"								"200"
 
-	"ammo_default_total"							"400"
-	"ammo_stockpile_max"							"400"
+	"ammo_default_total"							"200"
+	"ammo_stockpile_max"							"200"
 
 	"ammo_no_remove_from_clip"                      "0"
     "ammo_no_remove_from_stockpile"                 "1"
@@ -203,7 +203,7 @@ WeaponData
 	"allow_empty_fire"								"0"
 	"allow_empty_click"   							"1"
 
-	"regen_ammo_refill_rate"						"40.0"
+	"regen_ammo_refill_rate"						"20.0"
 	"regen_ammo_refill_start_delay"					"0.1"
 
 
