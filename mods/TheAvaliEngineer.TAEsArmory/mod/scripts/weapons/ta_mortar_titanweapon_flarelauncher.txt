@@ -122,12 +122,12 @@ WeaponData
 	"fire_rate"										"1.5"
 
 	//	Charge stats
-	"charge_time" 									"1.5"
+	//"charge_time" 									"1.5"
 
-	"charge_cooldown_time"							"1.0"
-	"charge_cooldown_delay"   						"0.0"
+	//"charge_cooldown_time"							"1.0"
+	//"charge_cooldown_delay"   						"0.0"
 
-	"charge_end_forces_fire"						"0"
+	//"charge_end_forces_fire"						"0"
 
 
 	//		Projectile/bullet handling
@@ -137,13 +137,13 @@ WeaponData
 	"grenade_bounce_randomness"						"0"
 	"grenade_bounce_extra_vertical_randomness"		"0"
 
-	"projectile_launch_speed"						"1"
+	"projectile_launch_speed"						"3000"
 	"projectile_launch_pitch_offset"				"2"
 
-	"projectile_gravity_scale"						"2"
+	"projectile_gravity_scale"						"2.2"
 	"projectile_inherit_owner_velocity_scale"		"1"
 
-	"projectile_max_deployed"						"12"
+	"projectile_max_deployed"						"6"
 
 	//	Vortex behavior
 	"projectile_ignores_vortex"						"fall_vortex"
@@ -157,8 +157,8 @@ WeaponData
 	"damage_near_value"   							"50"
 	"damage_far_value"								"50"
 
-	"damage_near_value_titanarmor"					"500"
-	"damage_far_value_titanarmor" 					"500"
+	"damage_near_value_titanarmor"					"600"
+	"damage_far_value_titanarmor" 					"450"
 
 	"damage_near_distance"							"2500"
 	"damage_far_distance" 							"4000"
@@ -202,9 +202,10 @@ WeaponData
 	"allow_empty_fire"								"0"
 	"allow_empty_click"   							"1"
 
-	"reload_time" 									"2.5"
-	"reload_time_late1"								"1.66"
-	"reload_time_late2"								"0.87"
+	"reload_time" 									"2.1"
+	"reloadempty_time" 								"2.1"
+	"reload_time_late1"								"1.39"
+	"reload_time_late2"								"0.73"
 
 
 	//		Player usage
