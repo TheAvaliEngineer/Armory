@@ -23,13 +23,16 @@ void function TA_TitanFramework_UIInit() {
 	Wyvern.speedStat = 3
 	Wyvern.damageStat = 2
 	Wyvern.healthStat = 1
-	Wyvern.titanHints = []
+	Wyvern.titanHints = ["WIP"]
 
 	//	Images
 
 	//	Base titan
 	Wyvern.BaseSetFile = "titan_stryder_sniper"
 	Wyvern.BaseName = "northstar"
+	Wyvern.startsAsPrime = false
+
+	Wyvern.altChassisType = frameworkAltChassisMethod.NONE
 
 	//	Weapon
 	ModdedTitanWeaponAbilityData AutoRocket
@@ -100,13 +103,16 @@ void function TA_TitanFramework_UIInit() {
 	Geist.speedStat = 3
 	Geist.damageStat = 2
 	Geist.healthStat = 1
-	Geist.titanHints = []
+	Geist.titanHints = ["WIP"]
 
 	//	Images
 
 	//	Base titan
 	Geist.BaseSetFile = "titan_stryder_leadwall"	//	titan_stryder_shotgun
 	Geist.BaseName = "ronin"
+	Geist.startsAsPrime = false
+
+	Geist.altChassisType = frameworkAltChassisMethod.NONE
 
 	//	Weapon
 	ModdedTitanWeaponAbilityData HeavyShotgun
@@ -155,15 +161,15 @@ void function TA_TitanFramework_UIInit() {
 	//*/
 
 	CreateModdedTitanSimple(Geist)
-	
-	//			  :::   :::    ::::::::  ::::::::: ::::::::::: :::     ::::::::: 
-	//			:+:+: :+:+:  :+:    :+: :+:    :+:    :+:   :+: :+:   :+:    :+: 
-	//		  +:+ +:+:+ +:+ +:+    +:+ +:+    +:+    +:+  +:+   +:+  +:+    +:+  
-	//		 +#+  +:+  +#+ +#+    +:+ +#++:++#:     +#+ +#++:++#++: +#++:++#:    
-	//		+#+       +#+ +#+    +#+ +#+    +#+    +#+ +#+     +#+ +#+    +#+    
-	//	   #+#       #+# #+#    #+# #+#    #+#    #+# #+#     #+# #+#    #+#     
-	//	  ###       ###  ########  ###    ###    ### ###     ### ###    ###      
-	
+
+	//			  :::   :::    ::::::::  ::::::::: ::::::::::: :::     :::::::::
+	//			:+:+: :+:+:  :+:    :+: :+:    :+:    :+:   :+: :+:   :+:    :+:
+	//		  +:+ +:+:+ +:+ +:+    +:+ +:+    +:+    +:+  +:+   +:+  +:+    +:+
+	//		 +#+  +:+  +#+ +#+    +:+ +#++:++#:     +#+ +#++:++#++: +#++:++#:
+	//		+#+       +#+ +#+    +#+ +#+    +#+    +#+ +#+     +#+ +#+    +#+
+	//	   #+#       #+# #+#    #+# #+#    #+#    #+# #+#     #+# #+#    #+#
+	//	  ###       ###  ########  ###    ###    ### ###     ### ###    ###
+
 	ModdedTitanData Mortar
 
 	//	Menu text
@@ -176,13 +182,16 @@ void function TA_TitanFramework_UIInit() {
 	Mortar.speedStat = 1
 	Mortar.damageStat = 3
 	Mortar.healthStat = 3
-	Mortar.titanHints = []
+	Mortar.titanHints = ["WIP"]
 
 	//	Images
 
 	//	Base titan
 	Mortar.BaseSetFile = "titan_ogre_legion_prime"	//	titan_atlas_tracker_mortar
 	Mortar.BaseName = "legion"
+	Mortar.startsAsPrime = true
+
+	Mortar.altChassisType = frameworkAltChassisMethod.NONE
 
 	//	Weapon
 	ModdedTitanWeaponAbilityData FlareLauncher
@@ -225,7 +234,7 @@ void function TA_TitanFramework_UIInit() {
 	NuclearStrike.custom = true
 	NuclearStrike.weaponName = "ta_mortar_titancore_nuclearstrike"
 	NuclearStrike.displayName = "#TA_TITAN_MORTAR_CORE_NUCLEARSTRIKE"
-	NuclearStrike.description = "#TITANCORE_STORM_DESC"
+	NuclearStrike.description = "#TA_TITAN_MORTAR_CORE_NUCLEARSTRIKE_DESC"
 	NuclearStrike.image = $"ui/temp"
 	Mortar.Core = NuclearStrike
 	//*/
