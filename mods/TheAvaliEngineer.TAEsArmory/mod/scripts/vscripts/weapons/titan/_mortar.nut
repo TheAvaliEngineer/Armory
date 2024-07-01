@@ -1,4 +1,4 @@
-untyped 
+untyped
 
 //		Function declarations
 global function CalculateFireArc
@@ -85,7 +85,7 @@ vector function CalculateFireVecs( vector startPos, vector endPos, float tof, fl
 void function TeleportProjectile( entity proj, entity weapon, vector targetPos, vector endNormal, float delay ) {
 	//		Calculation
 	//	Raytraces
-	vector startNormal = Normalize( proj.GetVelocity() ) 
+	vector startNormal = Normalize( proj.GetVelocity() )
 
 	float projSpeed = Length( proj.GetVelocity() )
 	float traceRange = projSpeed * delay * 0.5
@@ -132,9 +132,14 @@ void function TeleportProjectile( entity proj, entity weapon, vector targetPos, 
 
 	entity newProj = weapon.FireWeaponBolt( targetTracePos, -endNormal,
 		projSpeed, damageFlags, damageFlags, false, 0 )
+
+	#if SERVER
+		PlayPhaseRocketFX(newProj)
+	#endif
+
 	if( newProj ) {
-		if( "phase" in newProj.s ) { 
-			newProj.s.phase = false 
+		if( "phase" in newProj.s ) {
+			newProj.s.phase = false
 		} else { newProj.s.phase <- false }
 
 		//	Grenade init
@@ -143,10 +148,24 @@ void function TeleportProjectile( entity proj, entity weapon, vector targetPos, 
 	}
 }
 
+#if SERVER
+entity function PlayPhaseRocketFX( entity ent )
+{
+	asset effect = $"P_phase_shift_main"
+
+	if ( IsValid(ent) )
+	{
+		//EmitSoundOnEntity( ent, SHIFTER_END_SOUND_3P )
+
+		return PlayFX( effect, ent.GetOrigin(), ent.GetAngles() )
+	}
+}
+#endif
+
 void function TeleportGrenade( entity proj, entity weapon, vector targetPos, vector endNormal, float delay ) {
 	//		Calculation
 	//	Raytraces
-	vector startNormal = Normalize( proj.GetVelocity() ) 
+	vector startNormal = Normalize( proj.GetVelocity() )
 
 	float projSpeed = Length( proj.GetVelocity() )
 	float traceRange = projSpeed * delay * 0.5
@@ -200,8 +219,8 @@ void function TeleportGrenade( entity proj, entity weapon, vector targetPos, vec
 		newProj.kv.gravity = 0.0
 
 		//	Table init
-		if( "phase" in newProj.s ) { 
-			newProj.s.phase = false 
+		if( "phase" in newProj.s ) {
+			newProj.s.phase = false
 		} else { newProj.s.phase <- false }
 
 		//	Grenade init

@@ -12,8 +12,8 @@ global function OnProjectileCollision_MortarTone_Rockets
 
 //		Data
 //	Consts
-const float SALVO_INACCURACY = 0.50
-const float SALVO_MAX_SPREAD = 750.0
+const float SALVO_INACCURACY = 0.35
+const float SALVO_MAX_SPREAD = 400.0
 
 const float SALVO_DELAY = 1.0 //1.0
 
@@ -58,8 +58,8 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 	array<entity> flares = flareData[owner]
 	if( flares.len() == 0 ) {
 		return 0
-	} 
-	
+	}
+
 	foreach( flare in flares ) {
 		//	Check if owner is alive
 		if( !IsAlive(owner) )
@@ -81,15 +81,15 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 		targetPos += spreadXY
 
 		//	Get traj info
-		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 5.0, 750.0 )
+		vector dir = CalculateFireVecs( attackParams.pos, targetPos, 3.0, 750.0 )
 		float speed = Length(dir)
 		dir = Normalize(dir)
 
 		//	Fire rocket
 		float fuse = -0.1
 		int damageFlags = weapon.GetWeaponDamageFlags()
-		
-		entity rocket = weapon.FireWeaponBolt( attackParams.pos, dir, 
+
+		entity rocket = weapon.FireWeaponBolt( attackParams.pos, dir,
 			speed, damageFlags, damageFlags, playerFired, 0 )
 		if( rocket ) {
 			//	Table init
