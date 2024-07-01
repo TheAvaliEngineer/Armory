@@ -55,20 +55,20 @@ bool function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets( entity weapon ) {
 
 	//	Check flares
 	array<entity> flares = flareData[owner]
-	if( flares.len() == 0 ) {
+	bool noFlares = flares.len() == 0
+	if( noFlares ) {
 		#if CLIENT
-		float currentTime = Time()
-		if( currentTime - file.lastFireFailedTime > file.fireFailedDebounceTime && !weapon.IsBurstFireInProgress() ) {
-			file.lastFireFailedTime = currentTime
-			EmitSoundOnEntity( weapon, "UI_MapPing_Fail" )
+		float fireTime = Time()
+		if( fireTime - file.lastFireFailedTime > file.fireFailedDebounceTime && !weapon.IsBurstFireInProgress() ) {
 			AddPlayerHint( 1.0, 0.25, $"armory/mortar/hud/no_flares", "NO FLARES" )	//	TODO: Localise me
+			EmitSoundOnEntity( weapon, "UI_MapPing_Fail" )
+
+			file.lastFireFailedTime = fireTime
 		}
 		#endif
-
-		return false
 	}
 
-	return true
+	return !noFlares
 }
 
 //		Fire handling
