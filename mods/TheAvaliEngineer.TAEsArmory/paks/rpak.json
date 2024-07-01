@@ -1,0 +1,14 @@
+{
+    "Preload":
+    {
+        "armory.rpak": true
+    },
+    "Aliases":
+    {
+
+    },
+    "Postload":
+    {
+
+    }
+}

@@ -90,19 +90,12 @@ int function FlareLauncher_Fire( entity weapon, WeaponPrimaryAttackParams attack
 	if( shouldCreateProjectile ) {
 		int damageFlags = weapon.GetWeaponDamageFlags()
 
-		//	Get launch speed
-		float minSpeed = weapon.GetWeaponSettingFloat( eWeaponVar.damage_near_distance )
-		float maxSpeed = weapon.GetWeaponSettingFloat( eWeaponVar.damage_far_distance )
-
-		float chargeFrac = FlareLauncher_GetChargeLevel( weapon )
-		float launchSpeed = Graph( chargeFrac * chargeFrac, 0.0, 1.0, minSpeed, maxSpeed )
-
 		//	Velocities
 		vector angVel = Vector(0, 2000, 0)
-		vector attackVel = Normalize(attackParams.dir) * launchSpeed
+		vector attackVel = Normalize(attackParams.dir)
 
 		//	Spawn grenade
-		entity flare = weapon.FireWeaponGrenade( attackParams.pos, attackVel, angVel, FLARE_LIFETIME,
+		entity flare = weapon.FireWeaponGrenade( attackParams.pos, attackParams.dir, angVel, FLARE_LIFETIME,
 			damageFlags, damageFlags, playerFired, PROJECTILE_LAG_COMPENSATED, false )
 		if( flare ) {
 			#if SERVER

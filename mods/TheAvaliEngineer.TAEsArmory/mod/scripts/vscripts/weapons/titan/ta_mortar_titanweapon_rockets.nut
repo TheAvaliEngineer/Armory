@@ -135,25 +135,28 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 bool function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets( entity weapon )
 {
 	entity owner = weapon.GetWeaponOwner()
+
+	if( !IsValid(owner) || !IsAlive(owner) )
+		return false
+
 	if( !(owner in flareData) ) //Add Owner to Flare Data in case they aren't
 		flareData[owner] <- []
 
 	array<entity> flares = flareData[owner] //Get Flares
-	if (flares.len() >= 0) {
-		return true
+	if( flares.len() == 0 ) {
+		#if CLIENT
+			float currentTime = Time()
+			if ( currentTime - file.lastFireFailedTime > file.fireFailedDebounceTime && !weapon.IsBurstFireInProgress() )
+			{
+				file.lastFireFailedTime = currentTime
+				EmitSoundOnEntity( weapon, "UI_MapPing_Fail" )
+				AddPlayerHint( 1.0, 0.25, $"armory/mortar/hud/no_flares", "NO FLARES" ) //Localise me
+			}
+		#endif
+		return false
 	}
 
-	#if CLIENT
-	float currentTime = Time()
-	if ( currentTime - file.lastFireFailedTime > file.fireFailedDebounceTime && !weapon.IsBurstFireInProgress() )
-	{
-		file.lastFireFailedTime = currentTime
-		EmitSoundOnEntity( weapon, "UI_MapPing_Fail" )
-		AddPlayerHint( 1.0, 0.25, $"rui/hud/tone_tracker_hud/tone_tracker_3marks", "NO FLARES" ) //Localise me
-	}
-	#endif
-
-	return false
+	return true
 }
 
 //		Collision handling
