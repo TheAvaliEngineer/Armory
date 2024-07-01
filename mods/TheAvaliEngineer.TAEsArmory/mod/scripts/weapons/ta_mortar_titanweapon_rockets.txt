@@ -26,10 +26,11 @@ WeaponData
 	"minimap_reveal_distance"						"32000"
 
 	//	Weapon functionality
+	"OnWeaponAttemptOffhandSwitch"					"OnWeaponAttemptOffhandSwitch_MortarTone_Rockets"
+	
 	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_MortarTone_Rockets"
 	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_MortarTone_Rockets"
-	"OnWeaponAttemptOffhandSwitch"					"OnWeaponAttemptOffhandSwitch_MortarTone_Rockets"
-
+	
 
 	//		Menu
     //	Menu stat values

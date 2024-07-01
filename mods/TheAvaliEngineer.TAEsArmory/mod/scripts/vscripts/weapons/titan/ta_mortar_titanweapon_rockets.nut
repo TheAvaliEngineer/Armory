@@ -42,6 +42,35 @@ void function TArmory_Init_MortarTone_Rockets() {
 	#endif
 }
 
+//		Utils
+bool function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets( entity weapon ) {
+	//	Sanity checks
+	entity owner = weapon.GetWeaponOwner()
+	if( !IsValid(owner) || !IsAlive(owner) )
+		return false
+
+	//	Add owner to flareData if they aren't in there already
+	if( !(owner in flareData) )
+		flareData[owner] <- []
+
+	//	Check flares
+	array<entity> flares = flareData[owner]
+	if( flares.len() == 0 ) {
+		#if CLIENT
+		float currentTime = Time()
+		if( currentTime - file.lastFireFailedTime > file.fireFailedDebounceTime && !weapon.IsBurstFireInProgress() ) {
+			file.lastFireFailedTime = currentTime
+			EmitSoundOnEntity( weapon, "UI_MapPing_Fail" )
+			AddPlayerHint( 1.0, 0.25, $"armory/mortar/hud/no_flares", "NO FLARES" )	//	TODO: Localise me
+		}
+		#endif
+
+		return false
+	}
+
+	return true
+}
+
 //		Fire handling
 var function OnWeaponPrimaryAttack_MortarTone_Rockets( entity weapon, WeaponPrimaryAttackParams attackParams ) {
 	return FireMortarRockets( weapon, attackParams, true )
@@ -60,15 +89,13 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 
 	#if SERVER
 	//	Add owner to flareData if they aren't in there already
-	if( !(owner in flareData) ) {
+	if( !(owner in flareData) )
 		flareData[owner] <- []
-	}
 
 	//	Check flares
 	array<entity> flares = flareData[owner]
-	if( flares.len() == 0 ) {
+	if( flares.len() == 0 )
 		return 0
-	}
 
 	foreach( flare in flares ) {
 		//	Check if owner is alive
@@ -130,33 +157,6 @@ int function FireMortarRockets( entity weapon, WeaponPrimaryAttackParams attackP
 
 	//	Return
 	return weapon.GetWeaponSettingInt( eWeaponVar.ammo_per_shot )
-}
-
-bool function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets( entity weapon )
-{
-	entity owner = weapon.GetWeaponOwner()
-
-	if( !IsValid(owner) || !IsAlive(owner) )
-		return false
-
-	if( !(owner in flareData) ) //Add Owner to Flare Data in case they aren't
-		flareData[owner] <- []
-
-	array<entity> flares = flareData[owner] //Get Flares
-	if( flares.len() == 0 ) {
-		#if CLIENT
-			float currentTime = Time()
-			if ( currentTime - file.lastFireFailedTime > file.fireFailedDebounceTime && !weapon.IsBurstFireInProgress() )
-			{
-				file.lastFireFailedTime = currentTime
-				EmitSoundOnEntity( weapon, "UI_MapPing_Fail" )
-				AddPlayerHint( 1.0, 0.25, $"armory/mortar/hud/no_flares", "NO FLARES" ) //Localise me
-			}
-		#endif
-		return false
-	}
-
-	return true
 }
 
 //		Collision handling
