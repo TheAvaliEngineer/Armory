@@ -34,7 +34,7 @@ void function TArmory_Init_Weapon_PlasmaBurst() {
 
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
-		ta_weapon_plasmaburst = "Plasma Burst Rifle",
+		ta_weapon_plasmaburst = "Plasma-Burst Rifle",
 	}
 	RegisterWeaponDamageSources( customDamageSourceIds )
 	#endif

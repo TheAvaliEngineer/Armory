@@ -62,7 +62,7 @@ void function TArmory_Init_GrenadeFuelTrail() {
 
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
-		ta_grenade_fueltrail = "Fuel Trail Grenade",
+		ta_grenade_fueltrail = "Thermobaric Grenade",
 	}
 	RegisterWeaponDamageSources( customDamageSourceIds )
 	#endif

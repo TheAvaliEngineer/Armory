@@ -97,16 +97,16 @@ WeaponData
 	"charge_drain_sound_seek_to_charge_fraction"	""
 
 	//	Fire
-	"burst_or_looping_fire_sound_start_1p"			"weapon_trackingrockets_fire_1p"
-	"burst_or_looping_fire_sound_middle_1p"			""
+	"burst_or_looping_fire_sound_start_1p"			"crane_startup"	//"weapon_trackingrockets_fire_1p"
+	"burst_or_looping_fire_sound_middle_1p"			"" //"TDay_MegaTurret_Fire_C"
 	"burst_or_looping_fire_sound_end_1p"			""
 
-	"burst_or_looping_fire_sound_start_3p"			"weapon_trackingrockets_fire_3P"
-	"burst_or_looping_fire_sound_middle_3p"			""
+	"burst_or_looping_fire_sound_start_3p"			""	//"weapon_trackingrockets_fire_3P"
+	"burst_or_looping_fire_sound_middle_3p"			"TDay_MegaTurret_Fire_A"
 	"burst_or_looping_fire_sound_end_3p"			""
 
-	"burst_or_looping_fire_sound_start_npc"			"weapon_trackingrockets_fire_3P"
-	"burst_or_looping_fire_sound_middle_npc"		""
+	"burst_or_looping_fire_sound_start_npc"			""	//"weapon_trackingrockets_fire_3P"
+	"burst_or_looping_fire_sound_middle_npc"		"TDay_MegaTurret_Fire_A"
 	"burst_or_looping_fire_sound_end_npc"			""
 
 	"sound_dryfire"									"titan_dryfire"
@@ -159,8 +159,8 @@ WeaponData
 	"damage_near_value"   							"100"
 	"damage_far_value"								"100"
 
-	"damage_near_value_titanarmor"					"300"
-	"damage_far_value_titanarmor" 					"300"
+	"damage_near_value_titanarmor"					"400"	//"300"
+	"damage_far_value_titanarmor" 					"400"	//"300"
 
 	"damage_near_distance"							"100000"
 	"damage_far_distance" 							"100000"
@@ -169,11 +169,11 @@ WeaponData
 	"damage_flags"									"DF_EXPLOSION | DF_DISMEMBERMENT | DF_GIB | DF_KNOCK_BACK"
 
 	//	Explosion damage
-	"explosion_damage"								"200"
-	"explosion_damage_heavy_armor"					"200"
+	"explosion_damage"								"300"	//"200"
+	"explosion_damage_heavy_armor"					"300"	//"200"
 
 	"explosion_inner_radius"  						"50"
-	"explosionradius" 								"150"
+	"explosionradius" 								"350"
 
 	//	Crit & Headshots
 	"allow_headshots" 								"0"

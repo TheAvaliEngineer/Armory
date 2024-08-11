@@ -55,8 +55,8 @@ bool function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets( entity weapon ) {
 
 	//	Check flares
 	array<entity> flares = flareData[owner]
-	bool noFlares = flares.len() == 0
-	if( noFlares ) {
+	bool hasFlares = flares.len() > 0
+	if( !hasFlares ) {
 		#if CLIENT
 		float fireTime = Time()
 		if( fireTime - file.lastFireFailedTime > file.fireFailedDebounceTime && !weapon.IsBurstFireInProgress() ) {
@@ -68,7 +68,7 @@ bool function OnWeaponAttemptOffhandSwitch_MortarTone_Rockets( entity weapon ) {
 		#endif
 	}
 
-	return !noFlares
+	return hasFlares
 }
 
 //		Fire handling

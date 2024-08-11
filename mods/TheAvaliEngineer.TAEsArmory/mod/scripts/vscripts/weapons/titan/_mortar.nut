@@ -171,6 +171,7 @@ void function TeleportGrenade( entity proj, entity weapon, vector targetPos, vec
 	float traceRange = projSpeed * delay * 0.5
 
 	vector projPos = proj.GetOrigin()
+	targetPos = targetPos + startNormal * MORTAR_OFFSET
 	vector projTracePos = projPos + startNormal * (traceRange + MORTAR_OFFSET)
 	vector targetTracePos = targetPos + endNormal * (traceRange + MORTAR_OFFSET)
 
