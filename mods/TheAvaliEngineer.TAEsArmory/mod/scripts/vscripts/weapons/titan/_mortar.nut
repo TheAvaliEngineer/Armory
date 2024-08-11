@@ -17,7 +17,7 @@ global struct MortarFireData {
 
 //	Settings
 const float MORTAR_GRAVITY = 375.0
-const float MORTAR_OFFSET = 50.0
+const float MORTAR_OFFSET = 100.0
 
 //		Functions
 /*	Calculate throw direction + velocity for arc with params
