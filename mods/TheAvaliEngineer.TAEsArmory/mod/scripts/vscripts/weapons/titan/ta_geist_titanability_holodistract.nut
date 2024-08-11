@@ -37,7 +37,7 @@ void function TArmory_Init_GeistRonin_HoloDistract() {
 
 	//	Damage source
 	table<string, string> customDamageSourceIds = {
-		ta_geist_titanability_holodistract = "Hologram EMP Pulse",
+		ta_geist_titanability_holodistract = "Hologram EMP",
 	}
 	RegisterWeaponDamageSources( customDamageSourceIds )
 
