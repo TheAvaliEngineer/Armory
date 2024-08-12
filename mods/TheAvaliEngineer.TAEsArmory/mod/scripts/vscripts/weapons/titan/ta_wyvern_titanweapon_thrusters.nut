@@ -13,14 +13,14 @@ global function OnWeaponNpcPrimaryAttack_Wyvern_Thrusters
 //		Flight Data
 //	Flight usage perams
 const float FLIGHT_DRAIN_TIME = 10.0
-const float FLIGHT_REGEN_TIME = 15.0
+const float FLIGHT_REGEN_TIME = 5.0
 
 const float FLIGHT_COOL_DELAY = 2.5
 const float FLIGHT_BREAK_DELAY = 10.0
 
 //	Activation costs
 const float FLIGHT_COST = 0.05
-const float AFTERBURNERS_COST = 0.45
+const float AFTERBURNERS_COST = 0.35
 
 //	Flight physics perams (normal)
 const float FLIGHT_MAX_ALTI_DRY = 750
@@ -28,18 +28,15 @@ const float FLIGHT_MAX_ALTI_RIS = 900
 const float FLIGHT_MAX_ALTI_DIV = 0
 
 const float FLIGHT_VERT_VEL_DRY = 450
-const float FLIGHT_VERT_VEL_WET = 4500 //2250
+const float FLIGHT_VERT_VEL_WET = 2250
 
 //	Flight movement params
 const float FLIGHT_AIR_SPEED = 200
 const float FLIGHT_AIR_ACCEL = 1000
 const float FLIGHT_FRICTION = 0.2
 
-//	Thruster hitbox
-const asset THRUSTER_HITBOX = $"models/weapons/titan_trip_wire/titan_trip_wire.mdl"
-const int THRUSTER_MAX_HEALTH = 1500
-
-const float PLAYER_DMG_RATIO = 0.5
+//	Thruster health
+const int FLIGHT_HEALTH = 1500
 
 //	Thruster explosion data
 const float THRUSTER_EXP_INNER_RADIUS = 150
@@ -71,9 +68,6 @@ array<string> FX_ATTACH_POINTS = [
 //		Funcs
 //	Init
 void function TAInit_Wyvern_Thrusters() {
-	//	FX Precache
-	PrecacheModel( THRUSTER_HITBOX )
-
 	//	Signaling
 	RegisterSignal( "StartFlight" )
 	RegisterSignal( "StopFlight" )
@@ -126,7 +120,7 @@ void function OnWeaponActivate_Wyvern_Thrusters( entity weapon ) {
 	int maxAmmo = weapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
 
 	owner.SetSharedEnergyTotal( maxAmmo )
-	owner.SetSharedEnergyRegenRate(100)
+	owner.SetSharedEnergyRegenRate( 100 )
 
 	#if SERVER
 	if( weapon.s.shouldStartThreads ) {
@@ -293,6 +287,7 @@ void function FlightStartListener( entity owner, entity flightWeapon ) {
 			SetFlightPhysics( owner, true )
 		}
 
+		FlightHealthTracker( owner, flightWeapon )
 		StartFlightFX( owner, flightWeapon )
 	}
 }
@@ -413,15 +408,18 @@ void function StartFlightFX( entity owner, entity weapon ) {
 }
 
 void function StopFlightFX( entity owner, entity weapon ) {
+	//	SFX
+	StopSoundOnEntity( owner, "titan_flight_hover_1p" )
+	StopSoundOnEntity( owner, "titan_flight_hover_3p" )
+	
 	//	FX
+	if( !(thrusterFX in weapon.s) )
+		return
+	
 	foreach( fx in weapon.s.thrusterFX ) {
 		if( IsValid(fx) )
 			fx.Destroy()
 	}
-
-	//	SFX
-	StopSoundOnEntity( owner, "titan_flight_hover_1p" )
-	StopSoundOnEntity( owner, "titan_flight_hover_3p" )
 }
 
 //		Management thread
@@ -627,3 +625,34 @@ void function BackblastOnDamage( entity ent, var damageInfo ) {
 //		 #+#    #+# #+#        #+#     #+# #+#        #+#     #+#    #+#
 //		###    ### ########## ###     ### ########## ###     ###    ###
 
+void function FlightHealthTracker( entity owner, entity flightWeapon ) {
+	print("[TAEsArmory] FlightSystem: Started Health Tracker")
+	
+	//	Owner validation
+	if( !IsValid( owner ) )
+		return
+
+	//	Signals
+	owner.EndSignal( "OnDeath" )
+	owner.EndSignal( "TitanEjectionStarted" )
+
+	owner.EndSignal( "StopFlight" )
+
+	OnThreadEnd( function() : (owner, flightWeapon) { 
+		
+	})
+
+	//	Prep
+	int healthPast = owner.GetHealth()
+
+	while(1) {
+		owner.WaitSignal( "OnDamaged" )
+
+		int healthNow = owner.GetHealth()
+		int healthDiff = healthPast - healthNow
+		if( healthDiff > FLIGHT_HEALTH ) {
+			owner.Signal( "BreakFlight" )
+			break
+		}
+	}
+}
