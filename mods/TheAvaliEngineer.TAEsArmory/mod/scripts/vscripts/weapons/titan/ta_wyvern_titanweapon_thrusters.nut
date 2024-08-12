@@ -468,7 +468,7 @@ void function FlightSystem( entity flightWeapon ) {
 	while(1) {
 		WaitFrame()
 
-		FlightStateSystem( flightWeapon, DRAIN_RATE, CHARGE_RATE )
+		FlightStateSystem( flightWeapon, FLIGHT_DRAIN_TIME, FLIGHT_REGEN_TIME )
 		FlightPhysicsSystem( owner, flightWeapon )
 		changeStack = FlightAmmoSystem( flightWeapon, changeStack, prevTime )
 
@@ -477,10 +477,13 @@ void function FlightSystem( entity flightWeapon ) {
 }
 
 
-void function FlightStateSystem( entity flightWeapon, float dischargeRate, float chargeRate ) {
+void function FlightStateSystem( entity flightWeapon, float dischargeTime, float chargeTime ) {
 	//		Change state
 	int ammo = flightWeapon.GetWeaponPrimaryClipCount()
 	int maxAmmo = flightWeapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
+
+	float dischargeRate = maxAmmo / dischargeRate
+	float chargeRate = maxAmmo / chargeTime
 
 	//	Flight battery is empty & draining (negates startFlight)
 	if( ammo == 0 && flightWeapon.s.changeRate < 0. ) {
@@ -488,7 +491,6 @@ void function FlightStateSystem( entity flightWeapon, float dischargeRate, float
 
 		flightWeapon.Signal( "StopFlight" )
 		flightWeapon.s.flightReady = false
-		return
 	}
 
 	//	Flight battery is full or on cooldown
