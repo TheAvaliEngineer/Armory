@@ -12,13 +12,8 @@ global function OnWeaponNpcPrimaryAttack_Wyvern_Thrusters
 
 //		Flight Data
 //	Flight usage perams
-const int FLIGHT_ENERGY = 1500
-
 const float FLIGHT_DRAIN_TIME = 10.0
 const float FLIGHT_REGEN_TIME = 15.0
-
-const float CHARGE_RATE = FLIGHT_ENERGY / FLIGHT_REGEN_TIME
-const float DRAIN_RATE = FLIGHT_ENERGY / FLIGHT_DRAIN_TIME
 
 const float FLIGHT_COOL_DELAY = 2.5
 const float FLIGHT_BREAK_DELAY = 10.0
