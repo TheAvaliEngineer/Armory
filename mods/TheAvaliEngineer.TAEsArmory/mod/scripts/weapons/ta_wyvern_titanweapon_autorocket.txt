@@ -211,7 +211,7 @@ WeaponData
 
 	//		Ammunition
 	//	Ammo
-	"ammo_clip_size"   								"30"
+	"ammo_clip_size"   								"24"
 
 	"ammo_default_total"							"300"
 	"ammo_stockpile_max"							"300"
