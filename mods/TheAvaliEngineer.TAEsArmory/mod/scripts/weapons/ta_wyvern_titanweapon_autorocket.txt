@@ -116,7 +116,7 @@ WeaponData
 
 	//		Fire handling
 	//	Fire rate
-	"fire_rate"										"10" //"8"
+	"fire_rate"										"15" //"10" //"8"
 
 	//	Charge stats
 	"charge_time" 									"1.0"
@@ -183,8 +183,8 @@ WeaponData
 	"damage_near_value"   							"100"
 	"damage_far_value"								"100"
 
-	"damage_near_value_titanarmor"					"250"
-	"damage_far_value_titanarmor" 					"200"
+	"damage_near_value_titanarmor"					"150" //"250"
+	"damage_far_value_titanarmor" 					"125" //"200"
 
 	"damage_near_distance"							"2500"
 	"damage_far_distance" 							"3000"

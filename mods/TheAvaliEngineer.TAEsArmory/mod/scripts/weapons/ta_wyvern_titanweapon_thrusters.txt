@@ -147,6 +147,9 @@ WeaponData
 	"allow_empty_fire"								"0"
 	"allow_empty_click"   							"0"
 
+	"regen_ammo_refill_rate"						"0.0"
+	"regen_ammo_refill_start_delay"					"0.0"
+
 
 	//		Player usage
 	//	Swap time
