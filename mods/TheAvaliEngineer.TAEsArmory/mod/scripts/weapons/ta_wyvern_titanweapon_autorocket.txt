@@ -194,7 +194,7 @@ WeaponData
 
 	//	Explosion damage
 	"explosion_damage"								"25"
-	"explosion_damage_heavy_armor"					"75"
+	"explosion_damage_heavy_armor"					"80"
 
 	"explosion_inner_radius"  						"50"
 	"explosionradius" 								"150"
@@ -226,9 +226,9 @@ WeaponData
 	"allow_empty_fire"								"0"
 	"allow_empty_click"   							"1"
 
-	"reload_time" 									"3.0"
-	"reload_time_late1" 							"2.0"
-	"reload_time_late2" 							"1.5"
+	"reload_time" 									"3.2"
+	"reload_time_late1" 							"2.2"
+	"reload_time_late2" 							"1.7"
 
 	"reloadempty_time"								"3.0"
 
