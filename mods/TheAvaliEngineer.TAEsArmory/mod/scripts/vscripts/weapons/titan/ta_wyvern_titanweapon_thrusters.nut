@@ -129,7 +129,7 @@ void function OnWeaponActivate_Wyvern_Thrusters( entity weapon ) {
 	//		Shared energy
 	entity owner = weapon.GetWeaponOwner()
 
-	owner.SetSharedEnergyTotal(FLIGHT_ENERGY)
+	owner.SetSharedEnergyTotal( FLIGHT_ENERGY )
 	owner.SetSharedEnergyRegenRate(100)
 
 	#if SERVER
@@ -482,12 +482,13 @@ void function FlightStateSystem( entity flightWeapon, float dischargeRate, float
 	int ammo = flightWeapon.GetWeaponPrimaryClipCount()
 	int maxAmmo = flightWeapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
 
-	//	Flight battery is empty (negates startFlight)
+	//	Flight battery is empty & draining (negates startFlight)
 	if( ammo == 0 && flightWeapon.s.changeRate < 0. ) {
 		flightWeapon.s.nextUseTime = Time() + FLIGHT_COOL_DELAY
 
 		flightWeapon.Signal( "StopFlight" )
 		flightWeapon.s.flightReady = false
+		return
 	}
 
 	//	Flight battery is full or on cooldown
@@ -496,17 +497,16 @@ void function FlightStateSystem( entity flightWeapon, float dischargeRate, float
 
 	if( ammo == maxAmmo || stillOnCooldown ) {
 		flightWeapon.s.changeRate = 0.
+		return
 	}
 
 	//	Flight battery is off cooldown - allow user to fly
-	if( !stillOnCooldown  ) {
-		//	Regen is paused
-		if( flightWeapon.s.changeRate == 0. ) {
-			flightWeapon.s.changeRate = chargeRate
-		}
-
-		flightWeapon.s.flightReady = true
+	//	Regen is paused
+	if( flightWeapon.s.changeRate == 0. ) {
+		flightWeapon.s.changeRate = chargeRate
 	}
+
+	flightWeapon.s.flightReady = true
 }
 
 void function FlightPhysicsSystem( entity owner, entity flightWeapon ) {
