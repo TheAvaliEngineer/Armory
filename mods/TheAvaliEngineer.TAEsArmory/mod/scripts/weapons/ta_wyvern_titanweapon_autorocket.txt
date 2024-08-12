@@ -197,7 +197,7 @@ WeaponData
 	"explosion_damage_heavy_armor"					"75"
 
 	"explosion_inner_radius"  						"50"
-	"explosionradius" 								"200"
+	"explosionradius" 								"150"
 
 	//	Crit & Headshots
 	"allow_headshots" 								"1"
