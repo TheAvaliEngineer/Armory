@@ -482,7 +482,7 @@ void function FlightStateSystem( entity flightWeapon, float dischargeTime, float
 	int ammo = flightWeapon.GetWeaponPrimaryClipCount()
 	int maxAmmo = flightWeapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
 
-	float dischargeRate = maxAmmo / dischargeRate
+	float dischargeRate = maxAmmo / dischargeTime
 	float chargeRate = maxAmmo / chargeTime
 
 	//	Flight battery is empty & draining (negates startFlight)
