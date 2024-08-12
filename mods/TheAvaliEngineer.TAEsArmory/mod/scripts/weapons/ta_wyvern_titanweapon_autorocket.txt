@@ -194,9 +194,9 @@ WeaponData
 
 	//	Explosion damage
 	"explosion_damage"								"25"
-	"explosion_damage_heavy_armor"					"150"
+	"explosion_damage_heavy_armor"					"75"
 
-	"explosion_inner_radius"  						"75"
+	"explosion_inner_radius"  						"50"
 	"explosionradius" 								"200"
 
 	//	Crit & Headshots
