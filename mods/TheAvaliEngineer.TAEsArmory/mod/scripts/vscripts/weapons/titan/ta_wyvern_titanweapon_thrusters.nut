@@ -123,8 +123,9 @@ void function OnWeaponActivate_Wyvern_Thrusters( entity weapon ) {
 
 	//		Shared energy
 	entity owner = weapon.GetWeaponOwner()
+	int maxAmmo = weapon.GetWeaponSettingInt( eWeaponVar.ammo_clip_size )
 
-	owner.SetSharedEnergyTotal( FLIGHT_ENERGY )
+	owner.SetSharedEnergyTotal( maxAmmo )
 	owner.SetSharedEnergyRegenRate(100)
 
 	#if SERVER
