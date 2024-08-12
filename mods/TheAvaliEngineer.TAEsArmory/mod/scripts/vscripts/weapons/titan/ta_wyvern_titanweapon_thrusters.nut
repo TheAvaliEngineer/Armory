@@ -413,7 +413,7 @@ void function StopFlightFX( entity owner, entity weapon ) {
 	StopSoundOnEntity( owner, "titan_flight_hover_3p" )
 	
 	//	FX
-	if( !(thrusterFX in weapon.s) )
+	if( !("thrusterFX" in weapon.s) )
 		return
 	
 	foreach( fx in weapon.s.thrusterFX ) {
@@ -493,15 +493,16 @@ void function FlightStateSystem( entity flightWeapon, float dischargeTime, float
 
 	if( ammo == maxAmmo || stillOnCooldown ) {
 		flightWeapon.s.changeRate = 0.
-		return
 	}
 
 	//	Flight battery is off cooldown - allow user to fly
-	//	Regen is paused
-	if( flightWeapon.s.changeRate == 0. ) {
-		flightWeapon.s.changeRate = chargeRate
+	if( !stillOnCooldown ) {
+		//	Regen is paused
+		if( flightWeapon.s.changeRate == 0. ) {
+			flightWeapon.s.changeRate = chargeRate
+		}
 	}
-
+	
 	flightWeapon.s.flightReady = true
 }
 
