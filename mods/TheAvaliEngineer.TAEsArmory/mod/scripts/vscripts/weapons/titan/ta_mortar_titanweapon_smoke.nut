@@ -117,7 +117,10 @@ int function FireMortarSmoke( entity weapon, WeaponPrimaryAttackParams attackPar
 
 //		Collision handling
 void function OnProjectileCollision_MortarTone_Smoke( entity proj, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical ) {
-	MortarSmokescreen( proj )
+	#if SERVER
+	entity smoke = CreateScriptMover( pos, normal )
+	MortarSmokescreen( smoke )
+	#endif
 
 	//	Destroy projectile check
 	bool destroy = false
