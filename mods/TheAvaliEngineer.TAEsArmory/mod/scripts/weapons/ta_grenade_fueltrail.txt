@@ -122,7 +122,7 @@ WeaponData
 	"projectile_launch_speed"						"1100"
 	"projectile_launch_pitch_offset"				"8"
 
-	"grenade_fuse_time"								"6.0"
+	"grenade_fuse_time"								"3.0"
 
 	//	Vortex behavior
 	"vortex_refire_behavior"  						"grenade"
@@ -142,11 +142,11 @@ WeaponData
 	"damage_flags"									"DF_RAGDOLL | DF_EXPLOSION"
 
 	//	Explosion damage
-	"explosion_damage"								"30"
-	"explosion_damage_heavy_armor"					"120"
+	"explosion_damage"								"40"
+	"explosion_damage_heavy_armor"					"160"
 
 	"explosion_inner_radius"  						"40"
-	"explosionradius" 								"100"
+	"explosionradius" 								"160"
 
 	//	Crit & Headshots
 	"allow_headshots" 								"0"

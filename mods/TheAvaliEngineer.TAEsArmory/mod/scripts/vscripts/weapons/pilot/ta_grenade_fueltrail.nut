@@ -18,7 +18,7 @@ const float CLOUD_GRAVITY = 15.0
 
 const float CLOUD_MERGE_RADIUS_THRESH = 0.95
 const float CLOUD_VOLUME_MERGE_FRAC = 1.0
-const float CLOUD_DAMAGE_MERGE_FRAC = 0.75
+const float CLOUD_DAMAGE_MERGE_FRAC = 1.0
 
 //	FX config
 const int FX_PER_CLOUD = 5
@@ -190,7 +190,8 @@ void function FuelTrailThink( entity grenade, float fuseTime ) {
 }
 
 void function FuelTrailGrenade_CreateGasCloud( vector origin, entity owner, FuelTrailInfo newInfo,
-		array<entity> cloudArr, table<entity, FuelTrailInfo> trailDamageData, float fxTime ) {
+	array<entity> cloudArr, table<entity, FuelTrailInfo> trailDamageData, float fxTime ) 
+{
 	//	Merge with nearby clouds ents if possible
 	while( 1 ) {
 		//	Find mergeable clouds
@@ -210,8 +211,8 @@ void function FuelTrailGrenade_CreateGasCloud( vector origin, entity owner, Fuel
 			if( furthestEdgesDist <= 0 ) {
 				TraceResults results = TraceLine( origin, ent.GetOrigin(), null, (TRACE_MASK_SHOT | CONTENTS_BLOCKLOS), TRACE_COLLISION_GROUP_NONE )
 
-				print("[TAEsArmory] FuelTrailGrenade_CreateGasCloud: Trace complete!\n\tresults.fraction = "
-					+ results.fraction + "\n\tresults.hitEnt == ent? " + (results.hitEnt == ent))
+//				print("[TAEsArmory] FuelTrailGrenade_CreateGasCloud: Trace complete!\n\tresults.fraction = "
+//					+ results.fraction + "\n\tresults.hitEnt == ent? " + (results.hitEnt == ent))
 
 				if ( results.fraction >= 1 || results.hitEnt == ent )
 					mergeArr.append( ent )
@@ -220,7 +221,7 @@ void function FuelTrailGrenade_CreateGasCloud( vector origin, entity owner, Fuel
 
 		//	Remove invalid ents
 		foreach( ent in removeArr ) {
-			print("[TAEsArmory] FuelTrailGrenade_CreateGasCloud: Removed entry from cloudArr")
+//			print("[TAEsArmory] FuelTrailGrenade_CreateGasCloud: Removed entry from cloudArr")
 			cloudArr.fastremovebyvalue(ent)
 		}
 
@@ -238,23 +239,20 @@ void function FuelTrailGrenade_CreateGasCloud( vector origin, entity owner, Fuel
 			newInfo.damage += (otherInfo.damage * CLOUD_DAMAGE_MERGE_FRAC).tointeger()
 			newInfo.damageTitan += (otherInfo.damageTitan * CLOUD_DAMAGE_MERGE_FRAC).tointeger()
 
-			print("[TAEsArmory] FuelTrailThink: dV/dt = " + otherInfo.outerVolume + ", r = " + newInfo.outerRadius)
-			print("[TAEsArmory] FuelTrailThink: other volume = " + otherInfo.outerVolume + ", this volume = " + newInfo.outerVolume)
+//			print("[TAEsArmory] FuelTrailThink: dV/dt = " + otherInfo.outerVolume + ", r = " + newInfo.outerRadius)
+//			print("[TAEsArmory] FuelTrailThink: other volume = " + otherInfo.outerVolume + ", this volume = " + newInfo.outerVolume)
 
 			/*	This doesn't work. dunno why.
 			//	Realistic cloud growth
 			//	dr/dt = dV/dt / 4*pi*r^2
-			float addInnerRadius = (newInfo.innerVolume * CLOUD_VOLUME_MERGE_FRAC) / ( 4.0 * PI * pow( otherInfo.innerRadius, 2 ) )
-			float addOuterRadius = (newInfo.outerVolume * CLOUD_VOLUME_MERGE_FRAC) / ( 4.0 * PI * pow( otherInfo.outerRadius, 2 ) )
+			float addInnerRadius = (newInfo.innerVolume * CLOUD_VOLUME_MERGE_FRAC) / ( 4.0 * PI * otherInfo.innerRadius * otherInfo.innerRadius )
+			float addOuterRadius = (newInfo.outerVolume * CLOUD_VOLUME_MERGE_FRAC) / ( 4.0 * PI * otherInfo.outerRadius * otherInfo.outerRadius )
 
 			print("[TAEsArmory] FuelTrailThink: addInnerRadius = " + addInnerRadius + ", addOuterRadius = " + addOuterRadius)
 
 			newInfo.innerRadius += addInnerRadius
 			newInfo.outerRadius += addOuterRadius
-
-			newInfo.innerVolume += otherInfo.innerVolume
-			newInfo.outerVolume += otherInfo.outerVolume
-			*/
+			//*/
 
 			newInfo.innerVolume += otherInfo.innerVolume
 			newInfo.outerVolume += otherInfo.outerVolume
@@ -265,24 +263,9 @@ void function FuelTrailGrenade_CreateGasCloud( vector origin, entity owner, Fuel
 			//	Modify delay
 			newInfo.delay = otherInfo.delay
 
-			/*
-			//		Modify data
-			//	Add damage
-			trailDamageData[other].damage += (newInfo.damage * CLOUD_DAMAGE_MERGE_FRAC).tointeger()
-			trailDamageData[other].damageTitan += (newInfo.damageTitan * CLOUD_DAMAGE_MERGE_FRAC).tointeger()
-
-			//	This is so that the clouds grow realistically
-			//	dr/dt = dV/dt / 4*pi*r^2
-			trailDamageData[other].innerRadius += newInfo.innerVolume * CLOUD_VOLUME_MERGE_FRAC / ( 4.0 * PI * pow( trailDamageData[other].innerRadius, 2 ) )
-			trailDamageData[other].outerRadius += newInfo.outerVolume * CLOUD_VOLUME_MERGE_FRAC / ( 4.0 * PI * pow( trailDamageData[other].outerRadius, 2 ) )
-
-			trailDamageData[other].innerVolume += newInfo.innerVolume
-			trailDamageData[other].outerVolume += newInfo.outerVolume
-			*/
-
-			print("[TAEsArmory] FuelTrailThink: Merging clouds\n\tNew radius (inner): "
-				+ newInfo.innerRadius + "\n\tNew radius (outer): "
-				+ newInfo.outerRadius )
+//			print("[TAEsArmory] FuelTrailThink: Merging clouds\n\tNew radius (inner): "
+//				+ newInfo.innerRadius + "\n\tNew radius (outer): "
+//				+ newInfo.outerRadius )
 
 			//	Destroy other
 			if( IsValid(other) ) {
@@ -292,17 +275,28 @@ void function FuelTrailGrenade_CreateGasCloud( vector origin, entity owner, Fuel
 		}
 	}
 
+	//		Physics
+	//	Trace
+	float time = 3.0	//	TODO
+
+	vector offsetOrigin = origin - Vector( 0, 0, time*CLOUD_GRAVITY )
+	TraceResults result = TraceLine( origin, offsetOrigin, [], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
+
+	vector endPos = result.endPos
+	float alt = ( origin.z - endPos.z )
+	time = alt / CLOUD_GRAVITY
+
 	//	Create an ent to use as script target
 	entity cloudEnt = CreateScriptMover( origin )
 	cloudEnt.SetOwner( owner )
 
-	cloudEnt.NonPhysicsMoveWithGravity( <0., 0., 0.>, Vector(0., 0., -CLOUD_GRAVITY) )
-
+	cloudEnt.NonPhysicsMoveInWorldSpaceToLocalPos( endPos, time, 0, 0 )
 	EntFireByHandle( cloudEnt, "Kill", "", 10.0, null, null )
 
 	//	AI stuffs
 	AI_CreateDangerousArea( cloudEnt, cloudEnt, newInfo.outerRadius, TEAM_INVALID, true, true )
 
+	//		Registration
 	//	Register ent
 	cloudArr.append( cloudEnt )
 	trailDamageData[cloudEnt] <- newInfo
@@ -313,7 +307,7 @@ void function FuelTrailGrenade_CreateGasCloud( vector origin, entity owner, Fuel
 
 //	Explosion handling
 void function FuelTrailGrenade_TrailExplode( array<entity> trailEnts, table<entity, FuelTrailInfo> trailDamageData ) {
-	print("[TAEsArmory] FuelTrailGrenade_TrailExplode: Detonating")
+//	print("[TAEsArmory] FuelTrailGrenade_TrailExplode: Detonating")
 	foreach( ent in trailEnts ) {
 		trailDamageData[ent].delay += FUEL_TRAIL_DET_ITER * trailEnts.len()
 		thread FuelTrailGrenade_CloudExplode( ent, trailDamageData[ent] )
@@ -381,14 +375,17 @@ void function GasCloudFx( entity cloudEnt, FuelTrailInfo cloudData ) {
 
 	array<vector> fxPos
 	for( int i = 0; i < numPoints; i++ ) { //numPoints; i++ ) {
-		float factor = RandomFloat( 1. )
-		float theta = acos( RandomFloatRange( -1., 1. ) )
-		float phi = RandomFloatRange( 0., 2 * PI )
+		vector pos = Vector( 0., 0., 0. )
+		while(1) {
+			pos.x = RandomFloatRange( -1., 1. )
+			pos.y = RandomFloatRange( -1., 1. )
+			pos.z = RandomFloatRange( -1., 1. )
 
-		vector pos = Vector( sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta) )
-		pos *= factor * cloudData.outerRadius
-		//pos += origin
+			if( Length( pos ) <= 1. )
+				break
+		}
 
+		pos *= cloudData.outerRadius
 		fxPos.append(pos)
 	}
 

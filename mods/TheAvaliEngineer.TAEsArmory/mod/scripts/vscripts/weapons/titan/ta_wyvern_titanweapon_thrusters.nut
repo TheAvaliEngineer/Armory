@@ -141,6 +141,15 @@ var function OnWeaponNpcPrimaryAttack_Wyvern_Thrusters( entity weapon, WeaponPri
 }
 #endif
 
+//	Charge handling
+bool function OnWeaponChargeBegin( entity weapon ) {
+	return true
+}
+
+bool function OnWeaponChargeEnd( entity weapon ) {
+	return true
+}
+
 int function Thrusters_OnFire( entity weapon, WeaponPrimaryAttackParams attackParams, bool playerFired ) {
 	//	Owner validation
 	entity owner = weapon.GetWeaponOwner()
@@ -435,6 +444,8 @@ void function FlightSystem( entity flightWeapon ) {
 	owner.EndSignal( "OnDeath" )
 	owner.EndSignal( "TitanEjectionStarted" )
 
+	flightWeapon.EndSignal( "OnDestroy" )
+
 	OnThreadEnd( function() : (owner, flightWeapon) {
 		print("[TAEsArmory] FlightSystem: Stopped FlightSystem")
 
@@ -446,7 +457,7 @@ void function FlightSystem( entity flightWeapon ) {
 		if( IsValid(flightWeapon) ) {
 			flightWeapon.s.flying = false
 			flightWeapon.s.shouldStartThreads = true
-
+ 
 			StopFlightFX( owner, flightWeapon )
 		}
 	})
